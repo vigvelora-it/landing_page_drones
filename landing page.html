@@ -52,11 +52,11 @@ img,svg{display:block}
    LAYOUT HELPERS
 ═══════════════════════════════════════════════ */
 .wrap{width:100%;max-width:1160px;margin-inline:auto;padding-inline:2rem}
-.section{padding:6rem 0}
+.section{padding:7rem 0}
 .label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--coral);display:flex;align-items:center;gap:10px}
 .label::before{content:'';width:18px;height:1px;background:var(--coral);flex-shrink:0}
-.h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4vw,50px);letter-spacing:1.5px;line-height:1.05;color:var(--t1)}
-.sub{font-size:15px;line-height:1.8;color:var(--t2);max-width:500px}
+.h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,3.8vw,48px);letter-spacing:1px;line-height:1.08;color:var(--t1)}
+.sub{font-size:15px;line-height:1.85;color:var(--t2);max-width:480px}
 
 /* ═══════════════════════════════════════════════
    ANIMATIONS
@@ -68,6 +68,7 @@ img,svg{display:block}
 @keyframes progressBar{from{width:0}to{width:100%}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* reveal */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
@@ -104,7 +105,7 @@ img,svg{display:block}
   min-height:calc(100vh - 64px);
   display:grid;grid-template-columns:1fr 1fr;align-items:center;
   gap:3rem;padding:5rem 0 4rem;position:relative;overflow:hidden;
-  background:url('imagenes/equipos1.png') center 42% / cover no-repeat;
+  background:url('IMAGENES_PAGINA_WEB/equipos1.png') center 42% / cover no-repeat;
 }
 /* Dark gradient overlay sobre la foto */
 .hero::before{
@@ -150,15 +151,7 @@ img,svg{display:block}
 .hb2{bottom:1.25rem;left:1.25rem}
 .hb3{bottom:1.25rem;right:1.25rem}
 
-/* Scan line animada sobre la foto */
-@keyframes scan{
-  0%{top:0;opacity:.5} 45%{opacity:.3} 100%{top:100%;opacity:.5}
-}
-.hero-scan{
-  position:absolute;left:0;right:0;height:2px;
-  background:linear-gradient(to right,transparent,rgba(211,117,83,.5),transparent);
-  animation:scan 4s ease-in-out infinite;pointer-events:none;z-index:3;
-}
+/* scan line eliminada — patrón visual genérico */
 
 /* ── Equipment image ── */
 .equip-img{
@@ -187,8 +180,8 @@ img,svg{display:block}
 
 .hero-title{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(60px,8vw,100px);
-  line-height:.92;letter-spacing:2px;color:var(--t1);margin-bottom:1.5rem;
+  font-size:clamp(56px,7.5vw,94px);
+  line-height:.94;letter-spacing:1.5px;color:var(--t1);margin-bottom:1.5rem;
   animation:fadeUp .8s var(--ease) both;
 }
 .hero-title .hl{
@@ -237,7 +230,7 @@ img,svg{display:block}
   padding:0 1.25rem;
 }
 .dash-live{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--coral)}
-.dash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--coral);animation:blink 1.4s ease-in-out infinite}
+.dash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--coral)}
 .dash-id{font-size:10px;letter-spacing:2px;color:var(--t3)}
 .dash-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .dash-map{
@@ -267,7 +260,7 @@ img,svg{display:block}
   background:rgba(0,0,0,.18);
 }
 .metric-stat{
-  padding:2rem 2.5rem;border-right:1px solid var(--border);
+  padding:2.25rem 2.5rem;border-right:1px solid var(--border);
   transition:background var(--ease);
 }
 .metric-stat:last-child{border-right:none}
@@ -432,8 +425,8 @@ img,svg{display:block}
   background:var(--bg);transition:border-color var(--ease),transform var(--ease);
 }
 .trust-card:hover{border-color:var(--coral-line);transform:translateY(-4px)}
-.trust-stars{display:flex;gap:4px;margin-bottom:1.25rem}
-.trust-star{color:var(--coral);font-size:13px}
+.trust-stars{display:flex;gap:3px;margin-bottom:1.25rem}
+.trust-star{color:var(--coral);font-size:12px;letter-spacing:.5px}
 .trust-quote{font-size:13px;line-height:1.85;color:var(--t2);margin-bottom:1.5rem;font-style:italic}
 .trust-author{display:flex;align-items:center;gap:.875rem}
 .trust-avatar{
@@ -452,12 +445,7 @@ img,svg{display:block}
   padding:7rem 0;text-align:center;position:relative;overflow:hidden;
   background:var(--bg-dk);
 }
-.cta-glow{
-  position:absolute;top:-20%;left:50%;transform:translateX(-50%);
-  width:700px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(211,117,83,.1) 0%,transparent 65%);
-  pointer-events:none;
-}
+/* cta-glow eliminado — efecto genérico de IA */
 .cta-inner{position:relative;z-index:2}
 .cta-inner .label{justify-content:center;margin-bottom:1rem}
 .cta-title{
@@ -484,7 +472,7 @@ img,svg{display:block}
 }
 .btn-email:hover{border-color:rgba(255,255,255,.2);color:var(--t1);transform:translateY(-2px)}
 .cta-note{font-size:11px;color:var(--t3);letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px}
-.cta-note-dot{width:7px;height:7px;border-radius:50%;background:#4caf7d;animation:blink 2s ease-in-out infinite;flex-shrink:0}
+.cta-note-dot{width:7px;height:7px;border-radius:50%;background:#4caf7d;flex-shrink:0}
 
 /* ═══════════════════════════════════════════════
    FOOTER
@@ -499,7 +487,7 @@ img,svg{display:block}
 .footer-contact a:hover{color:var(--coral)}
 .footer-col-title{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin-bottom:1.25rem}
 .footer-links{display:flex;flex-direction:column;gap:.6rem}
-.footer-links a{font-size:13px;color:var(--t2);transition:color var(--ease);cursor:default}
+.footer-links a{font-size:13px;color:var(--t2);transition:color var(--ease)}
 .footer-links a:hover{color:var(--coral)}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
 .footer-copy{font-size:11px;color:var(--t3)}
@@ -518,8 +506,58 @@ img,svg{display:block}
   .trust-grid{grid-template-columns:1fr 1fr}
   .problem-inner{grid-template-columns:1fr;gap:3rem}
 }
+/* ═══════════════════════════════════════════════
+   HAMBURGER MENU
+═══════════════════════════════════════════════ */
+.hamburger{
+  display:none;width:40px;height:40px;border-radius:var(--r);
+  background:transparent;border:1px solid var(--border);
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;padding:0;transition:border-color var(--ease);
+}
+.hamburger:hover{border-color:var(--coral)}
+.hamburger span{
+  display:block;width:18px;height:1.5px;background:var(--t2);
+  transition:all var(--ease);border-radius:2px;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+.mobile-menu{
+  display:none;position:fixed;top:64px;left:0;right:0;
+  background:rgba(21,29,43,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);z-index:199;
+  padding:1.5rem 2rem;flex-direction:column;gap:0;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--t2);padding:.9rem 0;border-bottom:1px solid var(--border);
+  transition:color var(--ease);
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--coral)}
+.mobile-menu .btn-mobile-cta{
+  margin-top:1.25rem;display:inline-flex;justify-content:center;
+  background:var(--coral);color:var(--bg-dk);
+  padding:12px 24px;border-radius:var(--r);
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  transition:background var(--ease);border-bottom:none;
+}
+.mobile-menu .btn-mobile-cta:hover{background:var(--coral-h);color:var(--bg-dk)}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+
 @media(max-width:768px){
   .nav-links,.btn-nav{display:none}
+  .hamburger{display:flex}
   .metrics-strip{grid-template-columns:repeat(2,1fr)}
   .carousel-vp{padding-inline:1rem}
   .carousel-slide{grid-template-columns:1fr;min-width:100%}
@@ -545,7 +583,17 @@ img,svg{display:block}
     <li><a href="#nosotros">Nosotros</a></li>
   </ul>
   <button class="btn-nav" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar cotización</button>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menú móvil">
+  <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
+  <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
+  <a href="#equipos" onclick="closeMobileMenu()">Equipos</a>
+  <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+  <a class="btn-mobile-cta" href="#" onclick="closeMobileMenu();document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'});return false;">Solicitar cotización</a>
+</div>
 
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero">
@@ -572,8 +620,7 @@ img,svg{display:block}
   <!-- Hero photo: drone real -->
   <div class="hero-right" style="padding-right:clamp(1.5rem,5vw,4rem)">
     <div class="hero-photo-frame">
-      <div class="hero-scan"></div>
-      <img src="imagenes/dron.png" alt="DJI Matrice 350 RTK en misión" loading="eager"/>
+      <img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK en misión" loading="eager"/>
 
       <!-- Badge superior derecha: GPS -->
       <div class="hero-badge hb1">
@@ -679,7 +726,7 @@ img,svg{display:block}
       <!-- SLIDE 1: Topografía -->
       <div class="carousel-slide">
         <div class="slide-visual" style="overflow:hidden">
-          <img src="imagenes/monumentacion_puntos_referencia.png"
+          <img src="IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png"
                alt="Monumentación GNSS-RTK en terreno peruano"
                class="slide-photo" loading="lazy"/>
           <!-- Overlay con label técnico -->
@@ -697,7 +744,7 @@ img,svg{display:block}
           <h3 class="slide-title">Topografía<br>con drones</h3>
           <p class="slide-desc">Levantamientos geodésicos y cartográficos con precisión centimétrica. Tecnología GNSS-RTK integrada al drone — sin equipos terrestres adicionales, sin zonas muertas.</p>
           <div class="slide-chips"><span class="chip">GNSS-RTK</span><span class="chip">Planos DXF/DWG</span><span class="chip">±2cm</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización topografía con drones')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -741,7 +788,7 @@ img,svg{display:block}
           <h3 class="slide-title">Fotogrametría<br>aérea</h3>
           <p class="slide-desc">Ortofotos georreferenciadas y modelos 3D de alta resolución generados mediante aerotriangulación. GSD de hasta 2 cm/píxel sobre grandes extensiones de terreno.</p>
           <div class="slide-chips"><span class="chip">GSD 2cm/px</span><span class="chip">Ortofoto</span><span class="chip">MDT / MDS</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización fotogrametría aérea')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -773,7 +820,7 @@ img,svg{display:block}
           <h3 class="slide-title">Nubes de puntos<br>LiDAR</h3>
           <p class="slide-desc">Modelos 3D ultra-detallados con el sensor Zenmuse L1. Hasta 240,000 puntos por segundo con colorización RGB automática y precisión de 3 cm en tiempo real.</p>
           <div class="slide-chips"><span class="chip">Zenmuse L1</span><span class="chip">240K pts/s</span><span class="chip">Precisión 3cm</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización LiDAR')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -808,7 +855,7 @@ img,svg{display:block}
           <h3 class="slide-title">Teledetección<br>multiespectral</h3>
           <p class="slide-desc">Análisis de imágenes en 5 bandas espectrales (RGB, NIR, Red-Edge, Térmico, NDVI). Índices espectrales para geología, agricultura de precisión y manejo forestal.</p>
           <div class="slide-chips"><span class="chip">Multiespectral</span><span class="chip">Térmico</span><span class="chip">NDVI / NDWI</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización teledetección')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -847,7 +894,7 @@ img,svg{display:block}
           <h3 class="slide-title">Inspección de<br>infraestructura</h3>
           <p class="slide-desc">Monitoreo aéreo de minas, obras civiles y plantas industriales. Detección temprana de grietas, filtraciones y deterioro estructural con imagen de alta resolución y análisis térmico.</p>
           <div class="slide-chips"><span class="chip">Minería</span><span class="chip">Obras civiles</span><span class="chip">Térmico</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización inspección de infraestructura')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -884,7 +931,7 @@ img,svg{display:block}
           <h3 class="slide-title">Consultoría<br>geotécnica</h3>
           <p class="slide-desc">Evaluación de riesgos geológicos, estabilidad de taludes y perfiles estratigráficos. Combinamos LiDAR y teledetección con análisis geotécnico para minería, vías y planificación territorial.</p>
           <div class="slide-chips"><span class="chip">Geología</span><span class="chip">Taludes</span><span class="chip">Informe técnico</span></div>
-          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización consultoría geotécnica')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+          <button class="slide-btn" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
         </div>
       </div>
 
@@ -937,28 +984,28 @@ img,svg{display:block}
     <div class="equip-grid">
       <div class="equip-card rv d1">
         <div class="equip-img">
-          <img src="imagenes/dron.png" alt="DJI Matrice 350 RTK" loading="lazy"/>
+          <img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK" loading="lazy"/>
         </div>
         <div class="equip-top"><div class="equip-badge">Plataforma aérea</div><div class="equip-name">DJI Matrice<br>350 RTK</div></div>
         <div class="equip-body"><p class="equip-desc">Drone de nivel profesional con RTK integrado. Base para misiones de fotogrametría, LiDAR e inspección de alta demanda operativa.</p><div class="equip-spec"><div class="equip-spec-dot"></div>RTK Integrado</div></div>
       </div>
       <div class="equip-card rv d2">
         <div class="equip-img">
-          <img src="imagenes/ZENMUSE P1.png" alt="Zenmuse P1" loading="lazy"/>
+          <img src="IMAGENES_PAGINA_WEB/ZENMUSE P1.png" alt="Zenmuse P1" loading="lazy"/>
         </div>
         <div class="equip-top"><div class="equip-badge">Sensor fotogramétrico</div><div class="equip-name">Zenmuse P1</div></div>
         <div class="equip-body"><p class="equip-desc">Sensor de fotograma completo 45MP con lentes intercambiables. Fotogrametría de alta eficiencia y precisión centimétrica en grandes áreas.</p><div class="equip-spec"><div class="equip-spec-dot"></div>Full-Frame 45MP</div></div>
       </div>
       <div class="equip-card rv d3">
         <div class="equip-img">
-          <img src="imagenes/MUSEO ZEN L1.png" alt="Zenmuse L1" loading="lazy"/>
+          <img src="IMAGENES_PAGINA_WEB/MUSEO ZEN L1.png" alt="Zenmuse L1" loading="lazy"/>
         </div>
         <div class="equip-top"><div class="equip-badge">LiDAR + cámara RGB</div><div class="equip-name">Zenmuse L1</div></div>
         <div class="equip-body"><p class="equip-desc">Módulo Livox LiDAR con IMU de alta precisión. Datos 3D en tiempo real para estructuras complejas con reconstrucción detallada.</p><div class="equip-spec"><div class="equip-spec-dot"></div>Precisión ±3cm</div></div>
       </div>
       <div class="equip-card rv d4">
         <div class="equip-img">
-          <img src="imagenes/equipos1.png" alt="Equipos Sky Tech en misión" loading="lazy"/>
+          <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipos Sky Tech en misión" loading="lazy"/>
         </div>
         <div class="equip-top"><div class="equip-badge">GNSS multibanda</div><div class="equip-name">Receptor<br>X5R / X5RT</div></div>
         <div class="equip-body"><p class="equip-desc">PPK/RTK/NTRIP con 184 canales. Precisión centimétrica, batería de 15h, compatible con DJI y Autel. Alcance LoRa 10+ km.</p><div class="equip-spec"><div class="equip-spec-dot"></div>184 ch · 10km LoRa</div></div>
@@ -976,17 +1023,35 @@ img,svg{display:block}
     </div>
     <div class="trust-grid">
       <div class="trust-card rv d1">
-        <div class="trust-stars">★★★★★</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
         <p class="trust-quote">"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo."</p>
         <div class="trust-author"><div class="trust-avatar">JR</div><div><div class="trust-name">Jefe de topografía</div><div class="trust-role">Empresa minera, Arequipa</div></div></div>
       </div>
       <div class="trust-card rv d2">
-        <div class="trust-stars">★★★★★</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
         <p class="trust-quote">"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas."</p>
         <div class="trust-author"><div class="trust-avatar">ML</div><div><div class="trust-name">Gerente de proyectos</div><div class="trust-role">Constructora, Lima</div></div></div>
       </div>
       <div class="trust-card rv d3">
-        <div class="trust-stars">★★★★★</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--coral)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
         <p class="trust-quote">"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos."</p>
         <div class="trust-author"><div class="trust-avatar">CP</div><div><div class="trust-name">Director de infraestructura</div><div class="trust-role">Gobierno regional, Cusco</div></div></div>
       </div>
@@ -996,13 +1061,12 @@ img,svg{display:block}
 
 <!-- ══════════════ CTA ══════════════ -->
 <section class="cta-section">
-  <div class="cta-glow"></div>
   <div class="wrap cta-inner">
     <div class="label rv">Hablemos de tu proyecto</div>
     <h2 class="cta-title rv d1">¿Listo para ver<br>tu proyecto <em>desde arriba?</em></h2>
     <p class="cta-sub rv d2">Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.</p>
     <div class="cta-btns rv d3">
-      <button class="btn-cta" onclick="sendPrompt&&sendPrompt('Quiero contactar a Sky Tech para un proyecto topográfico con drones')">
+      <button class="btn-cta" onclick="window.location.href='mailto:skytsperu@gmail.com?subject=Solicitud%20de%20cotizaci%C3%B3n&body=Hola%2C%20me%20gustar%C3%ADa%20recibir%20una%20cotizaci%C3%B3n%20para%20mi%20proyecto.'">
         Contáctanos ahora
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
       </button>
@@ -1032,30 +1096,30 @@ img,svg{display:block}
       <div>
         <div class="footer-col-title">Servicios</div>
         <nav class="footer-links">
-          <a>Topografía con drones</a>
-          <a>Fotogrametría aérea</a>
-          <a>LiDAR</a>
-          <a>Teledetección</a>
-          <a>Consultoría geotécnica</a>
+          <a href="#servicios">Topografía con drones</a>
+          <a href="#servicios">Fotogrametría aérea</a>
+          <a href="#servicios">LiDAR</a>
+          <a href="#servicios">Teledetección</a>
+          <a href="#servicios">Consultoría geotécnica</a>
         </nav>
       </div>
       <div>
         <div class="footer-col-title">Sectores</div>
         <nav class="footer-links">
-          <a>Minería</a>
-          <a>Construcción</a>
-          <a>Agricultura</a>
-          <a>Gobierno</a>
-          <a>Infraestructura</a>
+          <a href="#problema">Minería</a>
+          <a href="#problema">Construcción</a>
+          <a href="#problema">Agricultura</a>
+          <a href="#problema">Gobierno</a>
+          <a href="#problema">Infraestructura</a>
         </nav>
       </div>
       <div>
         <div class="footer-col-title">Empresa</div>
         <nav class="footer-links">
-          <a>Nuestros equipos</a>
-          <a>Proceso de trabajo</a>
-          <a>Casos de éxito</a>
-          <a>Contacto</a>
+          <a href="#equipos">Nuestros equipos</a>
+          <a href="#proceso">Proceso de trabajo</a>
+          <a href="#nosotros">Casos de éxito</a>
+          <a href="mailto:skytsperu@gmail.com">Contacto</a>
         </nav>
       </div>
     </div>
@@ -1118,6 +1182,27 @@ img,svg{display:block}
   },{threshold:.1,rootMargin:'0px 0px -30px 0px'});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 })();
+
+/* ═══ HAMBURGER MENU ═══ */
+(function(){
+  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){
+    const open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)){
+      menu.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded',false);
+    }
+  });
+})();
+window.closeMobileMenu=function(){
+  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(menu)menu.classList.remove('open');
+  if(btn){btn.classList.remove('open');btn.setAttribute('aria-expanded',false);}
+};
 
 /* ═══ ANIMATED COUNTERS ═══ */
 (function(){
