@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sky Tech Perú — Topografía · Fotogrametría · LiDAR</title>
+  <meta name="description" content="Captura y procesamiento de datos geoespaciales con drones de alta precisión para minería, construcción y planificación territorial en Perú."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --coral:       #D37553;
+  --coral-h:     #c0623d;
+  --coral-soft:  rgba(211,117,83,0.12);
+  --coral-line:  rgba(211,117,83,0.22);
+
+  --bg:    #2D3648;
+  --bg-up: #364057;
+  --bg-dn: #1e2736;
+  --bg-dk: #151d2b;
+
+  --t1: #FFFFFF;
+  --t2: rgba(255,255,255,0.62);
+  --t3: rgba(255,255,255,0.32);
+  --t4: rgba(255,255,255,0.10);
+
+  --border:  rgba(255,255,255,0.08);
+  --ease:    0.28s cubic-bezier(.4,0,.2,1);
+  --r:       10px;
+  --r-lg:    18px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;border:none;cursor:pointer;outline:none}
+img,svg{display:block}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg-dk)}
+::-webkit-scrollbar-thumb{background:var(--coral-line);border-radius:99px}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT HELPERS
+═══════════════════════════════════════════════ */
+.wrap{width:100%;max-width:1160px;margin-inline:auto;padding-inline:2rem}
+.section{padding:6rem 0}
+.label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--coral);display:flex;align-items:center;gap:10px}
+.label::before{content:'';width:18px;height:1px;background:var(--coral);flex-shrink:0}
+.h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4vw,50px);letter-spacing:1.5px;line-height:1.05;color:var(--t1)}
+.sub{font-size:15px;line-height:1.8;color:var(--t2);max-width:500px}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(2);opacity:0}}
+@keyframes shimmer{from{background-position:-200% center}to{background-position:200% center}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes progressBar{from{width:0}to{width:100%}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+.nav{
+  position:sticky;top:0;z-index:200;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding-inline:2.5rem;
+  background:rgba(21,29,43,0.85);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:4px;color:var(--t1);user-select:none}
+.nav-logo em{color:var(--coral);font-style:normal}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);transition:color var(--ease);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--coral);transition:width var(--ease)}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a:hover::after{width:100%}
+.btn-nav{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--bg-dk);background:var(--coral);padding:9px 22px;border-radius:var(--r);
+  transition:background var(--ease),transform var(--ease)}
+.btn-nav:hover{background:var(--coral-h);transform:translateY(-1px)}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero{
+  min-height:calc(100vh - 64px);
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;
+  gap:3rem;padding:5rem 0 4rem;position:relative;overflow:hidden;
+  background:url('imagenes/equipos1.png') center 42% / cover no-repeat;
+}
+/* Dark gradient overlay sobre la foto */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(105deg,
+    rgba(21,29,43,0.97) 0%,
+    rgba(21,29,43,0.92) 40%,
+    rgba(21,29,43,0.62) 75%,
+    rgba(21,29,43,0.45) 100%
+  );
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-left,.hero-right{position:relative;z-index:2}
+
+/* ── Hero photo frame (derecha) ── */
+.hero-photo-frame{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid rgba(211,117,83,0.28);
+  box-shadow:0 40px 100px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
+  animation:fadeUp .9s var(--ease) .15s both;
+  height:480px; /* explicit height so child img fills the frame */
+}
+.hero-photo-frame img{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;transition:transform 1s ease;
+}
+.hero-photo-frame:hover img{transform:scale(1.04)}
+
+/* Floating data badges sobre la foto */
+.hero-badge{
+  position:absolute;
+  background:rgba(15,22,35,0.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+  padding:.75rem 1.1rem;display:flex;flex-direction:column;gap:3px;
+  animation:fadeIn 1s var(--ease) .5s both;
+}
+.badge-val{font-size:15px;font-weight:700;color:var(--t1);letter-spacing:.5px}
+.badge-val.c{color:var(--coral)}
+.badge-lbl{font-size:10px;font-weight:500;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase}
+.hb1{top:1.25rem;right:1.25rem}
+.hb2{bottom:1.25rem;left:1.25rem}
+.hb3{bottom:1.25rem;right:1.25rem}
+
+/* Scan line animada sobre la foto */
+@keyframes scan{
+  0%{top:0;opacity:.5} 45%{opacity:.3} 100%{top:100%;opacity:.5}
+}
+.hero-scan{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,rgba(211,117,83,.5),transparent);
+  animation:scan 4s ease-in-out infinite;pointer-events:none;z-index:3;
+}
+
+/* ── Equipment image ── */
+.equip-img{
+  height:200px;overflow:hidden;background:#0e1520;
+  border-bottom:1px solid var(--border);
+  position:relative; /* anchor for absolute img */
+}
+.equip-img img{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .7s ease;display:block;
+}
+.equip-card:hover .equip-img img{transform:scale(1.07)}
+
+/* ── Slide photo ── */
+.slide-photo{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  display:block;transition:transform .8s ease;
+}
+.carousel-slide:hover .slide-photo{transform:scale(1.04)}
+
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--coral);display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.hero-eyebrow span{width:24px;height:1px;background:var(--coral);display:block}
+
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(60px,8vw,100px);
+  line-height:.92;letter-spacing:2px;color:var(--t1);margin-bottom:1.5rem;
+  animation:fadeUp .8s var(--ease) both;
+}
+.hero-title .hl{
+  color:transparent;
+  background:linear-gradient(100deg,var(--coral) 0%,#f0a882 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+
+.hero-sub{font-size:15px;line-height:1.82;color:var(--t2);max-width:440px;margin-bottom:2.5rem;
+  animation:fadeUp .8s var(--ease) .12s both}
+
+.hero-btns{display:flex;gap:.875rem;flex-wrap:wrap;animation:fadeUp .8s var(--ease) .22s both}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--coral);color:var(--bg-dk);
+  padding:13px 28px;border-radius:var(--r);
+  font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  transition:all var(--ease);position:relative;overflow:hidden;
+}
+.btn-primary::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  background-size:200% 100%;opacity:0;transition:opacity .3s}
+.btn-primary:hover{background:var(--coral-h);transform:translateY(-2px);box-shadow:0 8px 28px rgba(211,117,83,.35)}
+.btn-primary:hover::after{opacity:1;animation:shimmer .7s ease}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--t2);
+  padding:12px 24px;border-radius:var(--r);
+  border:1px solid var(--border);
+  font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  transition:all var(--ease);
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);color:var(--t1);transform:translateY(-2px)}
+
+/* ── Telemetry dashboard visual ── */
+.hero-dash{
+  background:var(--bg-dk);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.45);
+  animation:fadeUp .9s var(--ease) .15s both;
+}
+.dash-topbar{
+  height:40px;background:rgba(255,255,255,.03);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.25rem;
+}
+.dash-live{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--coral)}
+.dash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--coral);animation:blink 1.4s ease-in-out infinite}
+.dash-id{font-size:10px;letter-spacing:2px;color:var(--t3)}
+.dash-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dash-map{
+  min-height:260px;border-right:1px solid var(--border);
+  position:relative;overflow:hidden;background:#141c28;
+}
+.dash-metrics{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;background:#131b27}
+.metric-row{display:flex;justify-content:space-between;align-items:center;
+  padding:.6rem .75rem;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--border)}
+.metric-key{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);font-weight:500}
+.metric-val{font-size:13px;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums}
+.metric-val.coral{color:var(--coral)}
+.dash-footer{
+  border-top:1px solid var(--border);padding:.75rem 1.25rem;
+  display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);
+  font-size:10px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;
+}
+.dash-progress-bar{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.dash-progress-fill{height:100%;width:72%;background:var(--coral);border-radius:99px}
+
+/* ═══════════════════════════════════════════════
+   METRICS STRIP
+═══════════════════════════════════════════════ */
+.metrics-strip{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:rgba(0,0,0,.18);
+}
+.metric-stat{
+  padding:2rem 2.5rem;border-right:1px solid var(--border);
+  transition:background var(--ease);
+}
+.metric-stat:last-child{border-right:none}
+.metric-stat:hover{background:rgba(211,117,83,.05)}
+.metric-stat-val{
+  font-family:'Bebas Neue',sans-serif;font-size:52px;
+  color:var(--coral);line-height:1;letter-spacing:1px;margin-bottom:.3rem;
+}
+.metric-stat-lbl{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)}
+
+/* ═══════════════════════════════════════════════
+   PROBLEM
+═══════════════════════════════════════════════ */
+.problem{background:var(--bg-dn)}
+.problem-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+.problem-text{}
+.problem-text .h2{margin:1rem 0 1.25rem}
+.problem-text .sub{margin-bottom:2rem}
+.problem-note{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--t3);letter-spacing:.5px;
+  padding:1rem 1.25rem;background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:var(--r);border-left:3px solid var(--coral);
+}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--r-lg);overflow:hidden}
+.pain-card{
+  background:var(--bg-dn);padding:1.75rem;border-left:3px solid rgba(184,68,68,.6);
+  transition:background var(--ease);
+}
+.pain-card:hover{background:rgba(184,68,68,.04)}
+.pain-icon{
+  width:34px;height:34px;border-radius:7px;
+  background:rgba(184,68,68,.12);display:flex;align-items:center;justify-content:center;
+  margin-bottom:.875rem;
+}
+.pain-title{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:.4rem}
+.pain-desc{font-size:12px;color:var(--t3);line-height:1.7}
+
+/* ═══════════════════════════════════════════════
+   SERVICES CAROUSEL
+═══════════════════════════════════════════════ */
+.services{overflow:hidden}
+.services-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:3rem;gap:2rem;flex-wrap:wrap;
+}
+.services-head .h2{margin:.75rem 0 .5rem}
+.carousel-ctrl{display:flex;align-items:center;gap:.75rem}
+.ctrl-btn{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--border);
+  background:transparent;color:var(--t2);display:flex;align-items:center;justify-content:center;
+  transition:all var(--ease);
+}
+.ctrl-btn:hover{border-color:var(--coral);color:var(--coral);background:var(--coral-soft)}
+.ctrl-dots{display:flex;gap:6px;align-items:center}
+.ctrl-dot{width:6px;height:6px;border-radius:99px;background:var(--t4);border:none;cursor:pointer;transition:all .3s}
+.ctrl-dot.on{width:24px;background:var(--coral)}
+
+/* Carousel track */
+.carousel-vp{overflow:hidden;padding-inline:0} /* no side padding so slides fill full width */
+.carousel-track{display:flex;transition:transform .65s cubic-bezier(.77,0,.175,1);will-change:transform;align-items:stretch}
+.carousel-slide{
+  min-width:100%;max-width:100%;flex-shrink:0;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--bg-dn);min-height:440px;
+}
+.slide-visual{
+  border-right:1px solid var(--border);
+  background:#141c28;
+  position:relative;overflow:hidden;
+  min-width:0;min-height:440px;
+}
+/* SVG visuals inside slide-visual: fill container absolutely */
+.slide-visual > svg{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+.slide-content{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;overflow:hidden;min-width:0;}
+.slide-n{font-size:10px;letter-spacing:3px;color:var(--t3);margin-bottom:.5rem;font-weight:600;text-transform:uppercase}
+.slide-icon-wrap{
+  width:50px;height:50px;border-radius:11px;background:var(--coral-soft);
+  border:1px solid var(--coral-line);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
+}
+.slide-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,3.5vw,44px);
+  letter-spacing:1px;line-height:1.05;color:var(--t1);margin-bottom:1rem}
+.slide-desc{font-size:14px;line-height:1.85;color:var(--t2);margin-bottom:1.75rem}
+.slide-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.chip{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--coral);background:var(--coral-soft);border:1px solid var(--coral-line);
+  padding:4px 12px;border-radius:99px}
+.slide-btn{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+  background:var(--coral);color:var(--bg-dk);
+  padding:12px 26px;border-radius:var(--r);
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  transition:all var(--ease);
+}
+.slide-btn:hover{background:var(--coral-h);transform:translateY(-2px);box-shadow:0 8px 24px rgba(211,117,83,.3)}
+.carousel-progress{
+  margin-top:1.5rem;margin-inline:2rem;height:2px;
+  background:var(--border);border-radius:99px;overflow:hidden;
+}
+.carousel-progress-fill{height:100%;background:var(--coral);border-radius:99px;width:0;transition:none}
+
+/* ═══════════════════════════════════════════════
+   PROCESS
+═══════════════════════════════════════════════ */
+.process{background:var(--bg-dn)}
+.process-head{text-align:center;margin-bottom:4rem}
+.process-head .label{justify-content:center;margin-bottom:.75rem}
+.process-head .h2{margin-bottom:.75rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:1px;
+  background:linear-gradient(90deg,var(--coral) 0%,var(--coral-line) 60%,transparent 100%)}
+.step{padding:0 1.5rem 0;text-align:center}
+.step-num-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1.5rem}
+.step-num-outer{
+  width:56px;height:56px;border-radius:50%;border:1px solid var(--coral-line);
+  background:var(--bg-dn);display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;transition:all var(--ease);
+}
+.step:hover .step-num-outer{background:var(--coral-soft);border-color:var(--coral)}
+.step-num-outer::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:1px solid rgba(211,117,83,.15);
+}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--coral);line-height:1}
+.step-title{font-size:13px;font-weight:700;color:var(--t1);letter-spacing:.5px;margin-bottom:.5rem;text-transform:uppercase}
+.step-desc{font-size:12px;color:var(--t3);line-height:1.75}
+
+/* ═══════════════════════════════════════════════
+   EQUIPMENT
+═══════════════════════════════════════════════ */
+.equip-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
+  margin-top:3rem;
+}
+.equip-card{background:var(--bg-dn);transition:background var(--ease)}
+.equip-card:hover{background:rgba(211,117,83,.04)}
+.equip-top{padding:1.5rem 1.5rem 1.25rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02)}
+.equip-badge{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:.4rem}
+.equip-name{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--t1);letter-spacing:1px;line-height:1.15}
+.equip-body{padding:1.25rem 1.5rem}
+.equip-desc{font-size:12px;color:var(--t2);line-height:1.75;margin-bottom:1rem}
+.equip-spec{
+  display:flex;align-items:center;gap:7px;
+  padding-top:1rem;border-top:1px solid var(--border);
+  font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--coral);
+}
+.equip-spec-dot{width:5px;height:5px;border-radius:50%;background:var(--coral);flex-shrink:0}
+
+/* ═══════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════ */
+.trust{background:var(--bg-up)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.trust-card{
+  padding:2rem;border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--bg);transition:border-color var(--ease),transform var(--ease);
+}
+.trust-card:hover{border-color:var(--coral-line);transform:translateY(-4px)}
+.trust-stars{display:flex;gap:4px;margin-bottom:1.25rem}
+.trust-star{color:var(--coral);font-size:13px}
+.trust-quote{font-size:13px;line-height:1.85;color:var(--t2);margin-bottom:1.5rem;font-style:italic}
+.trust-author{display:flex;align-items:center;gap:.875rem}
+.trust-avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:var(--coral-soft);border:1px solid var(--coral-line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--coral);
+}
+.trust-name{font-size:13px;font-weight:600;color:var(--t1)}
+.trust-role{font-size:11px;color:var(--t3);margin-top:2px}
+
+/* ═══════════════════════════════════════════════
+   CTA
+═══════════════════════════════════════════════ */
+.cta-section{
+  padding:7rem 0;text-align:center;position:relative;overflow:hidden;
+  background:var(--bg-dk);
+}
+.cta-glow{
+  position:absolute;top:-20%;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(211,117,83,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-inner{position:relative;z-index:2}
+.cta-inner .label{justify-content:center;margin-bottom:1rem}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,72px);
+  letter-spacing:2px;line-height:1;color:var(--t1);margin-bottom:1rem;
+}
+.cta-title em{color:var(--coral);font-style:normal}
+.cta-sub{font-size:16px;color:var(--t2);line-height:1.8;max-width:500px;margin:0 auto 2.5rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--coral);color:var(--bg-dk);
+  padding:16px 40px;border-radius:var(--r);
+  font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  transition:all var(--ease);
+}
+.btn-cta:hover{background:var(--coral-h);transform:translateY(-3px);box-shadow:0 14px 44px rgba(211,117,83,.38)}
+.btn-email{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.06);color:var(--t2);
+  padding:15px 28px;border-radius:var(--r);border:1px solid var(--border);
+  font-size:12px;font-weight:500;letter-spacing:1px;
+  transition:all var(--ease);
+}
+.btn-email:hover{border-color:rgba(255,255,255,.2);color:var(--t1);transform:translateY(-2px)}
+.cta-note{font-size:11px;color:var(--t3);letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px}
+.cta-note-dot{width:7px;height:7px;border-radius:50%;background:#4caf7d;animation:blink 2s ease-in-out infinite;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer{background:var(--bg-dk);border-top:1px solid var(--border);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.footer-brand{}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--t1);margin-bottom:.5rem}
+.footer-logo em{color:var(--coral);font-style:normal}
+.footer-tagline{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:1.25rem}
+.footer-contact a{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2);transition:color var(--ease)}
+.footer-contact a:hover{color:var(--coral)}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin-bottom:1.25rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:13px;color:var(--t2);transition:color var(--ease);cursor:default}
+.footer-links a:hover{color:var(--coral)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-copy{font-size:11px;color:var(--t3)}
+.footer-sectors{font-size:11px;color:var(--t3);letter-spacing:.5px}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;gap:3rem;padding-top:3rem}
+  .hero-right{order:-1}
+  .steps{grid-template-columns:repeat(2,1fr);gap:2.5rem}
+  .steps::before{display:none}
+  .equip-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .problem-inner{grid-template-columns:1fr;gap:3rem}
+}
+@media(max-width:768px){
+  .nav-links,.btn-nav{display:none}
+  .metrics-strip{grid-template-columns:repeat(2,1fr)}
+  .carousel-vp{padding-inline:1rem}
+  .carousel-slide{grid-template-columns:1fr;min-width:100%}
+  .slide-visual{min-height:220px;border-right:none;border-bottom:1px solid var(--border)}
+  .slide-content{padding:2rem 1.5rem}
+  .pain-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:2rem}
+  .equip-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+}
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="nav">
+  <div class="nav-logo">SKY<em>TECH</em></div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipos">Equipos</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+  </ul>
+  <button class="btn-nav" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Solicitar cotización</button>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-dots"></div>
+  </div>
+
+  <div class="hero-left wrap" style="max-width:unset;padding-left:clamp(1.5rem,5vw,4rem)">
+    <div class="hero-eyebrow"><span></span>Perú · Topografía · LiDAR · Fotogrametría</div>
+    <h1 class="hero-title">VE LO QUE<br>NADIE VE<br><span class="hl">DESDE ABAJO</span></h1>
+    <p class="hero-sub">Drones de alta precisión para levantamientos geodésicos, nubes de puntos LiDAR, ortofotos y modelos 3D en minería, construcción y planificación territorial.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">
+        Solicitar cotización
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">
+        Ver servicios
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero photo: drone real -->
+  <div class="hero-right" style="padding-right:clamp(1.5rem,5vw,4rem)">
+    <div class="hero-photo-frame">
+      <div class="hero-scan"></div>
+      <img src="imagenes/dron.png" alt="DJI Matrice 350 RTK en misión" loading="eager"/>
+
+      <!-- Badge superior derecha: GPS -->
+      <div class="hero-badge hb1">
+        <span class="badge-val c">RTK FIX</span>
+        <span class="badge-lbl">GPS · 22 satélites</span>
+      </div>
+      <!-- Badge inferior izquierda: altitud -->
+      <div class="hero-badge hb2">
+        <span class="badge-val">142 m</span>
+        <span class="badge-lbl">Altitud de vuelo</span>
+      </div>
+      <!-- Badge inferior derecha: precisión -->
+      <div class="hero-badge hb3">
+        <span class="badge-val c">±2 cm</span>
+        <span class="badge-lbl">Precisión GNSS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ METRICS ══════════════ -->
+<div class="metrics-strip" aria-label="Métricas clave">
+  <div class="metric-stat rv">
+    <div class="metric-stat-val" data-count="2">±2</div>
+    <div class="metric-stat-lbl">Precisión en cm</div>
+  </div>
+  <div class="metric-stat rv d1">
+    <div class="metric-stat-val">3D</div>
+    <div class="metric-stat-lbl">Modelos digitales</div>
+  </div>
+  <div class="metric-stat rv d2">
+    <div class="metric-stat-val">RTK</div>
+    <div class="metric-stat-lbl">Posicionamiento GNSS</div>
+  </div>
+  <div class="metric-stat rv d3">
+    <div class="metric-stat-val" data-count="6">6+</div>
+    <div class="metric-stat-lbl">Sectores atendidos</div>
+  </div>
+</div>
+
+<!-- ══════════════ PROBLEM ══════════════ -->
+<section class="problem section" id="problema">
+  <div class="wrap">
+    <div class="problem-inner">
+      <div class="problem-text rv">
+        <div class="label">El problema que resolvemos</div>
+        <h2 class="h2">Sin datos precisos, tus proyectos corren riesgos reales</h2>
+        <p class="sub">Los métodos topográficos tradicionales son lentos, costosos y dejan zonas ciegas. Un error de medición puede costar meses de retraso y millones en reprocesos.</p>
+        <div class="problem-note" style="margin-top:1.5rem">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Un error de medición del 0.5% en una concesión minera puede traducirse en millones de soles de pérdida.
+        </div>
+      </div>
+      <div class="pain-grid rv d1">
+        <div class="pain-card">
+          <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b84444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="pain-title">Levantamientos lentos</div>
+          <div class="pain-desc">Equipos en campo por semanas para áreas que un drone cubre en pocas horas de vuelo.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b84444" stroke-width="2" stroke-linecap="round"><polygon points="10.29 3.86 1.82 18 22.18 18 13.71 3.86 10.29 3.86"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="pain-title">Zonas inaccesibles</div>
+          <div class="pain-desc">Taludes, quebradas y áreas peligrosas imposibles de medir con equipos terrestres.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b84444" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+          <div class="pain-title">Sin contexto 3D</div>
+          <div class="pain-desc">Planos 2D que no capturan la complejidad real del terreno para tomar decisiones.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b84444" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+          <div class="pain-title">Riesgos geológicos</div>
+          <div class="pain-desc">Sin teledetección, los riesgos no se detectan hasta que ya es demasiado tarde.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SERVICES CAROUSEL ══════════════ -->
+<section class="section" id="servicios">
+  <div class="wrap">
+    <div class="services-head rv">
+      <div>
+        <div class="label">Soluciones</div>
+        <h2 class="h2">Nuestros servicios</h2>
+        <p class="sub" style="margin-top:.5rem">Tecnología aeroespacial aplicada a los sectores más exigentes de Perú.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.875rem">
+        <div class="carousel-ctrl">
+          <button class="ctrl-btn" id="prev" aria-label="Anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="ctrl-dots" id="dots"></div>
+          <button class="ctrl-btn" id="next" aria-label="Siguiente"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div style="font-size:10px;color:var(--t3);letter-spacing:1.5px" id="slide-ctr">1 / 6</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-vp" id="vp">
+    <div class="carousel-track" id="track">
+
+      <!-- SLIDE 1: Topografía -->
+      <div class="carousel-slide">
+        <div class="slide-visual" style="overflow:hidden">
+          <img src="imagenes/monumentacion_puntos_referencia.png"
+               alt="Monumentación GNSS-RTK en terreno peruano"
+               class="slide-photo" loading="lazy"/>
+          <!-- Overlay con label técnico -->
+          <div style="position:absolute;bottom:1.25rem;left:1.25rem;
+               background:rgba(15,22,35,0.8);backdrop-filter:blur(10px);
+               border:1px solid rgba(211,117,83,0.25);border-radius:8px;
+               padding:.6rem 1rem;font-size:10px;font-weight:600;
+               letter-spacing:2px;color:rgba(211,117,83,0.9);text-transform:uppercase;">
+            Monumentación GNSS · Perú
+          </div>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">01 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><polygon points="3,17 12,3 21,17"/><line x1="3" y1="17" x2="21" y2="17"/></svg></div>
+          <h3 class="slide-title">Topografía<br>con drones</h3>
+          <p class="slide-desc">Levantamientos geodésicos y cartográficos con precisión centimétrica. Tecnología GNSS-RTK integrada al drone — sin equipos terrestres adicionales, sin zonas muertas.</p>
+          <div class="slide-chips"><span class="chip">GNSS-RTK</span><span class="chip">Planos DXF/DWG</span><span class="chip">±2cm</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización topografía con drones')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Fotogrametría -->
+      <div class="carousel-slide">
+        <div class="slide-visual">
+          <svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="440" height="420" fill="#141c28"/>
+            <g opacity=".95">
+              <rect x="50" y="55" width="78" height="58" rx="2" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.25)" stroke-width=".8"/>
+              <rect x="134" y="55" width="78" height="58" rx="2" fill="rgba(211,117,83,0.05)" stroke="rgba(211,117,83,0.2)" stroke-width=".8"/>
+              <rect x="218" y="55" width="78" height="58" rx="2" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.3)" stroke-width=".8"/>
+              <rect x="302" y="55" width="78" height="58" rx="2" fill="rgba(211,117,83,0.04)" stroke="rgba(211,117,83,0.18)" stroke-width=".8"/>
+              <rect x="50" y="119" width="78" height="58" rx="2" fill="rgba(211,117,83,0.07)" stroke="rgba(211,117,83,0.28)" stroke-width=".8"/>
+              <rect x="134" y="119" width="78" height="58" rx="2" fill="rgba(211,117,83,0.14)" stroke="rgba(211,117,83,0.55)" stroke-width="1.5"/>
+              <rect x="218" y="119" width="78" height="58" rx="2" fill="rgba(211,117,83,0.12)" stroke="rgba(211,117,83,0.48)" stroke-width="1.5"/>
+              <rect x="302" y="119" width="78" height="58" rx="2" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.22)" stroke-width=".8"/>
+              <rect x="50" y="183" width="78" height="58" rx="2" fill="rgba(211,117,83,0.05)" stroke="rgba(211,117,83,0.2)" stroke-width=".8"/>
+              <rect x="134" y="183" width="78" height="58" rx="2" fill="rgba(211,117,83,0.1)" stroke="rgba(211,117,83,0.42)" stroke-width="1.5"/>
+              <rect x="218" y="183" width="78" height="58" rx="2" fill="rgba(211,117,83,0.18)" stroke="var(--coral)" stroke-width="2"/>
+              <rect x="302" y="183" width="78" height="58" rx="2" fill="rgba(211,117,83,0.07)" stroke="rgba(211,117,83,0.28)" stroke-width=".8"/>
+              <rect x="50" y="247" width="78" height="58" rx="2" fill="rgba(211,117,83,0.04)" stroke="rgba(211,117,83,0.16)" stroke-width=".8"/>
+              <rect x="134" y="247" width="78" height="58" rx="2" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.22)" stroke-width=".8"/>
+              <rect x="218" y="247" width="78" height="58" rx="2" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.3)" stroke-width=".8"/>
+              <rect x="302" y="247" width="78" height="58" rx="2" fill="rgba(211,117,83,0.05)" stroke="rgba(211,117,83,0.18)" stroke-width=".8"/>
+            </g>
+            <rect x="134" y="119" width="78" height="58" rx="2" fill="none" stroke="rgba(211,117,83,0.6)" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <g transform="translate(257,212)"><rect x="-10" y="-8" width="20" height="14" rx="2" fill="none" stroke="rgba(211,117,83,0.8)" stroke-width="1.5"/><circle cx="0" cy="-1" r="4" fill="none" stroke="rgba(211,117,83,0.8)" stroke-width="1.2"/><rect x="5" y="-10" width="6" height="4" rx="1" fill="rgba(211,117,83,0.5)"/></g>
+            <text x="173" y="112" fill="rgba(211,117,83,0.5)" font-size="8" font-family="monospace" text-anchor="middle">80% solapamiento</text>
+            <text x="257" y="257" fill="rgba(211,117,83,0.6)" font-size="8" font-family="monospace" text-anchor="middle">GSD 2cm/px</text>
+            <line x1="130" y1="355" x2="310" y2="355" stroke="rgba(211,117,83,0.25)" stroke-width="1"/>
+            <line x1="130" y1="350" x2="130" y2="360" stroke="rgba(211,117,83,0.25)" stroke-width="1"/>
+            <line x1="310" y1="350" x2="310" y2="360" stroke="rgba(211,117,83,0.25)" stroke-width="1"/>
+            <text x="220" y="370" fill="rgba(211,117,83,0.25)" font-size="9" font-family="monospace" text-anchor="middle">100m</text>
+            <text x="220" y="402" fill="rgba(211,117,83,0.2)" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="3">MOSAICO ORTOFOTOGRÁFICO</text>
+          </svg>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">02 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg></div>
+          <h3 class="slide-title">Fotogrametría<br>aérea</h3>
+          <p class="slide-desc">Ortofotos georreferenciadas y modelos 3D de alta resolución generados mediante aerotriangulación. GSD de hasta 2 cm/píxel sobre grandes extensiones de terreno.</p>
+          <div class="slide-chips"><span class="chip">GSD 2cm/px</span><span class="chip">Ortofoto</span><span class="chip">MDT / MDS</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización fotogrametría aérea')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: LiDAR -->
+      <div class="carousel-slide">
+        <div class="slide-visual">
+          <svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="440" height="420" fill="#0e1520"/>
+            <g fill="rgba(211,117,83,0.45)"><circle cx="70" cy="310" r="2.5"/><circle cx="95" cy="305" r="2"/><circle cx="120" cy="312" r="2.5"/><circle cx="148" cy="307" r="2"/><circle cx="172" cy="313" r="2.5"/><circle cx="198" cy="308" r="2"/><circle cx="224" cy="314" r="2.5"/><circle cx="250" cy="309" r="2"/><circle cx="276" cy="315" r="2.5"/><circle cx="302" cy="308" r="2"/><circle cx="328" cy="313" r="2.5"/><circle cx="354" cy="308" r="2"/><circle cx="380" cy="314" r="2.5"/></g>
+            <g fill="rgba(211,117,83,0.6)"><circle cx="82" cy="278" r="2.5"/><circle cx="110" cy="272" r="2"/><circle cx="138" cy="280" r="2.5"/><circle cx="165" cy="274" r="2"/><circle cx="192" cy="282" r="2.5"/><circle cx="220" cy="276" r="2"/><circle cx="248" cy="284" r="2.5"/><circle cx="275" cy="278" r="2"/><circle cx="302" cy="282" r="2.5"/><circle cx="328" cy="275" r="2"/><circle cx="354" cy="280" r="2.5"/><circle cx="380" cy="276" r="2"/></g>
+            <g fill="rgba(220,130,90,0.72)"><circle cx="92" cy="245" r="2.5"/><circle cx="122" cy="240" r="2"/><circle cx="150" cy="248" r="2.5"/><circle cx="178" cy="243" r="2"/><circle cx="206" cy="250" r="2.5"/><circle cx="234" cy="244" r="2"/><circle cx="262" cy="252" r="2.5"/><circle cx="290" cy="246" r="2"/><circle cx="318" cy="250" r="2.5"/><circle cx="346" cy="243" r="2"/><circle cx="372" cy="248" r="2.5"/></g>
+            <g fill="rgba(230,150,110,0.8)"><circle cx="105" cy="212" r="2.5"/><circle cx="136" cy="206" r="2"/><circle cx="165" cy="215" r="2.5"/><circle cx="194" cy="209" r="2"/><circle cx="222" cy="217" r="2.5"/><circle cx="250" cy="211" r="2"/><circle cx="278" cy="219" r="2.5"/><circle cx="306" cy="213" r="2"/><circle cx="333" cy="217" r="2.5"/><circle cx="360" cy="211" r="2"/></g>
+            <g fill="rgba(240,168,130,0.88)"><circle cx="120" cy="180" r="2.5"/><circle cx="152" cy="173" r="2"/><circle cx="182" cy="182" r="2.5"/><circle cx="212" cy="175" r="2"/><circle cx="240" cy="184" r="2.5"/><circle cx="268" cy="177" r="2"/><circle cx="296" cy="185" r="2.5"/><circle cx="324" cy="179" r="2"/><circle cx="350" cy="183" r="2.5"/></g>
+            <g fill="rgba(248,200,170,0.94)"><circle cx="140" cy="148" r="3"/><circle cx="172" cy="140" r="2.5"/><circle cx="202" cy="150" r="3"/><circle cx="236" cy="143" r="2.5"/><circle cx="264" cy="152" r="3"/><circle cx="292" cy="145" r="2.5"/><circle cx="320" cy="150" r="3"/></g>
+            <g fill="rgba(255,230,210,0.97)"><circle cx="196" cy="110" r="3"/><circle cx="232" cy="104" r="3.5"/><circle cx="268" cy="112" r="3"/></g>
+            <g opacity=".1"><line x1="220" y1="30" x2="70" y2="355" stroke="var(--coral)" stroke-width=".5"/><line x1="220" y1="30" x2="155" y2="355" stroke="var(--coral)" stroke-width=".5"/><line x1="220" y1="30" x2="220" y2="355" stroke="var(--coral)" stroke-width=".5"/><line x1="220" y1="30" x2="300" y2="355" stroke="var(--coral)" stroke-width=".5"/><line x1="220" y1="30" x2="380" y2="355" stroke="var(--coral)" stroke-width=".5"/></g>
+            <circle cx="220" cy="30" r="9" fill="rgba(211,117,83,0.15)" stroke="rgba(211,117,83,0.6)" stroke-width="1.5"/>
+            <circle cx="220" cy="30" r="3.5" fill="rgba(211,117,83,0.9)"/>
+            <defs><linearGradient id="lgrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="rgba(211,117,83,0.5)"/><stop offset="100%" stop-color="rgba(255,230,210,0.95)"/></linearGradient></defs>
+            <rect x="408" y="95" width="10" height="210" rx="2" fill="url(#lgrad)"/>
+            <text x="402" y="93" fill="rgba(211,117,83,0.4)" font-size="8" font-family="monospace" text-anchor="end">ALTO</text>
+            <text x="402" y="312" fill="rgba(211,117,83,0.4)" font-size="8" font-family="monospace" text-anchor="end">BAJO</text>
+            <text x="220" y="402" fill="rgba(211,117,83,0.2)" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="3">NUBE DE PUNTOS · ZENMUSE L1</text>
+          </svg>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">03 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><path d="M21,16V8a2,2,0,0,0-1-1.73l-7-4a2,2,0,0,0-2,0l-7,4A2,2,0,0,0,3,8v8a2,2,0,0,0,1,1.73l7,4a2,2,0,0,0,2,0l7-4A2,2,0,0,0,21,16Z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+          <h3 class="slide-title">Nubes de puntos<br>LiDAR</h3>
+          <p class="slide-desc">Modelos 3D ultra-detallados con el sensor Zenmuse L1. Hasta 240,000 puntos por segundo con colorización RGB automática y precisión de 3 cm en tiempo real.</p>
+          <div class="slide-chips"><span class="chip">Zenmuse L1</span><span class="chip">240K pts/s</span><span class="chip">Precisión 3cm</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización LiDAR')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Teledetección -->
+      <div class="carousel-slide">
+        <div class="slide-visual">
+          <svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="440" height="420" fill="#141c28"/>
+            <rect x="32" y="65" width="68" height="260" rx="3" fill="rgba(211,117,83,0.1)" stroke="rgba(211,117,83,0.3)" stroke-width="1"/>
+            <path d="M32,178 Q66,158 100,178 Q66,198 32,178Z" fill="rgba(211,117,83,0.2)"/>
+            <text x="66" y="55" fill="rgba(211,117,83,0.5)" font-size="9" font-family="monospace" text-anchor="middle">RGB</text>
+            <rect x="110" y="65" width="68" height="260" rx="3" fill="rgba(80,180,100,0.1)" stroke="rgba(80,180,100,0.35)" stroke-width="1"/>
+            <path d="M110,155 Q144,135 178,155 Q144,195 110,155Z" fill="rgba(80,180,100,0.25)"/>
+            <text x="144" y="55" fill="rgba(80,180,100,0.5)" font-size="9" font-family="monospace" text-anchor="middle">NIR</text>
+            <rect x="188" y="65" width="68" height="260" rx="3" fill="rgba(220,140,60,0.1)" stroke="rgba(220,140,60,0.3)" stroke-width="1"/>
+            <path d="M188,188 Q222,165 256,188 Q222,212 188,188Z" fill="rgba(220,140,60,0.2)"/>
+            <text x="222" y="55" fill="rgba(220,140,60,0.5)" font-size="9" font-family="monospace" text-anchor="middle">RED-E</text>
+            <rect x="266" y="65" width="68" height="260" rx="3" fill="rgba(220,80,70,0.1)" stroke="rgba(220,80,70,0.3)" stroke-width="1"/>
+            <circle cx="300" cy="168" r="26" fill="rgba(220,60,50,0.15)"/><circle cx="300" cy="168" r="16" fill="rgba(220,80,50,0.25)"/><circle cx="300" cy="168" r="8" fill="rgba(220,100,60,0.45)"/>
+            <text x="300" y="55" fill="rgba(220,80,70,0.5)" font-size="9" font-family="monospace" text-anchor="middle">TERMAL</text>
+            <defs><linearGradient id="ndvi" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(180,40,40,0.4)"/><stop offset="45%" stop-color="rgba(210,180,40,0.4)"/><stop offset="100%" stop-color="rgba(40,160,40,0.5)"/></linearGradient></defs>
+            <rect x="344" y="65" width="68" height="260" rx="3" fill="url(#ndvi)" stroke="rgba(80,180,80,0.3)" stroke-width="1"/>
+            <text x="378" y="55" fill="rgba(80,180,80,0.5)" font-size="9" font-family="monospace" text-anchor="middle">NDVI</text>
+            <line x1="100" y1="195" x2="110" y2="195" stroke="rgba(211,117,83,0.35)" stroke-width="1"/><line x1="178" y1="195" x2="188" y2="195" stroke="rgba(211,117,83,0.35)" stroke-width="1"/><line x1="256" y1="195" x2="266" y2="195" stroke="rgba(211,117,83,0.35)" stroke-width="1"/><line x1="334" y1="195" x2="344" y2="195" stroke="rgba(211,117,83,0.35)" stroke-width="1"/>
+            <rect x="72" y="355" width="296" height="28" rx="4" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.18)" stroke-width=".8"/>
+            <text x="220" y="373" fill="rgba(211,117,83,0.35)" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="2">ANÁLISIS MULTIESPECTRAL · 5 BANDAS</text>
+          </svg>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">04 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M3 12h18"/></svg></div>
+          <h3 class="slide-title">Teledetección<br>multiespectral</h3>
+          <p class="slide-desc">Análisis de imágenes en 5 bandas espectrales (RGB, NIR, Red-Edge, Térmico, NDVI). Índices espectrales para geología, agricultura de precisión y manejo forestal.</p>
+          <div class="slide-chips"><span class="chip">Multiespectral</span><span class="chip">Térmico</span><span class="chip">NDVI / NDWI</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización teledetección')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Inspección -->
+      <div class="carousel-slide">
+        <div class="slide-visual">
+          <svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs><pattern id="g5" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0L0 0 0 28" fill="none" stroke="rgba(211,117,83,0.05)" stroke-width=".5"/></pattern></defs>
+            <rect width="440" height="420" fill="url(#g5)"/>
+            <rect x="110" y="185" width="190" height="145" fill="rgba(211,117,83,0.04)" stroke="rgba(211,117,83,0.28)" stroke-width="1.5"/>
+            <path d="M100,185 L205,125 L310,185" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.32)" stroke-width="1.5"/>
+            <rect x="248" y="95" width="22" height="90" fill="rgba(211,117,83,0.05)" stroke="rgba(211,117,83,0.28)" stroke-width="1.5"/>
+            <rect x="243" y="88" width="32" height="10" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.3)" stroke-width="1"/>
+            <rect x="130" y="262" width="28" height="68" fill="rgba(211,117,83,0.06)" stroke="rgba(211,117,83,0.22)" stroke-width="1"/>
+            <rect x="186" y="232" width="38" height="34" fill="rgba(211,117,83,0.04)" stroke="rgba(211,117,83,0.18)" stroke-width="1"/>
+            <rect x="246" y="232" width="38" height="34" fill="rgba(211,117,83,0.04)" stroke="rgba(211,117,83,0.18)" stroke-width="1"/>
+            <path d="M310,238 L390,238 L390,295" stroke="rgba(211,117,83,0.28)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <rect x="108" y="183" width="194" height="149" fill="none" stroke="rgba(211,117,83,0.6)" stroke-width="1.5" rx="1"/>
+            <line x1="108" y1="213" x2="302" y2="213" stroke="rgba(211,117,83,0.12)" stroke-width=".8" stroke-dasharray="4 3"/>
+            <line x1="108" y1="243" x2="302" y2="243" stroke="rgba(211,117,83,0.12)" stroke-width=".8" stroke-dasharray="4 3"/>
+            <line x1="108" y1="273" x2="302" y2="273" stroke="rgba(211,117,83,0.12)" stroke-width=".8" stroke-dasharray="4 3"/>
+            <line x1="108" y1="303" x2="302" y2="303" stroke="rgba(211,117,83,0.12)" stroke-width=".8" stroke-dasharray="4 3"/>
+            <rect x="142" y="197" width="34" height="22" rx="2" fill="rgba(220,60,60,0.12)" stroke="rgba(220,60,60,0.7)" stroke-width="1.5"/>
+            <text x="159" y="210" fill="rgba(220,60,60,0.9)" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">!</text>
+            <g transform="translate(220,55)"><circle cx="0" cy="0" r="20" fill="rgba(211,117,83,0.07)" stroke="rgba(211,117,83,0.3)" stroke-width="1" stroke-dasharray="3 3"/><line x1="-14" y1="-10" x2="14" y2="10" stroke="rgba(211,117,83,0.65)" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="-10" x2="-14" y2="10" stroke="rgba(211,117,83,0.65)" stroke-width="2" stroke-linecap="round"/><circle cx="-14" cy="-10" r="5" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.5)" stroke-width="1"/><circle cx="14" cy="-10" r="5" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.5)" stroke-width="1"/><circle cx="-14" cy="10" r="5" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.5)" stroke-width="1"/><circle cx="14" cy="10" r="5" fill="rgba(211,117,83,0.08)" stroke="rgba(211,117,83,0.5)" stroke-width="1"/><rect x="-5" y="-5" width="10" height="10" rx="2" fill="rgba(211,117,83,0.2)" stroke="rgba(211,117,83,0.65)" stroke-width="1"/></g>
+            <line x1="220" y1="75" x2="220" y2="183" stroke="rgba(211,117,83,0.22)" stroke-width="1" stroke-dasharray="5 4"/>
+            <text x="325" y="192" fill="rgba(211,117,83,0.4)" font-size="9" font-family="monospace">ALT: 45m</text>
+            <text x="325" y="207" fill="rgba(211,117,83,0.4)" font-size="9" font-family="monospace">DIST: 12m</text>
+            <text x="325" y="222" fill="rgba(220,60,60,0.65)" font-size="9" font-family="monospace">FAULT: 1</text>
+            <text x="220" y="402" fill="rgba(211,117,83,0.2)" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="3">INSPECCIÓN AÉREA · FALLAS</text>
+          </svg>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">05 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><path d="M2 20h20M4 20V10l8-6 8 6v10"/><rect x="9" y="14" width="6" height="6"/></svg></div>
+          <h3 class="slide-title">Inspección de<br>infraestructura</h3>
+          <p class="slide-desc">Monitoreo aéreo de minas, obras civiles y plantas industriales. Detección temprana de grietas, filtraciones y deterioro estructural con imagen de alta resolución y análisis térmico.</p>
+          <div class="slide-chips"><span class="chip">Minería</span><span class="chip">Obras civiles</span><span class="chip">Térmico</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización inspección de infraestructura')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Geotécnica -->
+      <div class="carousel-slide">
+        <div class="slide-visual">
+          <svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="440" height="420" fill="#0e1520"/>
+            <path d="M30,140 C90,120 170,158 250,130 C310,108 370,138 420,125" stroke="rgba(211,117,83,0.6)" stroke-width="2" fill="none"/>
+            <path d="M30,140 C90,120 170,158 250,130 C310,108 370,138 420,125 L420,178 C370,190 310,162 250,182 C170,208 90,168 30,188 Z" fill="rgba(100,155,80,0.08)" stroke="rgba(100,155,80,0.25)" stroke-width="1"/>
+            <text x="42" y="168" fill="rgba(100,155,80,0.5)" font-size="8" font-family="monospace">SUELO ORGÁNICO</text>
+            <path d="M30,188 C90,168 170,208 250,182 C310,162 370,190 420,178 L420,242 C370,252 310,224 250,244 C170,268 90,228 30,248 Z" fill="rgba(175,135,80,0.08)" stroke="rgba(175,135,80,0.25)" stroke-width="1"/>
+            <text x="42" y="222" fill="rgba(175,135,80,0.5)" font-size="8" font-family="monospace">DEP. SEDIMENTARIO</text>
+            <path d="M30,248 C90,228 170,268 250,244 C310,224 370,252 420,242 L420,300 C370,310 310,284 250,300 C170,318 90,290 30,306 Z" fill="rgba(74,100,140,0.1)" stroke="rgba(74,100,140,0.3)" stroke-width="1"/>
+            <text x="42" y="278" fill="rgba(74,100,140,0.6)" font-size="8" font-family="monospace">ROCA METAMÓRFICA</text>
+            <path d="M30,306 C90,290 170,318 250,300 C310,284 370,310 420,300 L420,360 L30,360 Z" fill="rgba(55,75,115,0.14)" stroke="rgba(55,75,115,0.28)" stroke-width="1"/>
+            <text x="42" y="338" fill="rgba(55,75,115,0.5)" font-size="8" font-family="monospace">BASAMENTO ÍGNEO</text>
+            <path d="M268,90 L298,378" stroke="rgba(220,70,70,0.5)" stroke-width="1.5" stroke-dasharray="6 3"/>
+            <text x="304" y="118" fill="rgba(220,70,70,0.5)" font-size="8" font-family="monospace">FALLA</text>
+            <line x1="155" y1="98" x2="155" y2="360" stroke="rgba(211,117,83,0.3)" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <rect x="147" y="90" width="16" height="14" rx="2" fill="rgba(211,117,83,0.1)" stroke="rgba(211,117,83,0.5)" stroke-width="1"/>
+            <text x="176" y="101" fill="rgba(211,117,83,0.5)" font-size="8" font-family="monospace">SONDAJE</text>
+            <circle cx="155" cy="163" r="4" fill="rgba(211,117,83,0.6)" stroke="rgba(211,117,83,0.9)" stroke-width="1"/>
+            <circle cx="155" cy="220" r="4" fill="rgba(175,135,80,0.6)" stroke="rgba(175,135,80,0.9)" stroke-width="1"/>
+            <circle cx="155" cy="276" r="4" fill="rgba(74,100,140,0.6)" stroke="rgba(74,100,140,0.9)" stroke-width="1"/>
+            <circle cx="155" cy="328" r="4" fill="rgba(55,75,115,0.6)" stroke="rgba(55,75,115,0.9)" stroke-width="1"/>
+            <ellipse cx="278" cy="240" rx="28" ry="58" fill="rgba(220,70,70,0.06)" stroke="rgba(220,70,70,0.28)" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="220" y="402" fill="rgba(211,117,83,0.2)" font-size="9" font-family="monospace" text-anchor="middle" letter-spacing="2">PERFIL GEOLÓGICO · GEOTÉCNICA</text>
+          </svg>
+        </div>
+        <div class="slide-content">
+          <div class="slide-n">06 / 06</div>
+          <div class="slide-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <h3 class="slide-title">Consultoría<br>geotécnica</h3>
+          <p class="slide-desc">Evaluación de riesgos geológicos, estabilidad de taludes y perfiles estratigráficos. Combinamos LiDAR y teledetección con análisis geotécnico para minería, vías y planificación territorial.</p>
+          <div class="slide-chips"><span class="chip">Geología</span><span class="chip">Taludes</span><span class="chip">Informe técnico</span></div>
+          <button class="slide-btn" onclick="sendPrompt&&sendPrompt('Cotización consultoría geotécnica')">Solicitar servicio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </div>
+      </div>
+
+    </div><!-- /track -->
+  </div><!-- /vp -->
+  <div class="carousel-progress"><div class="carousel-progress-fill" id="prog"></div></div>
+</section>
+
+<!-- ══════════════ PROCESS ══════════════ -->
+<section class="process section" id="proceso">
+  <div class="wrap">
+    <div class="process-head rv">
+      <div class="label">Metodología</div>
+      <h2 class="h2">Proceso de trabajo</h2>
+      <p class="sub" style="margin:0 auto">Cuatro etapas que garantizan resultados precisos y un informe técnico listo para usar.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv d1">
+        <div class="step-num-wrap"><div class="step-num-outer"><div class="step-num">01</div></div></div>
+        <div class="step-title">Inspección de zona</div>
+        <div class="step-desc">Diagnóstico preliminar del área, definición de requerimientos y elaboración de propuesta técnica y económica detallada.</div>
+      </div>
+      <div class="step rv d2">
+        <div class="step-num-wrap"><div class="step-num-outer"><div class="step-num">02</div></div></div>
+        <div class="step-title">Trabajo en campo</div>
+        <div class="step-desc">Posicionamiento GNSS-RTK, monumentación de puntos de apoyo y sobrevuelo con misión de vuelo optimizada.</div>
+      </div>
+      <div class="step rv d3">
+        <div class="step-num-wrap"><div class="step-num-outer"><div class="step-num">03</div></div></div>
+        <div class="step-title">Procesamiento digital</div>
+        <div class="step-desc">Aerotriangulación, restitución fotogramétrica y generación de nube de puntos con software certificado.</div>
+      </div>
+      <div class="step rv d4">
+        <div class="step-num-wrap"><div class="step-num-outer"><div class="step-num">04</div></div></div>
+        <div class="step-title">Informe técnico</div>
+        <div class="step-desc">Edición cartográfica, planos CAD (DXF/DWG), ortofotos y entrega del informe final en formato digital.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EQUIPMENT ══════════════ -->
+<section class="section" id="equipos" style="padding-top:0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:0">
+      <div class="label">Tecnología de vanguardia</div>
+      <h2 class="h2" style="margin:.75rem 0 .5rem">Nuestros equipos</h2>
+      <p class="sub">La flota tecnológica más avanzada del mercado para garantizar precisión en cada misión.</p>
+    </div>
+    <div class="equip-grid">
+      <div class="equip-card rv d1">
+        <div class="equip-img">
+          <img src="imagenes/dron.png" alt="DJI Matrice 350 RTK" loading="lazy"/>
+        </div>
+        <div class="equip-top"><div class="equip-badge">Plataforma aérea</div><div class="equip-name">DJI Matrice<br>350 RTK</div></div>
+        <div class="equip-body"><p class="equip-desc">Drone de nivel profesional con RTK integrado. Base para misiones de fotogrametría, LiDAR e inspección de alta demanda operativa.</p><div class="equip-spec"><div class="equip-spec-dot"></div>RTK Integrado</div></div>
+      </div>
+      <div class="equip-card rv d2">
+        <div class="equip-img">
+          <img src="imagenes/ZENMUSE P1.png" alt="Zenmuse P1" loading="lazy"/>
+        </div>
+        <div class="equip-top"><div class="equip-badge">Sensor fotogramétrico</div><div class="equip-name">Zenmuse P1</div></div>
+        <div class="equip-body"><p class="equip-desc">Sensor de fotograma completo 45MP con lentes intercambiables. Fotogrametría de alta eficiencia y precisión centimétrica en grandes áreas.</p><div class="equip-spec"><div class="equip-spec-dot"></div>Full-Frame 45MP</div></div>
+      </div>
+      <div class="equip-card rv d3">
+        <div class="equip-img">
+          <img src="imagenes/MUSEO ZEN L1.png" alt="Zenmuse L1" loading="lazy"/>
+        </div>
+        <div class="equip-top"><div class="equip-badge">LiDAR + cámara RGB</div><div class="equip-name">Zenmuse L1</div></div>
+        <div class="equip-body"><p class="equip-desc">Módulo Livox LiDAR con IMU de alta precisión. Datos 3D en tiempo real para estructuras complejas con reconstrucción detallada.</p><div class="equip-spec"><div class="equip-spec-dot"></div>Precisión ±3cm</div></div>
+      </div>
+      <div class="equip-card rv d4">
+        <div class="equip-img">
+          <img src="imagenes/equipos1.png" alt="Equipos Sky Tech en misión" loading="lazy"/>
+        </div>
+        <div class="equip-top"><div class="equip-badge">GNSS multibanda</div><div class="equip-name">Receptor<br>X5R / X5RT</div></div>
+        <div class="equip-body"><p class="equip-desc">PPK/RTK/NTRIP con 184 canales. Precisión centimétrica, batería de 15h, compatible con DJI y Autel. Alcance LoRa 10+ km.</p><div class="equip-spec"><div class="equip-spec-dot"></div>184 ch · 10km LoRa</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section class="trust section" id="nosotros">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:0">
+      <div class="label">Clientes</div>
+      <h2 class="h2" style="margin:.75rem 0 .5rem">Lo que dicen de nosotros</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card rv d1">
+        <div class="trust-stars">★★★★★</div>
+        <p class="trust-quote">"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo."</p>
+        <div class="trust-author"><div class="trust-avatar">JR</div><div><div class="trust-name">Jefe de topografía</div><div class="trust-role">Empresa minera, Arequipa</div></div></div>
+      </div>
+      <div class="trust-card rv d2">
+        <div class="trust-stars">★★★★★</div>
+        <p class="trust-quote">"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas."</p>
+        <div class="trust-author"><div class="trust-avatar">ML</div><div><div class="trust-name">Gerente de proyectos</div><div class="trust-role">Constructora, Lima</div></div></div>
+      </div>
+      <div class="trust-card rv d3">
+        <div class="trust-stars">★★★★★</div>
+        <p class="trust-quote">"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos."</p>
+        <div class="trust-author"><div class="trust-avatar">CP</div><div><div class="trust-name">Director de infraestructura</div><div class="trust-role">Gobierno regional, Cusco</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="wrap cta-inner">
+    <div class="label rv">Hablemos de tu proyecto</div>
+    <h2 class="cta-title rv d1">¿Listo para ver<br>tu proyecto <em>desde arriba?</em></h2>
+    <p class="cta-sub rv d2">Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.</p>
+    <div class="cta-btns rv d3">
+      <button class="btn-cta" onclick="sendPrompt&&sendPrompt('Quiero contactar a Sky Tech para un proyecto topográfico con drones')">
+        Contáctanos ahora
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </button>
+      <a class="btn-email" href="mailto:skytsperu@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        skytsperu@gmail.com
+      </a>
+    </div>
+    <div class="cta-note rv d4"><div class="cta-note-dot"></div>Respuesta garantizada en 24 horas · Sin compromiso</div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">SKY<em>TECH</em></div>
+        <div class="footer-tagline">Topografía · Fotogrametría · LiDAR</div>
+        <div class="footer-contact">
+          <a href="mailto:skytsperu@gmail.com">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            skytsperu@gmail.com
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Servicios</div>
+        <nav class="footer-links">
+          <a>Topografía con drones</a>
+          <a>Fotogrametría aérea</a>
+          <a>LiDAR</a>
+          <a>Teledetección</a>
+          <a>Consultoría geotécnica</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Sectores</div>
+        <nav class="footer-links">
+          <a>Minería</a>
+          <a>Construcción</a>
+          <a>Agricultura</a>
+          <a>Gobierno</a>
+          <a>Infraestructura</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Empresa</div>
+        <nav class="footer-links">
+          <a>Nuestros equipos</a>
+          <a>Proceso de trabajo</a>
+          <a>Casos de éxito</a>
+          <a>Contacto</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Sky Tech Perú. Todos los derechos reservados.</div>
+      <div class="footer-sectors">Minería · Construcción · Planificación territorial · Perú</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══ CAROUSEL ═══ */
+(function(){
+  const vp=document.getElementById('vp'),track=document.getElementById('track'),
+        prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next'),
+        dotsWrap=document.getElementById('dots'),ctr=document.getElementById('slide-ctr'),
+        prog=document.getElementById('prog');
+  const slides=track.querySelectorAll('.carousel-slide'),total=slides.length;
+  let cur=0,timer=null,paused=false;
+  const dots=Array.from({length:total},(_,i)=>{
+    const d=document.createElement('button');
+    d.className='ctrl-dot'+(i===0?' on':'');
+    d.addEventListener('click',()=>go(i,true));
+    dotsWrap.appendChild(d);return d;
+  });
+  function update(){
+    /* slide offsetWidth = vp inner width (vp - padding). Each step moves by one slide width. */
+    const w = slides[0] ? slides[0].offsetWidth : vp.offsetWidth;
+    track.style.transform=`translateX(${-cur*w}px)`;
+    dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+    ctr.textContent=(cur+1)+' / '+total;
+  }
+  function go(i,reset){
+    cur=(i+total)%total;update();
+    if(reset){clearInterval(timer);startAuto();}
+    // animate progress bar
+    prog.style.transition='none';prog.style.width='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      prog.style.transition='width 5s linear';prog.style.width='100%';
+    }));
+  }
+  prevBtn.addEventListener('click',()=>go(cur-1,true));
+  nextBtn.addEventListener('click',()=>go(cur+1,true));
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(cur-1,true);if(e.key==='ArrowRight')go(cur+1,true);});
+  let sx=0;
+  vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  vp.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1),true);},{passive:true});
+  vp.addEventListener('mouseenter',()=>paused=true);
+  vp.addEventListener('mouseleave',()=>paused=false);
+  function startAuto(){timer=setInterval(()=>{if(!paused)go(cur+1,false);},5000);}
+  let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(update,100);});
+  update();startAuto();
+  prog.style.transition='width 5s linear';prog.style.width='100%';
+})();
+
+/* ═══ SCROLL REVEAL ═══ */
+(function(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+
+/* ═══ ANIMATED COUNTERS ═══ */
+(function(){
+  const nums=document.querySelectorAll('[data-count]');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target,end=+el.dataset.count,orig=el.textContent;
+      let start=null;
+      const suffix=orig.replace(/[\d]/g,'');
+      const step=ts=>{
+        if(!start)start=ts;
+        const p=Math.min((ts-start)/1200,1);
+        el.textContent=Math.round(p*end)+suffix;
+        if(p<1)requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      io.unobserve(el);
+    });
+  },{threshold:.5});
+  nums.forEach(n=>io.observe(n));
+})();
+</script>
+</body>
+</html>
