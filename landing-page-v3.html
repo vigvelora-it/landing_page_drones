@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sky Tech Perú — Topografía · Fotogrametría · LiDAR</title>
+<meta name="description" content="Levantamientos geodésicos, nubes de puntos LiDAR y fotogrametría aérea con precisión centimétrica para minería, construcción y planificación territorial en Perú."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ─────────────────────────────────── */
+:root{
+  --dark:    #07111D;
+  --dark-2:  #0C1B2A;
+  --dark-3:  #112436;
+  --gold:    #C8A45A;
+  --gold-h:  #D9B56A;
+  --gold-2:  rgba(200,164,90,.10);
+  --gold-3:  rgba(200,164,90,.20);
+  --cream:   #EDE8DF;
+  --cream-2: rgba(237,232,223,.60);
+  --cream-3: rgba(237,232,223,.28);
+  --border:  rgba(255,255,255,.065);
+  --border-g:rgba(200,164,90,.22);
+  --ease:    .22s cubic-bezier(.4,0,.2,1);
+  --r:       6px;--r-lg:12px;
+}
+/* ── RESET ──────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.65}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;border:none;cursor:pointer;outline:none;background:transparent}
+img{display:block}
+::selection{background:var(--gold-2);color:var(--gold)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--gold-3);border-radius:99px}
+/* ── LAYOUT ─────────────────────────────────── */
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:2.5rem}
+.section{padding:7rem 0}
+/* ── REVEAL ─────────────────────────────────── */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}
+.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+/* ── HELPERS ────────────────────────────────── */
+.gold-label{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.gold-label::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0}
+/* ── BUTTONS ────────────────────────────────── */
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--dark);padding:13px 28px;border-radius:var(--r);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:background var(--ease),transform var(--ease),box-shadow var(--ease)}
+.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,164,90,.22)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--cream);padding:12px 24px;border-radius:var(--r);border:1px solid var(--border-g);font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:all var(--ease)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+/* ── NAV ────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:200;height:72px;display:flex;align-items:center;justify-content:space-between;padding-inline:2.5rem;background:rgba(7,17,29,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-3),transparent);pointer-events:none}
+.nav-logo{font-family:'Cormorant Garant',serif;font-size:22px;color:var(--cream);letter-spacing:.5px;user-select:none}
+.nav-logo em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--cream-3);transition:color var(--ease);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width var(--ease)}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a:hover::after{width:100%}
+.btn-nav{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dark);background:var(--gold);padding:10px 22px;border-radius:var(--r);transition:background var(--ease),transform var(--ease)}
+.btn-nav:hover{background:var(--gold-h);transform:translateY(-1px)}
+/* hamburger */
+.hamburger{display:none;width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border-g);flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:border-color var(--ease)}
+.hamburger:hover{border-color:var(--gold)}
+.hamburger span{display:block;width:17px;height:1px;background:var(--cream-2);transition:all var(--ease)}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(7,17,29,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-g);z-index:199;padding:1.5rem 2.5rem;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--cream-2);padding:.9rem 0;border-bottom:1px solid var(--border);transition:color var(--ease)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .mob-cta{margin-top:1.25rem;display:inline-flex;justify-content:center;background:var(--gold);color:var(--dark);padding:12px;border-radius:var(--r);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:none}
+/* ── HERO ───────────────────────────────────── */
+.hero{position:relative;min-height:calc(100vh - 72px);display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.5)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(7,17,29,.97) 42%,rgba(7,17,29,.45) 100%)}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;margin-inline:auto;padding-inline:2.5rem;padding-block:4rem;display:grid;grid-template-columns:55% 1fr;gap:4rem;align-items:center}
+.hero-eyebrow{margin-bottom:2.25rem}
+.hero-title{font-family:'Cormorant Garant',serif;font-size:clamp(52px,6.5vw,92px);font-weight:300;color:var(--cream);line-height:1.0;letter-spacing:-.5px;margin-bottom:1.5rem}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;line-height:1.85;color:var(--cream-2);max-width:400px;margin-bottom:2.75rem;font-weight:300}
+.hero-btns{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.hero-rule{width:48px;height:1px;background:var(--gold-3);margin-bottom:2rem}
+.hero-stats{display:flex;gap:2.5rem}
+.h-stat-val{font-family:'Cormorant Garant',serif;font-size:30px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:.3rem}
+.h-stat-lbl{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3)}
+.hero-cards{display:flex;flex-direction:column;gap:1rem}
+.hero-card{background:rgba(12,27,42,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border-g);border-radius:var(--r-lg);padding:1.5rem 1.75rem}
+.hero-card-val{font-family:'Cormorant Garant',serif;font-size:34px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:.3rem}
+.hero-card-lbl{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3)}
+/* ── MARQUEE ────────────────────────────────── */
+.marquee{background:var(--dark-2);border-top:1px solid var(--border-g);border-bottom:1px solid var(--border-g);padding:.875rem 0;overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:ticker 38s linear infinite}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-seg{display:flex;align-items:center;gap:2.5rem;white-space:nowrap;padding-right:2.5rem}
+.m-item{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--cream-3)}
+.m-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.45;flex-shrink:0}
+/* ── METRICS ────────────────────────────────── */
+.metrics{background:var(--dark-2)}
+.metrics-wrap{max-width:1200px;margin-inline:auto;padding-inline:2.5rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border-g);border-radius:var(--r-lg);overflow:hidden}
+.metric-item{padding:2.75rem 2.5rem;border-right:1px solid var(--border);transition:background var(--ease)}
+.metric-item:last-child{border-right:none}
+.metric-item:hover{background:var(--dark-3)}
+.metric-val{font-family:'Cormorant Garant',serif;font-size:56px;font-weight:400;color:var(--gold);line-height:1;letter-spacing:-1px;margin-bottom:.45rem}
+.metric-lbl{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3)}
+/* ── SERVICES ───────────────────────────────── */
+.services{background:var(--dark)}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.svc-h2{font-family:'Cormorant Garant',serif;font-size:clamp(34px,3.5vw,52px);font-weight:300;color:var(--cream);letter-spacing:-.5px;margin-top:.75rem;line-height:1.1}
+.svc-sub{font-size:14px;color:var(--cream-2);max-width:280px;line-height:1.8;text-align:right;font-weight:300}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.svc-card{background:var(--dark-2);padding:2.5rem;border-left:2px solid transparent;transition:background var(--ease),border-color var(--ease);cursor:pointer;display:flex;flex-direction:column}
+.svc-card:hover{background:var(--dark-3);border-left-color:var(--gold)}
+.svc-n{font-family:'Cormorant Garant',serif;font-size:40px;font-weight:300;color:var(--gold);opacity:.28;line-height:1;margin-bottom:1.5rem;transition:opacity var(--ease)}
+.svc-card:hover .svc-n{opacity:.7}
+.svc-name{font-family:'Cormorant Garant',serif;font-size:22px;font-weight:400;color:var(--cream);margin-bottom:.75rem;line-height:1.2;transition:color var(--ease)}
+.svc-card:hover .svc-name{color:var(--gold)}
+.svc-desc{font-size:13px;color:var(--cream-2);line-height:1.8;flex:1;font-weight:300}
+.svc-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:1.25rem}
+.s-chip{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:var(--gold-2);border:1px solid var(--gold-3);padding:3px 9px;border-radius:99px}
+.svc-arrow{display:flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3);margin-top:1.5rem;transition:color var(--ease),gap var(--ease)}
+.svc-card:hover .svc-arrow{color:var(--gold);gap:10px}
+/* ── ABOUT ──────────────────────────────────── */
+.about{background:var(--dark-3);overflow:hidden}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5rem;min-height:480px}
+.about-label{margin-bottom:.75rem}
+.about-h2{font-family:'Cormorant Garant',serif;font-size:clamp(28px,3vw,44px);font-weight:300;color:var(--cream);line-height:1.15;letter-spacing:-.3px;margin-bottom:1.5rem}
+.about-h2 em{color:var(--gold);font-style:italic}
+.about-body{font-size:14px;line-height:1.9;color:var(--cream-2);margin-bottom:1.75rem;font-weight:300}
+.about-callout{display:flex;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border:1px solid var(--border-g);border-left:3px solid var(--gold);border-radius:var(--r);background:var(--gold-2)}
+.about-callout-val{font-family:'Cormorant Garant',serif;font-size:36px;font-weight:400;color:var(--gold);line-height:1;flex-shrink:0}
+.about-callout-lbl{font-size:12px;color:var(--cream-2);line-height:1.5;font-weight:300;padding-top:.25rem}
+.about-photo{border-radius:var(--r-lg);overflow:hidden;position:relative}
+.about-photo img{width:100%;height:400px;object-fit:cover;filter:brightness(.75)}
+.about-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(7,17,29,.7) 0%,transparent 55%)}
+/* ── PROCESS ────────────────────────────────── */
+.process{background:var(--dark)}
+.proc-head{text-align:center;margin-bottom:4rem}
+.proc-h2{font-family:'Cormorant Garant',serif;font-size:clamp(30px,3vw,46px);font-weight:300;color:var(--cream);margin:.75rem 0;letter-spacing:-.5px}
+.proc-sub{font-size:14px;color:var(--cream-2);max-width:400px;margin:0 auto;line-height:1.8;font-weight:300}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:1rem}
+.proc-steps::before{content:'';position:absolute;top:1.4rem;left:12.5%;width:75%;height:1px;background:linear-gradient(to right,transparent,var(--gold-3) 20%,var(--gold-3) 80%,transparent);z-index:0}
+.proc-step{text-align:center;padding:0 .75rem;position:relative;z-index:1}
+.proc-dot{width:44px;height:44px;border-radius:50%;background:var(--dark);border:1px solid var(--gold-3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;font-family:'Cormorant Garant',serif;font-size:18px;font-weight:400;color:var(--gold);transition:background var(--ease),border-color var(--ease)}
+.proc-step:hover .proc-dot{background:var(--gold-2);border-color:var(--gold)}
+.proc-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);margin-bottom:.6rem}
+.proc-desc{font-size:12px;color:var(--cream-2);line-height:1.8;font-weight:300}
+/* ── EQUIPMENT ──────────────────────────────── */
+.equip{background:var(--dark-2)}
+.equip-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.equip-h2{font-family:'Cormorant Garant',serif;font-size:clamp(30px,3vw,46px);font-weight:300;color:var(--cream);margin-top:.75rem;letter-spacing:-.5px}
+.equip-sub{font-size:14px;color:var(--cream-2);max-width:280px;line-height:1.8;text-align:right;font-weight:300}
+.equip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.equip-card{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/3;border:1px solid var(--border)}
+.equip-photo{width:100%;height:100%;object-fit:cover;transition:transform .8s ease,filter .7s ease;filter:brightness(.65) saturate(.8)}
+.equip-card:hover .equip-photo{transform:scale(1.06);filter:brightness(.45) saturate(.6)}
+.equip-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,17,29,.92) 0%,rgba(7,17,29,.25) 60%,transparent 100%)}
+.equip-info{position:absolute;bottom:0;left:0;right:0;padding:1.75rem 2rem;z-index:2}
+.equip-tag{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;opacity:.8}
+.equip-name{font-family:'Cormorant Garant',serif;font-size:clamp(20px,2vw,27px);font-weight:400;color:var(--cream);margin-bottom:.5rem}
+.equip-spec{font-size:11px;color:var(--cream-2);font-weight:300;display:flex;align-items:center;gap:7px}
+.equip-spec::before{content:'';width:12px;height:1px;background:var(--gold);flex-shrink:0}
+/* ── TESTIMONIALS ───────────────────────────── */
+.trust{background:var(--dark)}
+.trust-wrap{max-width:780px;margin-inline:auto;text-align:center}
+.trust-h2{font-family:'Cormorant Garant',serif;font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--cream);margin:.75rem 0 3rem;letter-spacing:-.3px}
+.trust-slider{position:relative;min-height:220px}
+.trust-slide{display:none;flex-direction:column;align-items:center}
+.trust-slide.active{display:flex}
+.trust-qmark{font-family:'Cormorant Garant',serif;font-size:96px;font-weight:300;color:var(--gold);opacity:.18;line-height:.6;margin-bottom:.75rem;user-select:none}
+.trust-stars{display:flex;gap:4px;margin-bottom:1.5rem;justify-content:center}
+.trust-quote{font-family:'Cormorant Garant',serif;font-size:clamp(20px,2.5vw,28px);font-weight:300;font-style:italic;color:var(--cream);line-height:1.55;margin-bottom:2rem;max-width:680px}
+.trust-rule{width:38px;height:1px;background:var(--gold-3);margin:0 auto 1.5rem}
+.trust-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream)}
+.trust-role{font-size:11px;color:var(--cream-3);margin-top:.3rem}
+.trust-controls{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2.5rem}
+.trust-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--cream-2);transition:border-color var(--ease),color var(--ease),background var(--ease)}
+.trust-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-2)}
+.trust-dots{display:flex;gap:.5rem}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--border-g);cursor:pointer;transition:background var(--ease)}
+.trust-dot.active{background:var(--gold)}
+/* ── CONTACT ────────────────────────────────── */
+.contact{background:var(--dark-2)}
+.contact-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start}
+.contact-h2{font-family:'Cormorant Garant',serif;font-size:clamp(30px,3vw,48px);font-weight:300;color:var(--cream);line-height:1.1;letter-spacing:-.3px;margin:1rem 0 1.25rem}
+.contact-sub{font-size:14px;line-height:1.85;color:var(--cream-2);margin-bottom:2.5rem;font-weight:300}
+.contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.contact-icon{width:40px;height:40px;border-radius:var(--r);background:var(--dark-3);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3);margin-bottom:.3rem}
+.c-val{font-size:14px;color:var(--cream);font-weight:400}
+.c-val a{color:var(--cream);transition:color var(--ease)}
+.c-val a:hover{color:var(--gold)}
+.cform{background:var(--dark-3);border:1px solid var(--border-g);border-radius:var(--r-lg);padding:2.5rem}
+.form-row{margin-bottom:1.25rem}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.form-label{display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3);margin-bottom:.55rem}
+.form-input{width:100%;padding:11px 14px;background:var(--dark-2);border:1px solid var(--border);border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:14px;color:var(--cream);transition:border-color var(--ease),box-shadow var(--ease);outline:none;font-weight:300}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-2)}
+.form-input::placeholder{color:var(--cream-3)}
+select.form-input{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(200,164,90,0.5)' stroke-width='2' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+select.form-input option{background:var(--dark-2);color:var(--cream)}
+textarea.form-input{resize:vertical;min-height:110px;line-height:1.65}
+.btn-form{width:100%;padding:13px;background:var(--gold);color:var(--dark);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:var(--r);transition:background var(--ease),transform var(--ease);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-form:hover{background:var(--gold-h);transform:translateY(-1px)}
+.btn-form:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.form-note{font-size:11px;color:var(--cream-3);text-align:center;margin-top:.875rem}
+.form-success{display:none;text-align:center;padding:3rem 1.5rem}
+.form-success.show{display:block}
+.form-success-icon{width:54px;height:54px;border-radius:50%;background:var(--gold-2);border:1px solid var(--gold-3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.form-success-title{font-family:'Cormorant Garant',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:.5rem}
+.form-success-sub{font-size:14px;color:var(--cream-2);line-height:1.75;font-weight:300}
+/* ── FOOTER ─────────────────────────────────── */
+.footer{background:var(--dark);border-top:1px solid var(--border-g);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.footer-logo{font-family:'Cormorant Garant',serif;font-size:24px;color:var(--cream);letter-spacing:.5px;margin-bottom:.35rem}
+.footer-logo em{color:var(--gold);font-style:italic}
+.footer-tagline{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cream-3);margin-bottom:1.5rem;opacity:.45}
+.footer-email a{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--cream-3);transition:color var(--ease);font-weight:300}
+.footer-email a:hover{color:var(--gold)}
+.footer-col-title{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cream-3);margin-bottom:1.25rem;opacity:.4}
+.footer-links{display:flex;flex-direction:column;gap:.55rem}
+.footer-links a{font-size:13px;color:var(--cream-3);transition:color var(--ease);font-weight:300}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-copy,.footer-sectors{font-size:11px;color:var(--cream-3);opacity:.35}
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1024px){
+  .hero-content{grid-template-columns:1fr;max-width:640px}
+  .hero-cards{flex-direction:row;flex-wrap:wrap}
+  .hero-card{flex:1;min-width:160px}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .about-inner{grid-template-columns:1fr}
+  .about-photo{display:none}
+  .contact-inner{grid-template-columns:1fr;gap:3rem}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .metric-item:nth-child(2){border-right:none}
+  .metric-item:nth-child(3){border-top:1px solid var(--border)}
+  .metric-item:nth-child(4){border-top:1px solid var(--border);border-right:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.btn-nav{display:none}
+  .hamburger{display:flex}
+  .section{padding:5rem 0}
+  .wrap{padding-inline:1.5rem}
+  .metrics-wrap{padding-inline:1.5rem}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-head{flex-direction:column;align-items:flex-start;gap:1.25rem}
+  .svc-sub{text-align:left;max-width:100%}
+  .equip-grid{grid-template-columns:1fr}
+  .equip-head{flex-direction:column;align-items:flex-start;gap:1.25rem}
+  .equip-sub{text-align:left}
+  .proc-steps{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .proc-steps::before{display:none}
+  .form-2{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .marquee-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Sky<em>Tech</em> Perú</div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipos">Equipos</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+  </ul>
+  <button class="btn-nav" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar cotización</button>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu" role="navigation">
+  <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
+  <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
+  <a href="#equipos" onclick="closeMobileMenu()">Equipos</a>
+  <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+  <a class="mob-cta" href="#contacto" onclick="closeMobileMenu()">Solicitar cotización</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="IMAGENES_PAGINA_WEB/dron.png" alt="" aria-hidden="true" loading="eager"/>
+  </div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow rv">
+        <span class="gold-label">Perú · Topografía · LiDAR · Fotogrametría</span>
+      </div>
+      <h1 class="hero-title rv d1">Precisión aérea<br>para el Perú<br><em>exigente.</em></h1>
+      <p class="hero-sub rv d2">Levantamientos geodésicos, nubes de puntos LiDAR y modelos 3D de precisión centimétrica para minería, construcción y planificación territorial.</p>
+      <div class="hero-btns rv d3">
+        <button class="btn-gold" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          Solicitar cotización
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </button>
+        <a class="btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+      <div class="hero-rule rv d4"></div>
+      <div class="hero-stats rv d4">
+        <div>
+          <div class="h-stat-val">±2 cm</div>
+          <div class="h-stat-lbl">Precisión GNSS</div>
+        </div>
+        <div>
+          <div class="h-stat-val">RTK</div>
+          <div class="h-stat-lbl">Posicionamiento</div>
+        </div>
+        <div>
+          <div class="h-stat-val">6+</div>
+          <div class="h-stat-lbl">Sectores</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-cards rv d3">
+      <div class="hero-card">
+        <div class="hero-card-val">DJI M350</div>
+        <div class="hero-card-lbl">Plataforma RTK principal</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-val">Zenmuse L1</div>
+        <div class="hero-card-lbl">LiDAR 240K pts/s</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-val">Zenmuse P1</div>
+        <div class="hero-card-lbl">Sensor fotogramétrico 45MP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-seg">
+      <span class="m-item">Topografía con drones</span><span class="m-dot"></span>
+      <span class="m-item">Fotogrametría aérea</span><span class="m-dot"></span>
+      <span class="m-item">Nubes de puntos LiDAR</span><span class="m-dot"></span>
+      <span class="m-item">Teledetección multiespectral</span><span class="m-dot"></span>
+      <span class="m-item">GNSS-RTK · PPK</span><span class="m-dot"></span>
+      <span class="m-item">Precisión ±2 cm</span><span class="m-dot"></span>
+      <span class="m-item">Inspección de infraestructura</span><span class="m-dot"></span>
+      <span class="m-item">Consultoría geotécnica</span><span class="m-dot"></span>
+      <span class="m-item">Perú — Cobertura nacional</span><span class="m-dot"></span>
+    </div>
+    <div class="marquee-seg" aria-hidden="true">
+      <span class="m-item">Topografía con drones</span><span class="m-dot"></span>
+      <span class="m-item">Fotogrametría aérea</span><span class="m-dot"></span>
+      <span class="m-item">Nubes de puntos LiDAR</span><span class="m-dot"></span>
+      <span class="m-item">Teledetección multiespectral</span><span class="m-dot"></span>
+      <span class="m-item">GNSS-RTK · PPK</span><span class="m-dot"></span>
+      <span class="m-item">Precisión ±2 cm</span><span class="m-dot"></span>
+      <span class="m-item">Inspección de infraestructura</span><span class="m-dot"></span>
+      <span class="m-item">Consultoría geotécnica</span><span class="m-dot"></span>
+      <span class="m-item">Perú — Cobertura nacional</span><span class="m-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="metrics" style="padding:3.5rem 0">
+  <div class="metrics-wrap">
+    <div class="metrics-grid">
+      <div class="metric-item rv">
+        <div class="metric-val">±2cm</div>
+        <div class="metric-lbl">Precisión en campo</div>
+      </div>
+      <div class="metric-item rv d1">
+        <div class="metric-val">3D</div>
+        <div class="metric-lbl">Modelos digitales</div>
+      </div>
+      <div class="metric-item rv d2">
+        <div class="metric-val">RTK</div>
+        <div class="metric-lbl">Posicionamiento GNSS</div>
+      </div>
+      <div class="metric-item rv d3">
+        <div class="metric-val">6+</div>
+        <div class="metric-lbl">Sectores atendidos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services section" id="servicios">
+  <div class="wrap">
+    <div class="svc-head rv">
+      <div>
+        <div class="gold-label">Soluciones</div>
+        <h2 class="svc-h2">Nuestros servicios</h2>
+      </div>
+      <p class="svc-sub">Tecnología aeroespacial aplicada a los sectores más exigentes. Cada entrega lista para CAD y GIS.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card rv d1" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">01</div>
+        <div class="svc-name">Topografía con drones</div>
+        <p class="svc-desc">Levantamientos geodésicos con GNSS-RTK integrado. Precisión centimétrica sin equipos terrestres adicionales ni zonas muertas.</p>
+        <div class="svc-chips"><span class="s-chip">GNSS-RTK</span><span class="s-chip">±2 cm</span><span class="s-chip">DXF/DWG</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-card rv d2" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">02</div>
+        <div class="svc-name">Fotogrametría aérea</div>
+        <p class="svc-desc">Ortofotos georreferenciadas y modelos 3D con GSD de 2 cm/píxel. Aerotriangulación automática sobre grandes extensiones.</p>
+        <div class="svc-chips"><span class="s-chip">GSD 2cm/px</span><span class="s-chip">Ortofoto</span><span class="s-chip">MDT / MDS</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-card rv d3" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">03</div>
+        <div class="svc-name">Nubes de puntos LiDAR</div>
+        <p class="svc-desc">Modelos 3D ultra-detallados con Zenmuse L1. Hasta 240,000 pts/s con colorización RGB y precisión de 3 cm en tiempo real.</p>
+        <div class="svc-chips"><span class="s-chip">Zenmuse L1</span><span class="s-chip">240K pts/s</span><span class="s-chip">±3 cm</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-card rv d1" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">04</div>
+        <div class="svc-name">Teledetección multiespectral</div>
+        <p class="svc-desc">Análisis en 5 bandas espectrales (RGB, NIR, Red-Edge, Térmico). Índices NDVI/NDWI para geología, agricultura y manejo forestal.</p>
+        <div class="svc-chips"><span class="s-chip">Multiespectral</span><span class="s-chip">Térmico</span><span class="s-chip">NDVI</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-card rv d2" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">05</div>
+        <div class="svc-name">Inspección de infraestructura</div>
+        <p class="svc-desc">Monitoreo aéreo de minas, obras civiles y plantas industriales. Detección temprana de grietas y deterioro estructural con imagen de alta resolución.</p>
+        <div class="svc-chips"><span class="s-chip">Minería</span><span class="s-chip">Obras civiles</span><span class="s-chip">Térmico</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-card rv d3" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        <div class="svc-n">06</div>
+        <div class="svc-name">Consultoría geotécnica</div>
+        <p class="svc-desc">Evaluación de riesgos geológicos, estabilidad de taludes y perfiles estratigráficos. LiDAR + teledetección + análisis geotécnico integrado.</p>
+        <div class="svc-chips"><span class="s-chip">Geología</span><span class="s-chip">Taludes</span><span class="s-chip">Informe técnico</span></div>
+        <div class="svc-arrow">Más información <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section" id="nosotros">
+  <div class="wrap">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="about-label rv"><span class="gold-label">El problema que resolvemos</span></div>
+        <h2 class="about-h2 rv d1">Sin datos precisos,<br>tus proyectos corren<br><em>riesgos reales.</em></h2>
+        <p class="about-body rv d2">Los métodos topográficos tradicionales son lentos, costosos y dejan zonas ciegas críticas. Un error de medición puede costar meses de retraso y millones en reprocesos.<br><br>Sky Tech reemplaza semanas de trabajo en campo por horas de vuelo, entregando datos más precisos, más completos y directamente compatibles con tus sistemas CAD y GIS.</p>
+        <div class="about-callout rv d3">
+          <div class="about-callout-val">0.5%</div>
+          <div class="about-callout-lbl">de error en una concesión minera puede traducirse en millones de soles de pérdida directa. Nuestros datos eliminan esa incertidumbre.</div>
+        </div>
+      </div>
+      <div class="about-photo rv d2">
+        <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipo Sky Tech en operación de campo" loading="lazy"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process section" id="proceso">
+  <div class="wrap">
+    <div class="proc-head rv">
+      <div class="gold-label" style="justify-content:center;margin-bottom:.75rem">Metodología</div>
+      <h2 class="proc-h2">Proceso de trabajo</h2>
+      <p class="proc-sub">Cuatro etapas que garantizan resultados precisos y un informe técnico listo para usar.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step rv d1">
+        <div class="proc-dot">01</div>
+        <div class="proc-title">Inspección de zona</div>
+        <p class="proc-desc">Diagnóstico del área, definición de requerimientos y elaboración de propuesta técnica y económica detallada.</p>
+      </div>
+      <div class="proc-step rv d2">
+        <div class="proc-dot">02</div>
+        <div class="proc-title">Trabajo en campo</div>
+        <p class="proc-desc">Posicionamiento GNSS-RTK, monumentación de puntos de apoyo y sobrevuelo con misión optimizada.</p>
+      </div>
+      <div class="proc-step rv d3">
+        <div class="proc-dot">03</div>
+        <div class="proc-title">Procesamiento digital</div>
+        <p class="proc-desc">Aerotriangulación, restitución fotogramétrica y generación de nube de puntos con software certificado.</p>
+      </div>
+      <div class="proc-step rv d4">
+        <div class="proc-dot">04</div>
+        <div class="proc-title">Informe técnico</div>
+        <p class="proc-desc">Edición cartográfica, planos CAD (DXF/DWG), ortofotos y entrega del informe final en formato digital.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="equip section" id="equipos">
+  <div class="wrap">
+    <div class="equip-head rv">
+      <div>
+        <div class="gold-label">Tecnología</div>
+        <h2 class="equip-h2">Nuestros equipos</h2>
+      </div>
+      <p class="equip-sub">La flota más avanzada del mercado para precisión en cada misión.</p>
+    </div>
+    <div class="equip-grid">
+      <div class="equip-card rv d1">
+        <img class="equip-photo" src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK" loading="lazy"/>
+        <div class="equip-overlay"></div>
+        <div class="equip-info">
+          <div class="equip-tag">Plataforma aérea</div>
+          <div class="equip-name">DJI Matrice 350 RTK</div>
+          <div class="equip-spec">RTK integrado · Misiones profesionales de alta demanda</div>
+        </div>
+      </div>
+      <div class="equip-card rv d2">
+        <img class="equip-photo" src="IMAGENES_PAGINA_WEB/ZENMUSE P1.png" alt="Zenmuse P1" loading="lazy"/>
+        <div class="equip-overlay"></div>
+        <div class="equip-info">
+          <div class="equip-tag">Sensor fotogramétrico</div>
+          <div class="equip-name">Zenmuse P1</div>
+          <div class="equip-spec">Full-Frame 45MP · Lentes intercambiables · GSD 2cm/px</div>
+        </div>
+      </div>
+      <div class="equip-card rv d3">
+        <img class="equip-photo" src="IMAGENES_PAGINA_WEB/MUSEO ZEN L1.png" alt="Zenmuse L1" loading="lazy"/>
+        <div class="equip-overlay"></div>
+        <div class="equip-info">
+          <div class="equip-tag">LiDAR + RGB</div>
+          <div class="equip-name">Zenmuse L1</div>
+          <div class="equip-spec">240,000 pts/s · IMU alta precisión · Datos 3D en tiempo real</div>
+        </div>
+      </div>
+      <div class="equip-card rv d4">
+        <img class="equip-photo" src="IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png" alt="GNSS-RTK en campo" loading="lazy"/>
+        <div class="equip-overlay"></div>
+        <div class="equip-info">
+          <div class="equip-tag">GNSS multibanda</div>
+          <div class="equip-name">Receptor X5R / X5RT</div>
+          <div class="equip-spec">184 canales · PPK/RTK/NTRIP · Alcance LoRa 10+ km</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="trust section">
+  <div class="wrap">
+    <div class="trust-wrap">
+      <div class="gold-label rv" style="justify-content:center;margin-bottom:.75rem">Clientes</div>
+      <h2 class="trust-h2 rv d1">Lo que dicen de nosotros</h2>
+      <div class="trust-slider rv d2">
+        <div class="trust-slide active">
+          <div class="trust-qmark">"</div>
+          <div class="trust-stars" aria-label="5 estrellas">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="trust-quote">"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo."</p>
+          <div class="trust-rule"></div>
+          <div class="trust-name">Jefe de topografía</div>
+          <div class="trust-role">Empresa minera, Arequipa</div>
+        </div>
+        <div class="trust-slide">
+          <div class="trust-qmark">"</div>
+          <div class="trust-stars" aria-label="5 estrellas">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="trust-quote">"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas."</p>
+          <div class="trust-rule"></div>
+          <div class="trust-name">Gerente de proyectos</div>
+          <div class="trust-role">Constructora, Lima</div>
+        </div>
+        <div class="trust-slide">
+          <div class="trust-qmark">"</div>
+          <div class="trust-stars" aria-label="5 estrellas">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="trust-quote">"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos."</p>
+          <div class="trust-rule"></div>
+          <div class="trust-name">Director de infraestructura</div>
+          <div class="trust-role">Gobierno regional, Cusco</div>
+        </div>
+      </div>
+      <div class="trust-controls rv d3">
+        <button class="trust-btn" id="trust-prev" aria-label="Testimonio anterior">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="trust-dots" id="trust-dots">
+          <div class="trust-dot active"></div>
+          <div class="trust-dot"></div>
+          <div class="trust-dot"></div>
+        </div>
+        <button class="trust-btn" id="trust-next" aria-label="Testimonio siguiente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact section" id="contacto">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <div class="rv"><span class="gold-label">Hablemos de tu proyecto</span></div>
+        <h2 class="contact-h2 rv d1">¿Listo para ver tu proyecto<br>desde arriba?</h2>
+        <p class="contact-sub rv d2">Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.</p>
+        <div class="contact-item rv d3">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="c-lbl">Correo electrónico</div>
+            <div class="c-val"><a href="mailto:skytsperu@gmail.com">skytsperu@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item rv d3">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="c-lbl">Cobertura</div>
+            <div class="c-val">Perú — Cobertura nacional</div>
+          </div>
+        </div>
+        <div class="contact-item rv d4">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="c-lbl">Tiempo de respuesta</div>
+            <div class="c-val">Menos de 24 horas</div>
+          </div>
+        </div>
+      </div>
+      <div class="rv d2">
+        <div class="cform">
+          <form id="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-2">
+              <div>
+                <label class="form-label" for="f-name">Nombre *</label>
+                <input class="form-input" type="text" id="f-name" name="name" placeholder="Tu nombre" required autocomplete="name"/>
+              </div>
+              <div>
+                <label class="form-label" for="f-company">Empresa</label>
+                <input class="form-input" type="text" id="f-company" name="company" placeholder="Razón social" autocomplete="organization"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="f-email">Correo electrónico *</label>
+              <input class="form-input" type="email" id="f-email" name="email" placeholder="correo@empresa.com" required autocomplete="email"/>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="f-service">Servicio de interés</label>
+              <select class="form-input" id="f-service" name="service">
+                <option value="">Selecciona un servicio</option>
+                <option>Topografía con drones</option>
+                <option>Fotogrametría aérea</option>
+                <option>Nubes de puntos LiDAR</option>
+                <option>Teledetección multiespectral</option>
+                <option>Inspección de infraestructura</option>
+                <option>Consultoría geotécnica</option>
+                <option>No sé / necesito asesoría</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="f-msg">Mensaje *</label>
+              <textarea class="form-input" id="f-msg" name="message" placeholder="Describe brevemente tu proyecto: área aproximada, ubicación, plazo esperado..." required></textarea>
+            </div>
+            <button type="submit" class="btn-form" id="submit-btn">
+              Enviar solicitud
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </button>
+            <p class="form-note">Respuesta garantizada en 24 horas · Sin compromiso</p>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="form-success-title">¡Solicitud enviada!</div>
+            <p class="form-success-sub">Hemos recibido tu mensaje. Te responderemos en menos de 24 horas con una propuesta técnica personalizada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Sky<em>Tech</em> Perú</div>
+        <div class="footer-tagline">Topografía · Fotogrametría · LiDAR</div>
+        <div class="footer-email">
+          <a href="mailto:skytsperu@gmail.com">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            skytsperu@gmail.com
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Servicios</div>
+        <nav class="footer-links">
+          <a href="#servicios">Topografía con drones</a>
+          <a href="#servicios">Fotogrametría aérea</a>
+          <a href="#servicios">LiDAR</a>
+          <a href="#servicios">Teledetección</a>
+          <a href="#servicios">Consultoría geotécnica</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Sectores</div>
+        <nav class="footer-links">
+          <a href="#nosotros">Minería</a>
+          <a href="#nosotros">Construcción</a>
+          <a href="#nosotros">Agricultura</a>
+          <a href="#nosotros">Gobierno</a>
+          <a href="#nosotros">Infraestructura</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Empresa</div>
+        <nav class="footer-links">
+          <a href="#equipos">Nuestros equipos</a>
+          <a href="#proceso">Proceso de trabajo</a>
+          <a href="#nosotros">Casos de éxito</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Sky Tech Perú. Todos los derechos reservados.</div>
+      <div class="footer-sectors">Minería · Construcción · Planificación territorial · Perú</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* HAMBURGER */
+(function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',String(open));
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)){
+      menu.classList.remove('open');btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+window.closeMobileMenu=function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(menu)menu.classList.remove('open');
+  if(btn){btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+};
+
+/* SCROLL REVEAL */
+(function(){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:.07,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+})();
+
+/* TESTIMONIALS */
+(function(){
+  var slides=document.querySelectorAll('.trust-slide');
+  var dots=document.querySelectorAll('.trust-dot');
+  var cur=0,timer;
+  function go(n){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function startTimer(){timer=setInterval(function(){go(cur+1);},5500);}
+  function resetTimer(){clearInterval(timer);startTimer();}
+  document.getElementById('trust-prev').addEventListener('click',function(){go(cur-1);resetTimer();});
+  document.getElementById('trust-next').addEventListener('click',function(){go(cur+1);resetTimer();});
+  dots.forEach(function(d,i){d.addEventListener('click',function(){go(i);resetTimer();});});
+  startTimer();
+})();
+
+/* CONTACT FORM */
+window.handleSubmit=function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  var f=e.target;
+  var subject=encodeURIComponent('Solicitud de cotización — Sky Tech Perú');
+  var body=encodeURIComponent(
+    'Nombre: '+f.name.value.trim()+'\n'+
+    'Empresa: '+(f.company.value.trim()||'—')+'\n'+
+    'Email: '+f.email.value.trim()+'\n'+
+    'Servicio: '+(f['service'].value||'No especificado')+'\n\n'+
+    'Mensaje:\n'+f.message.value.trim()
+  );
+  window.location.href='mailto:skytsperu@gmail.com?subject='+subject+'&body='+body;
+  setTimeout(function(){
+    document.getElementById('contact-form').style.display='none';
+    document.getElementById('form-success').classList.add('show');
+  },600);
+};
+</script>
+</body>
+</html>
