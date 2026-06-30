@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sky Tech Perú — Topografía · Fotogrametría · LiDAR</title>
+<meta name="description" content="Levantamientos geodésicos, nubes de puntos LiDAR y fotogrametría aérea con precisión centimétrica para minería, construcción y planificación territorial en Perú."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ─────────────────────────────────── */
+:root{
+  --blue:     #2540FF;
+  --blue-d:   #1B2ECC;
+  --blue-deep:#121E99;
+  --lime:     #DCFF3D;
+  --lime-d:   #C7EA1F;
+  --black:    #0D0D0D;
+  --ink2:     rgba(13,13,13,.62);
+  --ink3:     rgba(13,13,13,.30);
+  --white:    #FFFFFF;
+  --gray-bg:  #F2F1EC;
+  --gray-text:#6B6B68;
+  --border:   rgba(13,13,13,.10);
+  --border-w: rgba(255,255,255,.18);
+  --ease:     .22s cubic-bezier(.4,0,.2,1);
+  --r-xl:32px;--r-lg:20px;--r:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;border:none;cursor:pointer;outline:none;background:transparent}
+img{display:block;max-width:100%}
+::selection{background:var(--lime);color:var(--black)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--gray-bg)}
+::-webkit-scrollbar-thumb{background:var(--lime);border-radius:99px}
+.wrap{width:100%;max-width:1260px;margin-inline:auto;padding-inline:1.5rem}
+.section{padding:6rem 0}
+.disp{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}
+.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);flex-shrink:0}
+/* BUTTONS */
+.btn-lime{display:inline-flex;align-items:center;gap:9px;background:var(--lime);color:var(--black);padding:15px 28px;border-radius:99px;font-size:13px;font-weight:800;transition:background var(--ease),transform var(--ease),box-shadow var(--ease)}
+.btn-lime:hover{background:var(--lime-d);transform:translateY(-2px);box-shadow:0 12px 28px rgba(220,255,61,.35)}
+.btn-black{display:inline-flex;align-items:center;gap:9px;background:var(--black);color:var(--white);padding:15px 28px;border-radius:99px;font-size:13px;font-weight:800;transition:transform var(--ease)}
+.btn-black:hover{transform:translateY(-2px)}
+.play-btn{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--border-w);display:flex;align-items:center;justify-content:center;color:var(--white);transition:all var(--ease);flex-shrink:0}
+.play-btn:hover{background:var(--lime);border-color:var(--lime);color:var(--black)}
+/* ── NAV ────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:200;height:88px;background:var(--white);border-bottom:1px solid var(--border)}
+.nav-inner{width:100%;max-width:1260px;margin-inline:auto;padding-inline:1.5rem;height:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Anton',sans-serif;font-size:21px;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.nav-logo svg{color:var(--blue)}
+.nav-links{display:flex;gap:2.25rem}
+.nav-links a{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink2);transition:color var(--ease)}
+.nav-links a:hover{color:var(--blue)}
+.nav-phone{display:flex;align-items:center;gap:.75rem}
+.nav-phone-ic{width:42px;height:42px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;color:var(--black);flex-shrink:0}
+.nav-phone-txt{display:flex;flex-direction:column}
+.nav-phone-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3)}
+.nav-phone-val{font-size:13px;font-weight:700}
+.hamburger{display:none;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.hamburger span{display:block;width:16px;height:1.6px;background:var(--black);transition:all var(--ease)}
+.hamburger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:88px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);z-index:199;padding:1.25rem 1.5rem 1.5rem;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink2);padding:.875rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu .mob-cta{margin-top:1rem;text-align:center;background:var(--lime);color:var(--black);padding:13px;border-radius:99px;font-weight:800;font-size:12px;border-bottom:none}
+/* ── HERO ───────────────────────────────────── */
+.hero{background:var(--blue);position:relative;overflow:hidden;padding:3.5rem 0 0}
+.hero::before{content:'';position:absolute;top:-10%;right:-6%;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.hero-left{}
+.hero-eyebrow{color:var(--lime);margin-bottom:1.5rem}
+.hero-title{font-size:clamp(40px,5.6vw,72px);line-height:.98;color:var(--white);margin-bottom:1.25rem}
+.hero-title .stroke{color:transparent;-webkit-text-stroke:2px var(--lime);text-stroke:2px var(--lime)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.72);max-width:380px;margin-bottom:2rem;font-weight:500}
+.hero-btns{display:flex;align-items:center;gap:1rem;margin-bottom:2.75rem}
+.hero-stats{display:flex;gap:2.25rem;padding-top:1.75rem;border-top:1px solid var(--border-w)}
+.h-stat-val{font-family:'Anton',sans-serif;font-size:30px;color:var(--lime);line-height:1;margin-bottom:.3rem}
+.h-stat-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.hero-right{position:relative}
+.hero-photo{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:5/4.5;position:relative}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,.55) 0%,transparent 45%)}
+.hero-badge-top{position:absolute;top:1.5rem;left:1.5rem;background:rgba(255,255,255,.95);border-radius:var(--r);padding:.7rem 1.1rem;display:flex;align-items:center;gap:.6rem;z-index:2}
+.hero-badge-top svg{color:var(--blue);flex-shrink:0}
+.hero-badge-top span{font-size:11px;font-weight:800;color:var(--black)}
+.hero-badge-bottom{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;z-index:2}
+.hero-badge-bottom .name{font-family:'Anton',sans-serif;font-size:18px;color:var(--white)}
+.hero-badge-bottom .sub{font-size:10px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.5px;text-transform:uppercase}
+/* ── MARQUEE ────────────────────────────────── */
+.marquee{background:var(--black);padding:1.1rem 0;overflow:hidden;margin-top:3rem}
+.marquee-track{display:flex;width:max-content;animation:tick 30s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-seg{display:flex;align-items:center;gap:2.25rem;white-space:nowrap;padding-right:2.25rem}
+.marquee-seg span{font-family:'Anton',sans-serif;font-size:18px;color:var(--white);letter-spacing:.5px}
+.marquee-seg .x{color:var(--lime)}
+/* ── WHAT WE DO (bento) ─────────────────────── */
+.wwd{background:var(--black)}
+.wwd-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.25rem}
+.wwd-eyebrow{color:var(--lime)}
+.wwd-h2{font-size:clamp(28px,3.2vw,44px);color:var(--white);line-height:1.05;margin-top:.75rem;max-width:560px}
+.wwd-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white);border:1.5px solid var(--border-w);padding:.8rem 1.4rem;border-radius:99px;transition:all var(--ease)}
+.wwd-link:hover{background:var(--lime);color:var(--black);border-color:var(--lime)}
+.bento{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.25rem}
+.bento-col{display:flex;flex-direction:column;gap:1.25rem}
+.bento-card{background:#171717;border-radius:var(--r-lg);padding:2rem;position:relative;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.bento-card .num{font-family:'Anton',sans-serif;font-size:13px;color:var(--lime);margin-bottom:1rem}
+.bento-card h3{font-family:'Anton',sans-serif;font-size:20px;color:var(--white);text-transform:uppercase;letter-spacing:.3px;line-height:1.2;margin-bottom:.6rem}
+.bento-card p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
+.bento-arrow{position:absolute;top:1.5rem;right:1.5rem;width:36px;height:36px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;color:var(--black);transition:transform var(--ease)}
+.bento-card:hover .bento-arrow{transform:rotate(45deg)}
+.bento-photo{border-radius:var(--r-lg);overflow:hidden;flex:1;min-height:460px;position:relative}
+.bento-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15)}
+.bento-tag{position:absolute;bottom:1.25rem;left:1.25rem;background:var(--lime);color:var(--black);padding:.6rem 1.1rem;border-radius:99px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+/* ── WHO WE ARE ─────────────────────────────── */
+.wwa{background:var(--gray-bg)}
+.wwa-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.wwa-photo{position:relative;border-radius:var(--r-xl);overflow:hidden;height:480px}
+.wwa-photo img{width:100%;height:100%;object-fit:cover}
+.wwa-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:var(--white);border-radius:var(--r-lg);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;box-shadow:0 16px 40px rgba(13,13,13,.12)}
+.wwa-badge-ic{width:44px;height:44px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:var(--lime);flex-shrink:0}
+.wwa-badge-val{font-family:'Anton',sans-serif;font-size:20px;line-height:1}
+.wwa-badge-lbl{font-size:10px;color:var(--gray-text);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.wwa-text .eyebrow{color:var(--blue)}
+.wwa-h2{font-size:clamp(26px,3vw,40px);line-height:1.1;margin:1rem 0 1.25rem}
+.wwa-h2 .hi{color:var(--blue)}
+.wwa-body{font-size:14px;color:var(--gray-text);line-height:1.85;margin-bottom:1.75rem;max-width:460px}
+.wwa-bars{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:2rem}
+.bar-row{}
+.bar-top{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:.5rem}
+.bar-track{height:7px;border-radius:99px;background:rgba(13,13,13,.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;background:var(--blue);width:0;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+.bar-fill.lime{background:var(--lime)}
+.wwa-icons{display:flex;gap:.75rem;flex-wrap:wrap}
+.wwa-icon{width:46px;height:46px;border-radius:50%;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--blue);transition:all var(--ease)}
+.wwa-icon:hover{background:var(--blue);color:var(--white);transform:translateY(-3px)}
+/* ── QUOTE BANNER ───────────────────────────── */
+.quote{background:var(--black);padding:5rem 0;text-align:center}
+.quote p{font-family:'Anton',sans-serif;font-size:clamp(26px,4.4vw,58px);color:rgba(255,255,255,.32);line-height:1.18;letter-spacing:.3px;max-width:980px;margin-inline:auto}
+.quote p .hi{color:var(--lime)}
+.quote p .hi2{color:var(--white)}
+/* ── FLEET ──────────────────────────────────── */
+.fleet{background:var(--white)}
+.fleet-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.fleet-eyebrow{color:var(--blue)}
+.fleet-h2{font-size:clamp(28px,3.2vw,44px);margin-top:.75rem}
+.fleet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.fleet-card{background:var(--gray-bg);border-radius:var(--r-lg);overflow:hidden;transition:transform var(--ease)}
+.fleet-card:hover{transform:translateY(-6px)}
+.fleet-photo{height:160px;overflow:hidden}
+.fleet-photo img{width:100%;height:100%;object-fit:cover}
+.fleet-body{padding:1.4rem}
+.fleet-tag{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
+.fleet-name{font-family:'Anton',sans-serif;font-size:16px;margin-bottom:.5rem;text-transform:uppercase}
+.fleet-desc{font-size:12px;color:var(--gray-text);line-height:1.7}
+/* ── TESTIMONIALS ───────────────────────────── */
+.trust{background:var(--gray-bg)}
+.trust-head{text-align:center;margin-bottom:3rem}
+.trust-eyebrow{justify-content:center;color:var(--blue)}
+.trust-h2{font-size:clamp(28px,3.2vw,44px);margin-top:.75rem}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.trust-card{background:var(--white);border-radius:var(--r-lg);padding:2rem;position:relative}
+.trust-card .qmark{font-family:'Anton',sans-serif;font-size:46px;color:var(--lime);line-height:.6;margin-bottom:1rem}
+.trust-stars{display:flex;gap:3px;margin-bottom:1rem}
+.trust-text{font-size:13.5px;line-height:1.8;color:var(--black);margin-bottom:1.5rem}
+.trust-author{display:flex;align-items:center;gap:.75rem}
+.t-avatar{width:38px;height:38px;border-radius:50%;background:var(--blue);color:var(--lime);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:13px;flex-shrink:0}
+.t-name{font-size:13px;font-weight:700}
+.t-role{font-size:11px;color:var(--gray-text)}
+/* ── CONTACT ────────────────────────────────── */
+.contact{background:var(--blue);position:relative;overflow:hidden}
+.contact-inner{display:grid;grid-template-columns:1fr .9fr;gap:3rem;align-items:center}
+.contact-eyebrow{color:var(--lime)}
+.contact-h2{font-size:clamp(30px,4.2vw,52px);color:var(--white);line-height:1.04;margin:1rem 0 1.25rem}
+.contact-h2 .stroke{color:transparent;-webkit-text-stroke:2px var(--lime);text-stroke:2px var(--lime)}
+.contact-sub{font-size:14px;color:rgba(255,255,255,.72);line-height:1.85;margin-bottom:2.25rem;max-width:420px;font-weight:500}
+.contact-photo{border-radius:var(--r-xl);overflow:hidden;height:440px}
+.contact-photo img{width:100%;height:100%;object-fit:cover}
+.contact-form{background:var(--white);border-radius:var(--r-lg);padding:2rem}
+.form-row{margin-bottom:1.1rem}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem}
+.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-text);margin-bottom:.5rem}
+.form-input{width:100%;padding:12px 14px;background:var(--gray-bg);border:1.5px solid transparent;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;color:var(--black);transition:border-color var(--ease);outline:none}
+.form-input:focus{border-color:var(--blue)}
+.form-input::placeholder{color:var(--gray-text)}
+select.form-input{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(13,13,13,0.5)' stroke-width='2' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+textarea.form-input{resize:vertical;min-height:96px;line-height:1.6}
+.btn-form{width:100%;padding:14px;background:var(--lime);color:var(--black);font-family:'Inter',sans-serif;font-size:13px;font-weight:800;border-radius:99px;transition:background var(--ease),transform var(--ease);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-form:hover{background:var(--lime-d);transform:translateY(-1px)}
+.btn-form:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.form-note{font-size:11px;color:var(--gray-text);text-align:center;margin-top:.75rem}
+.form-success{display:none;text-align:center;padding:2.5rem 1rem}
+.form-success.show{display:block}
+.form-success-icon{width:52px;height:52px;border-radius:50%;background:rgba(37,64,255,.10);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem}
+.form-success-title{font-family:'Anton',sans-serif;font-size:22px;margin-bottom:.5rem;text-transform:uppercase}
+.form-success-sub{font-size:13px;color:var(--gray-text);line-height:1.7}
+/* ── FOOTER ─────────────────────────────────── */
+.footer{background:var(--black);padding:4rem 0 1.75rem;border-top:3px solid var(--lime)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border-w)}
+.footer-logo{font-family:'Anton',sans-serif;font-size:22px;color:var(--white);margin-bottom:.5rem;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+.footer-logo svg{color:var(--lime)}
+.footer-tagline{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1.5rem;font-weight:600}
+.footer-email a{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7);font-weight:600;transition:color var(--ease)}
+.footer-email a:hover{color:var(--lime)}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:1.1rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.65);font-weight:500;transition:color var(--ease)}
+.footer-links a:hover{color:var(--lime)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-copy,.footer-sectors{font-size:11px;color:rgba(255,255,255,.35);font-weight:500}
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-right{order:-1}
+  .bento{grid-template-columns:1fr 1fr}
+  .bento-col:nth-child(2){grid-column:1/-1;flex-direction:row}
+  .bento-photo{min-height:280px}
+  .wwa-inner{grid-template-columns:1fr}
+  .wwa-photo{display:none}
+  .fleet-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .contact-inner{grid-template-columns:1fr}
+  .contact-photo{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-phone-txt{display:none}
+  .hamburger{display:flex}
+  .section{padding:4.5rem 0}
+  .bento-col:nth-child(2){flex-direction:column}
+  .bento-photo{min-height:220px}
+  .fleet-grid{grid-template-columns:1fr 1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .form-2{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .wwd-head{flex-direction:column;align-items:flex-start}
+  .fleet-head{flex-direction:column;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .marquee-track{animation:none}
+  .bar-fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+<div class="nav-inner">
+  <div class="nav-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg>
+    SKYTECH
+  </div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#flota">Flota</a></li>
+    <li><a href="#testimonios">Reseñas</a></li>
+  </ul>
+  <div class="nav-phone">
+    <div class="nav-phone-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+    <div class="nav-phone-txt">
+      <span class="nav-phone-lbl">Cotizaciones</span>
+      <span class="nav-phone-val">skytsperu@gmail.com</span>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+  <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
+  <a href="#flota" onclick="closeMobileMenu()">Flota</a>
+  <a href="#testimonios" onclick="closeMobileMenu()">Reseñas</a>
+  <a class="mob-cta" href="#contacto" onclick="closeMobileMenu()">Cotizar</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left rv">
+        <div class="eyebrow hero-eyebrow"><span class="dot"></span>Topografía · LiDAR · Fotogrametría</div>
+        <h1 class="hero-title disp">Precisión<br><span class="stroke">aérea</span> total</h1>
+        <p class="hero-sub">Levantamientos geodésicos, nubes de puntos LiDAR y modelos 3D con precisión centimétrica para minería, construcción y planificación territorial.</p>
+        <div class="hero-btns">
+          <button class="btn-lime" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+            Solicitar cotización
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </button>
+          <a class="play-btn" href="#servicios" aria-label="Ver servicios">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="h-stat-val">±2cm</div><div class="h-stat-lbl">Precisión GNSS</div></div>
+          <div><div class="h-stat-val">6+</div><div class="h-stat-lbl">Sectores</div></div>
+          <div><div class="h-stat-val">RTK</div><div class="h-stat-lbl">Posicionamiento</div></div>
+        </div>
+      </div>
+      <div class="hero-right rv d2">
+        <div class="hero-photo">
+          <img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK en vuelo" loading="eager"/>
+          <div class="hero-badge-top">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Respuesta en 24h</span>
+          </div>
+          <div class="hero-badge-bottom">
+            <div>
+              <div class="name disp">M350 RTK</div>
+              <div class="sub">Plataforma principal</div>
+            </div>
+            <div>
+              <div class="sub">+250 vuelos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-seg">
+        <span>TOPOGRAFÍA</span><span class="x">✦</span>
+        <span>FOTOGRAMETRÍA</span><span class="x">✦</span>
+        <span>LIDAR</span><span class="x">✦</span>
+        <span>GNSS-RTK</span><span class="x">✦</span>
+        <span>TELEDETECCIÓN</span><span class="x">✦</span>
+        <span>CONSULTORÍA GEOTÉCNICA</span><span class="x">✦</span>
+      </div>
+      <div class="marquee-seg" aria-hidden="true">
+        <span>TOPOGRAFÍA</span><span class="x">✦</span>
+        <span>FOTOGRAMETRÍA</span><span class="x">✦</span>
+        <span>LIDAR</span><span class="x">✦</span>
+        <span>GNSS-RTK</span><span class="x">✦</span>
+        <span>TELEDETECCIÓN</span><span class="x">✦</span>
+        <span>CONSULTORÍA GEOTÉCNICA</span><span class="x">✦</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT WE DO ══ -->
+<section class="wwd section" id="servicios">
+  <div class="wrap">
+    <div class="wwd-head rv">
+      <div>
+        <div class="eyebrow wwd-eyebrow"><span class="dot"></span>Qué hacemos</div>
+        <h2 class="wwd-h2 disp">Diseñamos cada vuelo para entregar datos exactos</h2>
+      </div>
+      <a class="wwd-link" href="#flota">Ver todos los servicios <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="bento">
+      <div class="bento-col rv d1">
+        <div class="bento-card">
+          <div class="bento-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+          <div>
+            <div class="num">01</div>
+            <h3>Topografía con drones</h3>
+            <p>Levantamientos geodésicos con GNSS-RTK integrado y precisión centimétrica sin zonas ciegas.</p>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+          <div>
+            <div class="num">02</div>
+            <h3>Fotogrametría aérea</h3>
+            <p>Ortofotos georreferenciadas y modelos 3D con GSD de 2 cm/píxel sobre grandes extensiones.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bento-col rv d2">
+        <div class="bento-photo">
+          <img src="IMAGENES_PAGINA_WEB/MUSEO ZEN L1.png" alt="Sensor Zenmuse L1 LiDAR"/>
+          <div class="bento-tag">Procesamiento de datos LiDAR</div>
+        </div>
+      </div>
+      <div class="bento-col rv d3">
+        <div class="bento-card">
+          <div class="bento-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+          <div>
+            <div class="num">03</div>
+            <h3>Nubes de puntos LiDAR</h3>
+            <p>240,000 pts/s con colorización RGB y precisión de 3 cm en tiempo real con Zenmuse L1.</p>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+          <div>
+            <div class="num">04</div>
+            <h3>Inspección de infraestructura</h3>
+            <p>Monitoreo aéreo de minas y obras civiles con detección temprana de deterioro estructural.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHO WE ARE ══ -->
+<section class="wwa section" id="nosotros">
+  <div class="wrap">
+    <div class="wwa-inner">
+      <div class="wwa-photo rv d1">
+        <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipo Sky Tech en operación de campo"/>
+        <div class="wwa-badge">
+          <div class="wwa-badge-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div>
+            <div class="wwa-badge-val disp">6+ años</div>
+            <div class="wwa-badge-lbl">De experiencia técnica</div>
+          </div>
+        </div>
+      </div>
+      <div class="wwa-text rv d2">
+        <div class="eyebrow"><span class="dot"></span>Quiénes somos</div>
+        <h2 class="wwa-h2 disp">La precisión se encuentra con la <span class="hi">tecnología</span></h2>
+        <p class="wwa-body">Combinamos drones de última generación, sensores LiDAR y fotogramétricos, y un equipo técnico certificado para entregar datos confiables a minería, construcción y gobierno en todo el Perú.</p>
+        <div class="wwa-bars">
+          <div class="bar-row">
+            <div class="bar-top"><span>Precisión GNSS-RTK</span><span>98%</span></div>
+            <div class="bar-track"><div class="bar-fill" data-w="98"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-top"><span>Cobertura del proyecto</span><span>95%</span></div>
+            <div class="bar-track"><div class="bar-fill lime" data-w="95"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-top"><span>Satisfacción del cliente</span><span>99%</span></div>
+            <div class="bar-track"><div class="bar-fill" data-w="99"></div></div>
+          </div>
+        </div>
+        <div class="wwa-icons" aria-label="Servicios">
+          <div class="wwa-icon" title="Drones"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></div>
+          <div class="wwa-icon" title="Cámara"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <div class="wwa-icon" title="LiDAR"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <div class="wwa-icon" title="Agricultura"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13H2a10 10 0 0 0 20 0h-2a7 7 0 0 1-7 7z"/><path d="M2 13h20"/></svg></div>
+          <div class="wwa-icon" title="Construcción"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="11"/><path d="M3 9l9-6 9 6"/></svg></div>
+          <div class="wwa-icon" title="Seguridad"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUOTE BANNER ══ -->
+<section class="quote">
+  <p class="disp rv">PRECISIÓN, <span class="hi">TECNOLOGÍA</span> Y <span class="hi2">CONFIANZA</span> EN CADA VUELO.</p>
+</section>
+
+<!-- ══ FLEET ══ -->
+<section class="fleet section" id="flota">
+  <div class="wrap">
+    <div class="fleet-head rv">
+      <div>
+        <div class="eyebrow fleet-eyebrow"><span class="dot"></span>Tecnología</div>
+        <h2 class="fleet-h2 disp">Nuestra flota</h2>
+      </div>
+      <p style="font-size:14px;color:var(--gray-text);max-width:300px">Equipos de última generación para precisión en cada misión.</p>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card rv d1">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK"/></div>
+        <div class="fleet-body">
+          <div class="fleet-tag">Plataforma aérea</div>
+          <div class="fleet-name">Matrice 350 RTK</div>
+          <p class="fleet-desc">Drone profesional con RTK integrado para misiones de alta demanda.</p>
+        </div>
+      </div>
+      <div class="fleet-card rv d2">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/usar-drones-en-topografia.jpg" alt="Zenmuse P1"/></div>
+        <div class="fleet-body">
+          <div class="fleet-tag">Sensor fotogramétrico</div>
+          <div class="fleet-name">Zenmuse P1</div>
+          <p class="fleet-desc">Full-frame 45MP con lentes intercambiables y GSD de 2 cm/px.</p>
+        </div>
+      </div>
+      <div class="fleet-card rv d3">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/MUSEO ZEN L1.png" alt="Zenmuse L1"/></div>
+        <div class="fleet-body">
+          <div class="fleet-tag">LiDAR + RGB</div>
+          <div class="fleet-name">Zenmuse L1</div>
+          <p class="fleet-desc">240,000 pts/s con colorización RGB y precisión de 3 cm.</p>
+        </div>
+      </div>
+      <div class="fleet-card rv d4">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png" alt="Receptor GNSS"/></div>
+        <div class="fleet-body">
+          <div class="fleet-tag">GNSS multibanda</div>
+          <div class="fleet-name">Receptor X5R/X5RT</div>
+          <p class="fleet-desc">184 canales, PPK/RTK/NTRIP y alcance LoRa de 10+ km.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="trust section" id="testimonios">
+  <div class="wrap">
+    <div class="trust-head rv">
+      <div class="eyebrow trust-eyebrow"><span class="dot"></span>Clientes</div>
+      <h2 class="trust-h2 disp">Lo que dicen de nosotros</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card rv d1">
+        <div class="qmark disp">"</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="trust-text">"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo."</p>
+        <div class="trust-author">
+          <div class="t-avatar">JR</div>
+          <div><div class="t-name">Jefe de topografía</div><div class="t-role">Empresa minera, Arequipa</div></div>
+        </div>
+      </div>
+      <div class="trust-card rv d2">
+        <div class="qmark disp">"</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="trust-text">"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas."</p>
+        <div class="trust-author">
+          <div class="t-avatar">ML</div>
+          <div><div class="t-name">Gerente de proyectos</div><div class="t-role">Constructora, Lima</div></div>
+        </div>
+      </div>
+      <div class="trust-card rv d3">
+        <div class="qmark disp">"</div>
+        <div class="trust-stars" aria-label="5 estrellas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="trust-text">"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos."</p>
+        <div class="trust-author">
+          <div class="t-avatar">CP</div>
+          <div><div class="t-name">Director de infraestructura</div><div class="t-role">Gobierno regional, Cusco</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact section" id="contacto">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow contact-eyebrow rv"><span class="dot"></span>Hablemos hoy</div>
+        <h2 class="contact-h2 disp rv d1">¿Listo para ver tu proyecto <span class="stroke">desde arriba</span>?</h2>
+        <p class="contact-sub rv d2">Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.</p>
+        <div class="rv d3">
+          <div class="contact-form">
+            <form id="contact-form" onsubmit="handleSubmit(event)">
+              <div class="form-2">
+                <div>
+                  <label class="form-label" for="f-name">Nombre *</label>
+                  <input class="form-input" type="text" id="f-name" name="name" placeholder="Tu nombre" required autocomplete="name"/>
+                </div>
+                <div>
+                  <label class="form-label" for="f-company">Empresa</label>
+                  <input class="form-input" type="text" id="f-company" name="company" placeholder="Razón social" autocomplete="organization"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-email">Correo electrónico *</label>
+                <input class="form-input" type="email" id="f-email" name="email" placeholder="correo@empresa.com" required autocomplete="email"/>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-service">Servicio de interés</label>
+                <select class="form-input" id="f-service" name="service">
+                  <option value="">Selecciona un servicio</option>
+                  <option>Topografía con drones</option>
+                  <option>Fotogrametría aérea</option>
+                  <option>Nubes de puntos LiDAR</option>
+                  <option>Teledetección multiespectral</option>
+                  <option>Inspección de infraestructura</option>
+                  <option>Consultoría geotécnica</option>
+                  <option>No sé / necesito asesoría</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-msg">Mensaje *</label>
+                <textarea class="form-input" id="f-msg" name="message" placeholder="Describe brevemente tu proyecto: área aproximada, ubicación, plazo esperado..." required></textarea>
+              </div>
+              <button type="submit" class="btn-form" id="submit-btn">
+                Enviar solicitud
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </button>
+              <p class="form-note">Respuesta garantizada en 24 horas · Sin compromiso</p>
+            </form>
+            <div class="form-success" id="form-success">
+              <div class="form-success-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="form-success-title disp">¡Solicitud enviada!</div>
+              <p class="form-success-sub">Hemos recibido tu mensaje. Te responderemos en menos de 24 horas con una propuesta técnica personalizada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-photo rv d2">
+        <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipo Sky Tech en operación"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg> SKYTECH</div>
+        <div class="footer-tagline">Topografía · Fotogrametría · LiDAR</div>
+        <div class="footer-email">
+          <a href="mailto:skytsperu@gmail.com">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            skytsperu@gmail.com
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Servicios</div>
+        <nav class="footer-links">
+          <a href="#servicios">Topografía con drones</a>
+          <a href="#servicios">Fotogrametría aérea</a>
+          <a href="#servicios">LiDAR</a>
+          <a href="#servicios">Teledetección</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Sectores</div>
+        <nav class="footer-links">
+          <a href="#nosotros">Minería</a>
+          <a href="#nosotros">Construcción</a>
+          <a href="#nosotros">Agricultura</a>
+          <a href="#nosotros">Gobierno</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Empresa</div>
+        <nav class="footer-links">
+          <a href="#flota">Nuestra flota</a>
+          <a href="#nosotros">Quiénes somos</a>
+          <a href="#testimonios">Casos de éxito</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Sky Tech Perú. Todos los derechos reservados.</div>
+      <div class="footer-sectors">Minería · Construcción · Planificación territorial · Perú</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* HAMBURGER */
+(function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',String(open));
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)){
+      menu.classList.remove('open');btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+window.closeMobileMenu=function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(menu)menu.classList.remove('open');
+  if(btn){btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+};
+
+/* SCROLL REVEAL + PROGRESS BARS */
+(function(){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:.08,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  var barIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.width=e.target.getAttribute('data-w')+'%';
+        barIO.unobserve(e.target);
+      }
+    });
+  },{threshold:.3});
+  document.querySelectorAll('.bar-fill').forEach(function(el){barIO.observe(el);});
+})();
+
+/* CONTACT FORM */
+window.handleSubmit=function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  var f=e.target;
+  var subject=encodeURIComponent('Solicitud de cotización — Sky Tech Perú');
+  var body=encodeURIComponent(
+    'Nombre: '+f.name.value.trim()+'\n'+
+    'Empresa: '+(f.company.value.trim()||'—')+'\n'+
+    'Email: '+f.email.value.trim()+'\n'+
+    'Servicio: '+(f['service'].value||'No especificado')+'\n\n'+
+    'Mensaje:\n'+f.message.value.trim()
+  );
+  window.location.href='mailto:skytsperu@gmail.com?subject='+subject+'&body='+body;
+  setTimeout(function(){
+    document.getElementById('contact-form').style.display='none';
+    document.getElementById('form-success').classList.add('show');
+  },600);
+};
+</script>
+</body>
+</html>

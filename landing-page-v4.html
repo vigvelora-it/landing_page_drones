@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sky Tech Perú — Topografía · Fotogrametría · LiDAR</title>
+<meta name="description" content="Levantamientos geodésicos, nubes de puntos LiDAR y fotogrametría aérea con precisión centimétrica para minería, construcción y planificación territorial en Perú."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ─────────────────────────────────── */
+:root{
+  --ink:      #101010;
+  --ink-soft: #1B1B1B;
+  --ink-2:    rgba(255,255,255,.62);
+  --ink-3:    rgba(255,255,255,.30);
+  --paper:    #FFFFFF;
+  --paper-soft:#F4F4F1;
+  --lime:     #CBFF3D;
+  --lime-h:   #B8ED1F;
+  --lime-soft:rgba(203,255,61,.14);
+  --gray:     #5C5C5C;
+  --gray-l:   #9A9A9A;
+  --border:   rgba(16,16,16,.10);
+  --border-d: rgba(255,255,255,.10);
+  --ease:     .22s cubic-bezier(.4,0,.2,1);
+  --r-xl:36px;--r-lg:22px;--r:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;border:none;cursor:pointer;outline:none;background:transparent}
+img{display:block;max-width:100%}
+::selection{background:var(--lime);color:var(--ink)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--paper-soft)}
+::-webkit-scrollbar-thumb{background:var(--lime);border-radius:99px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:1.5rem}
+.section{padding:6rem 0}
+.disp{font-family:'Space Grotesk',sans-serif}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}
+.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+.tag-pill{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;background:var(--ink);color:var(--lime);padding:7px 16px;border-radius:99px}
+.tag-pill.light{background:var(--lime-soft);color:var(--ink)}
+.tag-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0}
+.tag-pill.light .dot{background:var(--ink)}
+/* BUTTONS */
+.btn-lime{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--ink);padding:14px 26px;border-radius:99px;font-size:13px;font-weight:700;transition:background var(--ease),transform var(--ease),box-shadow var(--ease)}
+.btn-lime:hover{background:var(--lime-h);transform:translateY(-2px);box-shadow:0 10px 24px rgba(203,255,61,.35)}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);padding:14px 26px;border-radius:99px;font-size:13px;font-weight:700;transition:transform var(--ease),background var(--ease)}
+.btn-dark:hover{transform:translateY(-2px);background:var(--ink-soft)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);padding:13px 24px;border-radius:99px;border:1.5px solid var(--border);font-size:13px;font-weight:600;transition:all var(--ease)}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn-outline.on-dark{color:var(--paper);border-color:var(--border-d)}
+.btn-outline.on-dark:hover{border-color:var(--lime);color:var(--lime)}
+/* ── TOP NAV (floating pill over dark strip) ─── */
+.topband{background:var(--ink);padding-top:1.25rem}
+.nav-pill{
+  max-width:1100px;margin-inline:auto;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border-d);
+  border-radius:99px;padding:.55rem .6rem .55rem 1.5rem;
+  backdrop-filter:blur(10px);
+}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--paper);display:flex;align-items:center;gap:8px;user-select:none}
+.nav-logo .spark{color:var(--lime);font-size:16px}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink-2);transition:color var(--ease)}
+.nav-links a:hover{color:var(--paper)}
+.nav-cta{display:flex;align-items:center;gap:.6rem}
+.btn-nav{font-size:12px;font-weight:700;color:var(--ink);background:var(--lime);padding:10px 20px;border-radius:99px;transition:background var(--ease),transform var(--ease)}
+.btn-nav:hover{background:var(--lime-h);transform:translateY(-1px)}
+/* hamburger */
+.hamburger{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border-d);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.hamburger span{display:block;width:14px;height:1.4px;background:var(--paper);transition:all var(--ease)}
+.hamburger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+.mobile-menu{display:none;background:var(--ink);padding:1rem 1.5rem 1.5rem;flex-direction:column;border-radius:0 0 24px 24px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:13px;font-weight:500;color:var(--ink-2);padding:.75rem 0;border-bottom:1px solid var(--border-d)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu .mob-cta{margin-top:1rem;text-align:center;background:var(--lime);color:var(--ink);padding:12px;border-radius:99px;font-weight:700;font-size:12px;border-bottom:none}
+/* ── HERO ───────────────────────────────────── */
+.hero-shell{background:var(--ink);padding-bottom:0}
+.hero-card{
+  background:var(--paper);border-radius:var(--r-xl) var(--r-xl) 0 0;
+  margin-top:2.5rem;padding:4.5rem 3rem 0;
+  position:relative;overflow:hidden;
+}
+.hero-grid{
+  max-width:1180px;margin-inline:auto;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;
+}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.hero-eyebrow svg{color:var(--lime)}
+.hero-eyebrow span{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray)}
+.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4.6vw,58px);font-weight:700;line-height:1.06;letter-spacing:-1px;color:var(--ink);margin-bottom:1.25rem}
+.hero-sub{font-size:15px;line-height:1.8;color:var(--gray);max-width:420px;margin-bottom:2rem}
+.hero-btns{display:flex;gap:.875rem;flex-wrap:wrap}
+.hero-right{position:relative;display:flex;justify-content:center}
+.hero-photo-wrap{position:relative;width:100%;max-width:380px;aspect-ratio:1/1;border-radius:50%;overflow:hidden;background:var(--paper-soft);border:1px solid var(--border)}
+.hero-photo-wrap img{width:100%;height:100%;object-fit:cover}
+.hero-rating{
+  position:absolute;top:6%;right:-4%;
+  background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:.85rem 1.1rem;box-shadow:0 16px 40px rgba(16,16,16,.10);
+  display:flex;flex-direction:column;gap:.3rem;align-items:flex-start;
+}
+.hero-rating .stars{display:flex;gap:2px}
+.hero-rating .val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--ink)}
+.hero-rating .lbl{font-size:10px;color:var(--gray-l);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.hero-floatbtn{
+  position:absolute;bottom:8%;left:-6%;
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--lime);border-radius:99px;
+  padding:.6rem 1.2rem .6rem .6rem;box-shadow:0 16px 36px rgba(203,255,61,.4);
+}
+.hero-floatbtn .ic{width:34px;height:34px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;color:var(--lime);flex-shrink:0}
+.hero-floatbtn span{font-size:12px;font-weight:700;color:var(--ink)}
+.hero-deco{position:absolute;color:var(--lime);opacity:.9}
+.hero-deco.dot1{top:8%;left:2%}
+.hero-deco.dot2{bottom:14%;right:4%}
+/* ── STATS STRIP ────────────────────────────── */
+.stats{background:var(--ink);padding:2.5rem 0 4.5rem}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1180px;margin-inline:auto;border-top:1px solid var(--border-d);border-bottom:1px solid var(--border-d)}
+.stat-item{padding:2rem 1.5rem;border-right:1px solid var(--border-d);text-align:center}
+.stat-item:last-child{border-right:none}
+.stat-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--paper);line-height:1;margin-bottom:.4rem}
+.stat-lbl{font-size:11px;font-weight:500;color:var(--ink-2);letter-spacing:.3px}
+/* ── TWO-PHOTO SECTION ──────────────────────── */
+.duo{background:var(--paper)}
+.duo-head{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem}
+.duo-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,42px);font-weight:700;letter-spacing:-.5px;line-height:1.12;color:var(--ink)}
+.duo-h2 .accent{background:var(--lime);padding:0 .3rem;border-radius:6px}
+.duo-body{font-size:14px;color:var(--gray);line-height:1.85}
+.duo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:1.25rem}
+.duo-photo{position:relative;border-radius:var(--r-lg);overflow:hidden;height:380px}
+.duo-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(.25) contrast(1.05)}
+.duo-photo .label{
+  position:absolute;left:1.25rem;bottom:1.25rem;
+  display:flex;align-items:center;gap:8px;
+  background:var(--lime);color:var(--ink);padding:.6rem 1.1rem;border-radius:99px;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.duo-photo.short{height:380px}
+/* ── SERVICES (dark) ───────────────────────── */
+.services{background:var(--ink)}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.svc-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,42px);font-weight:700;color:var(--paper);letter-spacing:-.5px;margin-top:.75rem}
+.svc-sub{font-size:14px;color:var(--ink-2);max-width:300px;text-align:right;line-height:1.8}
+.svc-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:start}
+.svc-list{display:flex;flex-direction:column}
+.svc-row{display:grid;grid-template-columns:3rem 1fr 1.5rem;align-items:center;gap:1.5rem;padding:1.5rem 1rem;border-bottom:1px solid var(--border-d);border-radius:var(--r);cursor:pointer;transition:background var(--ease),padding-left var(--ease)}
+.svc-row:hover{background:rgba(255,255,255,.04);padding-left:1.5rem}
+.svc-num{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:var(--ink-2)}
+.svc-row:hover .svc-num{color:var(--lime)}
+.svc-name{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;color:var(--paper);transition:color var(--ease)}
+.svc-row:hover .svc-name{color:var(--lime)}
+.svc-arr{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border-d);color:var(--ink-2);transition:all var(--ease);transform:rotate(0deg)}
+.svc-row:hover .svc-arr{background:var(--lime);border-color:var(--lime);color:var(--ink);transform:rotate(45deg)}
+.svc-side{display:flex;flex-direction:column;gap:1.25rem;position:sticky;top:6.5rem}
+.svc-card-img{border-radius:var(--r-lg);overflow:hidden;height:200px;position:relative}
+.svc-card-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3)}
+.svc-badge{background:var(--paper);border-radius:var(--r-lg);padding:1.25rem 1.5rem}
+.svc-badge p{font-size:13px;color:var(--gray);margin-bottom:.875rem;line-height:1.6}
+.svc-badge .link{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
+.svc-badge.green{background:var(--lime)}
+.svc-badge.green p{color:rgba(16,16,16,.7)}
+/* ── BANNER STATEMENT ───────────────────────── */
+.banner{background:var(--ink);border-top:1px solid var(--border-d);padding:3rem 0}
+.banner-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.banner-row span{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,42px);font-weight:700;color:var(--paper)}
+.banner-row svg{color:var(--lime);flex-shrink:0}
+/* ── FLEET / EQUIPMENT GRID ─────────────────── */
+.fleet{background:var(--paper)}
+.fleet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.fleet-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,42px);font-weight:700;letter-spacing:-.5px}
+.fleet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.fleet-card{background:var(--paper-soft);border-radius:var(--r-lg);padding:1.5rem;text-align:center;transition:transform var(--ease),box-shadow var(--ease)}
+.fleet-card:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(16,16,16,.08)}
+.fleet-photo{width:100%;height:140px;border-radius:var(--r);overflow:hidden;margin-bottom:1.1rem;background:var(--paper)}
+.fleet-photo img{width:100%;height:100%;object-fit:cover}
+.fleet-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:.3rem}
+.fleet-role{font-size:11px;color:var(--gray-l);font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:.6rem}
+.fleet-desc{font-size:12px;color:var(--gray);line-height:1.7}
+/* ── MARQUEE ────────────────────────────────── */
+.marquee{background:var(--lime);padding:1rem 0;overflow:hidden;transform:rotate(-1.2deg);margin-block:1rem}
+.marquee-track{display:flex;width:max-content;animation:tick 32s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-seg{display:flex;align-items:center;gap:2rem;white-space:nowrap;padding-right:2rem}
+.marquee-seg span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px}
+.marquee-seg .x{color:rgba(16,16,16,.4)}
+/* ── TESTIMONIALS ───────────────────────────── */
+.trust{background:var(--paper)}
+.trust-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.trust-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,42px);font-weight:700;letter-spacing:-.5px}
+.trust-nav{display:flex;gap:.6rem}
+.t-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--ease)}
+.t-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.trust-track{overflow:hidden}
+.trust-row{display:flex;gap:1.25rem;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.trust-card{flex:0 0 calc((100% - 2.5rem)/3);background:var(--paper-soft);border-radius:var(--r-lg);padding:2rem}
+.trust-quote-ic{color:var(--lime);margin-bottom:1.25rem}
+.trust-text{font-size:14px;line-height:1.8;color:var(--ink);margin-bottom:1.5rem;font-weight:500}
+.trust-author{display:flex;align-items:center;gap:.75rem}
+.t-avatar{width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--lime);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;flex-shrink:0}
+.t-name{font-size:13px;font-weight:700;color:var(--ink)}
+.t-role{font-size:11px;color:var(--gray-l)}
+/* ── CONTACT ────────────────────────────────── */
+.contact{background:var(--ink);position:relative;overflow:hidden}
+.contact-inner{display:grid;grid-template-columns:1fr .85fr;gap:3rem;align-items:center}
+.contact-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:700;color:var(--paper);letter-spacing:-1px;line-height:1.08;margin-bottom:1.25rem}
+.contact-h2 .accent{color:var(--lime)}
+.contact-sub{font-size:14px;color:var(--ink-2);line-height:1.85;margin-bottom:2.25rem;max-width:440px}
+.contact-photo{position:relative;border-radius:var(--r-xl);overflow:hidden;height:440px}
+.contact-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2)}
+.contact-form{background:var(--paper);border-radius:var(--r-lg);padding:2rem}
+.form-row{margin-bottom:1.1rem}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem}
+.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-l);margin-bottom:.5rem}
+.form-input{width:100%;padding:12px 14px;background:var(--paper-soft);border:1.5px solid transparent;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);transition:border-color var(--ease);outline:none}
+.form-input:focus{border-color:var(--ink)}
+.form-input::placeholder{color:var(--gray-l)}
+select.form-input{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(16,16,16,0.5)' stroke-width='2' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+textarea.form-input{resize:vertical;min-height:96px;line-height:1.6}
+.btn-form{width:100%;padding:14px;background:var(--lime);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;border-radius:99px;transition:background var(--ease),transform var(--ease);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-form:hover{background:var(--lime-h);transform:translateY(-1px)}
+.btn-form:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.form-note{font-size:11px;color:var(--gray-l);text-align:center;margin-top:.75rem}
+.form-success{display:none;text-align:center;padding:2.5rem 1rem}
+.form-success.show{display:block}
+.form-success-icon{width:52px;height:52px;border-radius:50%;background:var(--lime-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem}
+.form-success-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:.5rem}
+.form-success-sub{font-size:13px;color:var(--gray);line-height:1.7}
+/* ── FOOTER (lime block) ────────────────────── */
+.footer{background:var(--lime);padding:4rem 0 1.75rem;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(16,16,16,.15)}
+.footer-logo{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:.5rem;display:flex;align-items:center;gap:8px}
+.footer-tagline{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:rgba(16,16,16,.55);margin-bottom:1.5rem;font-weight:600}
+.footer-email a{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);font-weight:600}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(16,16,16,.5);margin-bottom:1.1rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:13px;color:var(--ink);font-weight:500;transition:opacity var(--ease)}
+.footer-links a:hover{opacity:.6}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-copy,.footer-sectors{font-size:11px;color:rgba(16,16,16,.55);font-weight:500}
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-right{order:-1;margin-bottom:1rem}
+  .hero-photo-wrap{max-width:280px}
+  .duo-grid{grid-template-columns:1fr}
+  .duo-photo,.duo-photo.short{height:300px}
+  .svc-layout{grid-template-columns:1fr}
+  .svc-side{position:static;flex-direction:row}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .fleet-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-inner{grid-template-columns:1fr}
+  .contact-photo{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .trust-card{flex:0 0 calc((100% - 1.25rem)/2)}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta .btn-nav{display:none}
+  .hamburger{display:flex}
+  .section{padding:4.5rem 0}
+  .hero-card{padding:3rem 1.5rem 0;border-radius:28px 28px 0 0}
+  .hero-rating{right:0;top:0}
+  .hero-floatbtn{left:0;bottom:0}
+  .svc-side{flex-direction:column}
+  .fleet-grid{grid-template-columns:1fr 1fr}
+  .duo-head{grid-template-columns:1fr;gap:1.25rem}
+  .svc-head{flex-direction:column;align-items:flex-start;gap:1rem}
+  .svc-sub{text-align:left}
+  .form-2{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .trust-card{flex:0 0 100%}
+  .trust-head{flex-direction:column;align-items:flex-start}
+  .banner-row span{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .marquee-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<div class="topband">
+  <div class="wrap">
+    <div class="nav-pill">
+      <div class="nav-logo"><span class="spark">✺</span> SkyTech Perú</div>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#flota">Flota</a></li>
+        <li><a href="#testimonios">Reseñas</a></li>
+      </ul>
+      <div class="nav-cta">
+        <button class="btn-nav" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Cotizar</button>
+        <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
+      <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
+      <a href="#flota" onclick="closeMobileMenu()">Flota</a>
+      <a href="#testimonios" onclick="closeMobileMenu()">Reseñas</a>
+      <a class="mob-cta" href="#contacto" onclick="closeMobileMenu()">Cotizar</a>
+    </div>
+  </div>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero-shell">
+    <div class="wrap" style="padding-inline:0">
+      <div class="hero-card">
+        <svg class="hero-deco dot1" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg>
+        <div class="hero-grid rv">
+          <div class="hero-left">
+            <div class="hero-eyebrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg>
+              <span>Topografía · LiDAR · Fotogrametría</span>
+            </div>
+            <h1 class="hero-title">Precisión aérea para proyectos que no admiten errores</h1>
+            <p class="hero-sub">Levantamientos geodésicos, nubes de puntos LiDAR y modelos 3D con precisión centimétrica para minería, construcción y planificación territorial en Perú.</p>
+            <div class="hero-btns">
+              <button class="btn-dark" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+                Solicitar cotización
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </button>
+              <a class="btn-outline" href="#servicios">Ver servicios</a>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-photo-wrap">
+              <img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK en vuelo" loading="eager"/>
+            </div>
+            <div class="hero-rating">
+              <div class="stars">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="val">±2 cm</div>
+              <div class="lbl">Precisión GNSS</div>
+            </div>
+            <div class="hero-floatbtn">
+              <div class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <span>+250 vuelos certificados</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ STATS ══ -->
+    <div class="stats">
+      <div class="wrap">
+        <div class="stats-grid">
+          <div class="stat-item rv"><div class="stat-val">±2cm</div><div class="stat-lbl">Precisión en campo</div></div>
+          <div class="stat-item rv d1"><div class="stat-val">RTK</div><div class="stat-lbl">Posicionamiento GNSS</div></div>
+          <div class="stat-item rv d2"><div class="stat-val">6+</div><div class="stat-lbl">Sectores atendidos</div></div>
+          <div class="stat-item rv d3"><div class="stat-val">24h</div><div class="stat-lbl">Tiempo de respuesta</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TWO PHOTO / PROBLEM SECTION ══ -->
+<section class="duo section" id="nosotros">
+  <div class="wrap">
+    <div class="duo-head rv">
+      <h2 class="duo-h2">Convertimos semanas de campo en <span class="accent">horas de vuelo</span></h2>
+      <p class="duo-body">Los métodos topográficos tradicionales dejan zonas ciegas y consumen semanas de trabajo. Sky Tech entrega datos más precisos, más completos y listos para tus sistemas CAD y GIS, sin reprocesos ni retrasos.</p>
+    </div>
+    <div class="duo-grid">
+      <div class="duo-photo rv d1">
+        <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipo Sky Tech en campo"/>
+        <div class="label">Operación de campo</div>
+      </div>
+      <div class="duo-photo short rv d2">
+        <img src="IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png" alt="Monumentación GNSS-RTK"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services section" id="servicios">
+  <div class="wrap">
+    <div class="svc-head rv">
+      <div>
+        <span class="tag-pill"><span class="dot"></span>Soluciones</span>
+        <h2 class="svc-h2">Nuestros servicios</h2>
+      </div>
+      <p class="svc-sub">Tecnología aeroespacial aplicada a los sectores más exigentes del Perú.</p>
+    </div>
+    <div class="svc-layout">
+      <div class="svc-list rv d1">
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">01</span>
+          <span class="svc-name">Topografía con drones</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">02</span>
+          <span class="svc-name">Fotogrametría aérea</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">03</span>
+          <span class="svc-name">Nubes de puntos LiDAR</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">04</span>
+          <span class="svc-name">Teledetección multiespectral</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">05</span>
+          <span class="svc-name">Inspección de infraestructura</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+        <div class="svc-row" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          <span class="svc-num">06</span>
+          <span class="svc-name">Consultoría geotécnica</span>
+          <span class="svc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </div>
+      </div>
+      <div class="svc-side rv d2">
+        <div class="svc-card-img"><img src="IMAGENES_PAGINA_WEB/usar-drones-en-topografia.jpg" alt="Sensor Zenmuse P1"/></div>
+        <div class="svc-badge">
+          <p>¿Quieres saber cómo procesamos cada vuelo en datos listos para usar?</p>
+          <span class="link">Ver proceso <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <div class="svc-badge green">
+          <p>¿Necesitas asesoría para elegir el servicio correcto para tu proyecto?</p>
+          <span class="link">Habla con un experto <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BANNER ══ -->
+<div class="banner">
+  <div class="banner-row rv">
+    <span>Precisión</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg>
+    <span>Tecnología</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.5 9 9-1.5-9 1.5L24 12l-10.5 1.5L12 24l-1.5-9-9 1.5 9-1.5L0 12l9.5-1.5L12 0z"/></svg>
+    <span>Confianza</span>
+  </div>
+</div>
+
+<!-- ══ PROCESS / MARQUEE ══ -->
+<div class="marquee" aria-hidden="true" id="proceso">
+  <div class="marquee-track">
+    <div class="marquee-seg">
+      <span>Inspección de zona</span><span class="x">+</span>
+      <span>Trabajo en campo</span><span class="x">+</span>
+      <span>Procesamiento digital</span><span class="x">+</span>
+      <span>Informe técnico</span><span class="x">+</span>
+      <span>GNSS-RTK</span><span class="x">+</span>
+      <span>Entrega CAD / GIS</span><span class="x">+</span>
+    </div>
+    <div class="marquee-seg" aria-hidden="true">
+      <span>Inspección de zona</span><span class="x">+</span>
+      <span>Trabajo en campo</span><span class="x">+</span>
+      <span>Procesamiento digital</span><span class="x">+</span>
+      <span>Informe técnico</span><span class="x">+</span>
+      <span>GNSS-RTK</span><span class="x">+</span>
+      <span>Entrega CAD / GIS</span><span class="x">+</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FLEET / EQUIPMENT ══ -->
+<section class="fleet section" id="flota">
+  <div class="wrap">
+    <div class="fleet-head rv">
+      <div>
+        <span class="tag-pill light"><span class="dot"></span>Tecnología</span>
+        <h2 class="fleet-h2" style="margin-top:.75rem">Conoce nuestra flota</h2>
+      </div>
+      <p style="font-size:14px;color:var(--gray);max-width:300px">Equipos de última generación para precisión en cada misión.</p>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card rv d1">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/dron.png" alt="DJI Matrice 350 RTK"/></div>
+        <div class="fleet-name">Matrice 350 RTK</div>
+        <div class="fleet-role">Plataforma aérea</div>
+        <p class="fleet-desc">Drone profesional con RTK integrado para misiones de alta demanda.</p>
+      </div>
+      <div class="fleet-card rv d2">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/usar-drones-en-topografia.jpg" alt="Zenmuse P1"/></div>
+        <div class="fleet-name">Zenmuse P1</div>
+        <div class="fleet-role">Sensor fotogramétrico</div>
+        <p class="fleet-desc">Full-frame 45MP con lentes intercambiables y GSD de 2 cm/px.</p>
+      </div>
+      <div class="fleet-card rv d3">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/MUSEO ZEN L1.png" alt="Zenmuse L1"/></div>
+        <div class="fleet-name">Zenmuse L1</div>
+        <div class="fleet-role">LiDAR + RGB</div>
+        <p class="fleet-desc">240,000 pts/s con colorización RGB y precisión de 3 cm.</p>
+      </div>
+      <div class="fleet-card rv d4">
+        <div class="fleet-photo"><img src="IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png" alt="Receptor GNSS"/></div>
+        <div class="fleet-name">Receptor X5R/X5RT</div>
+        <div class="fleet-role">GNSS multibanda</div>
+        <p class="fleet-desc">184 canales, PPK/RTK/NTRIP y alcance LoRa de 10+ km.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="trust section" id="testimonios">
+  <div class="wrap">
+    <div class="trust-head rv">
+      <div>
+        <span class="tag-pill light"><span class="dot"></span>Clientes</span>
+        <h2 class="trust-h2" style="margin-top:.75rem">Lo que dicen de nosotros</h2>
+      </div>
+      <div class="trust-nav">
+        <button class="t-btn" id="t-prev" aria-label="Anterior"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="t-btn" id="t-next" aria-label="Siguiente"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="trust-track rv d1">
+      <div class="trust-row" id="trust-row">
+        <div class="trust-card">
+          <svg class="trust-quote-ic" width="28" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 4C5.4 6.2 3 9.6 3 13.5 3 16.5 5 18.5 7.5 18.5c2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L9.5 4zm9 0c-4.1 2.2-6.5 5.6-6.5 9.5 0 3 2 5 4.5 5 2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L18.5 4z"/></svg>
+          <p class="trust-text">"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo."</p>
+          <div class="trust-author">
+            <div class="t-avatar">JR</div>
+            <div><div class="t-name">Jefe de topografía</div><div class="t-role">Empresa minera, Arequipa</div></div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <svg class="trust-quote-ic" width="28" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 4C5.4 6.2 3 9.6 3 13.5 3 16.5 5 18.5 7.5 18.5c2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L9.5 4zm9 0c-4.1 2.2-6.5 5.6-6.5 9.5 0 3 2 5 4.5 5 2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L18.5 4z"/></svg>
+          <p class="trust-text">"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas."</p>
+          <div class="trust-author">
+            <div class="t-avatar">ML</div>
+            <div><div class="t-name">Gerente de proyectos</div><div class="t-role">Constructora, Lima</div></div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <svg class="trust-quote-ic" width="28" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 4C5.4 6.2 3 9.6 3 13.5 3 16.5 5 18.5 7.5 18.5c2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L9.5 4zm9 0c-4.1 2.2-6.5 5.6-6.5 9.5 0 3 2 5 4.5 5 2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L18.5 4z"/></svg>
+          <p class="trust-text">"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos."</p>
+          <div class="trust-author">
+            <div class="t-avatar">CP</div>
+            <div><div class="t-name">Director de infraestructura</div><div class="t-role">Gobierno regional, Cusco</div></div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <svg class="trust-quote-ic" width="28" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 4C5.4 6.2 3 9.6 3 13.5 3 16.5 5 18.5 7.5 18.5c2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L9.5 4zm9 0c-4.1 2.2-6.5 5.6-6.5 9.5 0 3 2 5 4.5 5 2.2 0 4-1.7 4-3.9 0-2-1.4-3.5-3.2-3.6.3-1.6 1.7-3.3 3.7-4.4L18.5 4z"/></svg>
+          <p class="trust-text">"El soporte técnico y la rapidez de entrega marcaron la diferencia frente a otros proveedores que cotizamos antes."</p>
+          <div class="trust-author">
+            <div class="t-avatar">AV</div>
+            <div><div class="t-name">Jefe de obra</div><div class="t-role">Inmobiliaria, Trujillo</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact section" id="contacto">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <div class="rv"><span class="tag-pill"><span class="dot"></span>Hablemos hoy</span></div>
+        <h2 class="contact-h2 rv d1">¿Listo para ver tu proyecto <span class="accent">desde arriba</span>?</h2>
+        <p class="contact-sub rv d2">Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.</p>
+        <div class="rv d3">
+          <div class="contact-form">
+            <form id="contact-form" onsubmit="handleSubmit(event)">
+              <div class="form-2">
+                <div>
+                  <label class="form-label" for="f-name">Nombre *</label>
+                  <input class="form-input" type="text" id="f-name" name="name" placeholder="Tu nombre" required autocomplete="name"/>
+                </div>
+                <div>
+                  <label class="form-label" for="f-company">Empresa</label>
+                  <input class="form-input" type="text" id="f-company" name="company" placeholder="Razón social" autocomplete="organization"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-email">Correo electrónico *</label>
+                <input class="form-input" type="email" id="f-email" name="email" placeholder="correo@empresa.com" required autocomplete="email"/>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-service">Servicio de interés</label>
+                <select class="form-input" id="f-service" name="service">
+                  <option value="">Selecciona un servicio</option>
+                  <option>Topografía con drones</option>
+                  <option>Fotogrametría aérea</option>
+                  <option>Nubes de puntos LiDAR</option>
+                  <option>Teledetección multiespectral</option>
+                  <option>Inspección de infraestructura</option>
+                  <option>Consultoría geotécnica</option>
+                  <option>No sé / necesito asesoría</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="f-msg">Mensaje *</label>
+                <textarea class="form-input" id="f-msg" name="message" placeholder="Describe brevemente tu proyecto: área aproximada, ubicación, plazo esperado..." required></textarea>
+              </div>
+              <button type="submit" class="btn-form" id="submit-btn">
+                Enviar solicitud
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </button>
+              <p class="form-note">Respuesta garantizada en 24 horas · Sin compromiso</p>
+            </form>
+            <div class="form-success" id="form-success">
+              <div class="form-success-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="form-success-title">¡Solicitud enviada!</div>
+              <p class="form-success-sub">Hemos recibido tu mensaje. Te responderemos en menos de 24 horas con una propuesta técnica personalizada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-photo rv d2">
+        <img src="IMAGENES_PAGINA_WEB/equipos1.png" alt="Equipo Sky Tech en operación"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span>✺</span> SkyTech Perú</div>
+        <div class="footer-tagline">Topografía · Fotogrametría · LiDAR</div>
+        <div class="footer-email">
+          <a href="mailto:skytsperu@gmail.com">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            skytsperu@gmail.com
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Servicios</div>
+        <nav class="footer-links">
+          <a href="#servicios">Topografía con drones</a>
+          <a href="#servicios">Fotogrametría aérea</a>
+          <a href="#servicios">LiDAR</a>
+          <a href="#servicios">Teledetección</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Sectores</div>
+        <nav class="footer-links">
+          <a href="#nosotros">Minería</a>
+          <a href="#nosotros">Construcción</a>
+          <a href="#nosotros">Agricultura</a>
+          <a href="#nosotros">Gobierno</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Empresa</div>
+        <nav class="footer-links">
+          <a href="#flota">Nuestra flota</a>
+          <a href="#proceso">Proceso de trabajo</a>
+          <a href="#testimonios">Casos de éxito</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Sky Tech Perú. Todos los derechos reservados.</div>
+      <div class="footer-sectors">Minería · Construcción · Planificación territorial · Perú</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* HAMBURGER */
+(function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',String(open));
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)){
+      menu.classList.remove('open');btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+window.closeMobileMenu=function(){
+  var btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  if(menu)menu.classList.remove('open');
+  if(btn){btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+};
+
+/* SCROLL REVEAL */
+(function(){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:.08,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+})();
+
+/* TESTIMONIALS SLIDER */
+(function(){
+  var row=document.getElementById('trust-row');
+  var cards=row.children.length;
+  var idx=0;
+  function visible(){return window.innerWidth<=768?1:window.innerWidth<=1024?2:3;}
+  function maxIdx(){return Math.max(0,cards-visible());}
+  function update(){
+    var gap=20;
+    var cardWidth=row.children[0].getBoundingClientRect().width;
+    row.style.transform='translateX(-'+(idx*(cardWidth+gap))+'px)';
+  }
+  document.getElementById('t-next').addEventListener('click',function(){
+    idx=Math.min(idx+1,maxIdx());update();
+  });
+  document.getElementById('t-prev').addEventListener('click',function(){
+    idx=Math.max(idx-1,0);update();
+  });
+  window.addEventListener('resize',update);
+})();
+
+/* CONTACT FORM */
+window.handleSubmit=function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  var f=e.target;
+  var subject=encodeURIComponent('Solicitud de cotización — Sky Tech Perú');
+  var body=encodeURIComponent(
+    'Nombre: '+f.name.value.trim()+'\n'+
+    'Empresa: '+(f.company.value.trim()||'—')+'\n'+
+    'Email: '+f.email.value.trim()+'\n'+
+    'Servicio: '+(f['service'].value||'No especificado')+'\n\n'+
+    'Mensaje:\n'+f.message.value.trim()
+  );
+  window.location.href='mailto:skytsperu@gmail.com?subject='+subject+'&body='+body;
+  setTimeout(function(){
+    document.getElementById('contact-form').style.display='none';
+    document.getElementById('form-success').classList.add('show');
+  },600);
+};
+</script>
+</body>
+</html>
