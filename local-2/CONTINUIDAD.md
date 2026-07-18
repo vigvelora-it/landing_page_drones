@@ -166,8 +166,18 @@ El usuario quiere elevar `local-2` a un nivel de pulido visual/animado comparabl
 5. **El loop de parallax rAF manual actual debe eliminarse**, no coexistir con el nuevo sistema ScrollTrigger.
 6. **Verificar rendimiento en `matchMedia` breakpoints desde el inicio**, no como ajuste posterior — el video de 9.37 MB ya compite por recursos en móvil.
 
+### UI-SPEC de la Fase 1 — aprobado (2026-07-18)
+
+- `.planning/phases/01-motion-foundation-architecture-cleanup/01-UI-SPEC.md` — commit `fa2170d`.
+- Decisiones bloqueadas en el contrato de diseño:
+  - **Sin librería de componentes** (shadcn omitido) — se sigue con CSS vanilla + variables propias.
+  - **Lenis `lerp: 0.07`** en modo normal (sensación cinematográfica, más pesada que el default 0.1).
+  - **`prefers-reduced-motion` = "suavizado, no apagado binario"**: con la preferencia activa, Lenis usa `lerp: 0.15` (más directo) y las animaciones GSAP se acortan/suavizan (menor duración/distancia, easing más suave) — NO se saltan instantáneamente al estado final ni se desactivan por completo. Esta interpretación ya quedó reflejada en `ROADMAP.md` (Fase 1, criterio de éxito #3, commit `35be6af`).
+  - **Cero cambios visuales en esta fase** — tipografía/espaciado/color se heredan tal cual de `app/globals.css`; esta fase es puramente arquitectura/motor de animación.
+- El verificador de UI (`gsd-ui-checker`) aprobó el spec con 3 flags no bloqueantes (todos justificados por ser una fase sin cambios visuales). Nota pendiente: cuando se redacte el UI-SPEC de la Fase 5, corregir también `ROADMAP.md` Fase 5 criterio #3 ("zero animations fire") para que coincida con el contrato "suavizado, no apagado" ya fijado aquí.
+
 ### Próximo paso exacto
 
-El roadmap está aprobado y comiteado. El siguiente paso es `/gsd-discuss-phase 1` o `/gsd-ui-phase 1` para la Fase 1 (Motion Foundation & Architecture Cleanup), seguido de `/gsd-plan-phase 1` y `/gsd-execute-phase`. **Aún no se ha modificado ningún código de la aplicación** — todo el trabajo hasta ahora es planificación en `.planning/`.
+El roadmap y el UI-SPEC de la Fase 1 están aprobados y comiteados. El siguiente paso es `/gsd-plan-phase 1` (o `/gsd-discuss-phase 1` antes, si se quiere afinar más contexto de implementación) para descomponer la Fase 1 en tareas ejecutables, seguido de `/gsd-execute-phase`. **Aún no se ha modificado ningún código de la aplicación** — todo el trabajo hasta ahora es planificación en `.planning/`.
 
 Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.planning/PROJECT.md`, `local-2/.planning/ROADMAP.md` y `local-2/.planning/STATE.md` para recuperar el estado exacto.
