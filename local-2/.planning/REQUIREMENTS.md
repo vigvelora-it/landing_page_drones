@@ -7,9 +7,9 @@
 
 ### Foundation (motor de movimiento)
 
-- [ ] **FOUND-01**: El sitio usa scroll físico suave (Lenis) sincronizado en un único loop de `requestAnimationFrame` con el ticker de GSAP — sin desincronización ni jitter
-- [ ] **FOUND-02**: `prefers-reduced-motion` desactiva/suaviza el motor de movimiento completo (Lenis + todas las animaciones GSAP), no solo CSS, mediante `gsap.matchMedia()`
-- [ ] **FOUND-03**: `npm run build` pasa limpio con GSAP/Lenis inicializados solo en el límite de cliente (sin errores de hidratación/SSR)
+- [x] **FOUND-01**: El sitio usa scroll físico suave (Lenis) sincronizado en un único loop de `requestAnimationFrame` con el ticker de GSAP — sin desincronización ni jitter
+- [x] **FOUND-02**: `prefers-reduced-motion` desactiva/suaviza el motor de movimiento completo (Lenis + todas las animaciones GSAP), no solo CSS, mediante `gsap.matchMedia()`
+- [x] **FOUND-03**: `npm run build` pasa limpio con GSAP/Lenis inicializados solo en el límite de cliente (sin errores de hidratación/SSR)
 
 ### Arquitectura (deuda estructural)
 
@@ -76,9 +76,9 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
-| FOUND-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
-| FOUND-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| FOUND-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
+| FOUND-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
+| FOUND-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
 | ARCH-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
 | ARCH-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
 | ARCH-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
