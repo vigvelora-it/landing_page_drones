@@ -1,80 +1,113 @@
 ---
 phase: 1
 slug: motion-foundation-architecture-cleanup
-status: draft
+status: ready_for_human_approval
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-07-18
+validated: 2026-07-18T07:27:02Z
 ---
 
-# Phase 1 — Validation Strategy
+# Phase 1 — Validation Record
 
-> Per-phase validation contract for feedback sampling during execution.
-
----
+> Completed technical, structural, and browser evidence for the Phase 1 architecture and motion-foundation gate. Final visual acceptance remains the explicit plan-08 human checkpoint.
 
 ## Test Infrastructure
 
 | Property | Value |
 |----------|-------|
-| **Framework** | None detected — no test runner configured (`package.json` has no `test` script; `.planning/codebase/CONCERNS.md` confirms "No Unit Tests," "No E2E Tests"). Automated tests are explicitly Out of Scope for this milestone per `.planning/REQUIREMENTS.md`. |
-| **Config file** | none |
-| **Quick run command** | `npm run lint` (~30s), `npm run typecheck` (< 30s) |
-| **Full suite command** | `npm run build` (full production build, includes type-check + static generation) |
-| **Estimated runtime** | ~60-90 seconds for lint+typecheck+build combined |
+| Framework | No project test runner by design; production gates plus local Playwright CLI review |
+| Quality commands | `npm run lint`, `npm run typecheck`, `npm run build` |
+| Browser target | Local production server at `http://127.0.0.1:4173` |
+| Viewports | Desktop 1440×900; mobile 390×844 |
+| Remote writes | None; `/api/contact` intercepted and fulfilled locally |
 
----
+## Automated Quality Gate
 
-## Sampling Rate
+Executed sequentially on the final tree, including the favicon correction:
 
-- **After every task commit:** No formal gate mid-phase per CONTEXT.md D-02 (YOLO mode, verify once at end). `npm run typecheck` is cheap and recommended informally between major sub-steps to avoid a large multi-file diff producing a hard-to-localize error at the final check.
-- **After every plan wave:** N/A — single-wave-style phase per D-02.
-- **Before `/gsd-verify-work`:** `npm run lint` + `npm run typecheck` + `npm run build` all green, plus manual visual comparison at 1440×900 and 390×844.
-- **Max feedback latency:** ~90 seconds (full build command).
+| Command | Result | Evidence |
+|---------|--------|----------|
+| `npm run lint` | ✅ green | ESLint exited 0 with zero findings |
+| `npm run typecheck` | ✅ green | `tsc --noEmit` exited 0 |
+| `npm run build` | ✅ green | Next.js 16.2.10 compiled, type-checked, generated 7/7 static pages, and emitted `/`, `/api/contact`, `/icon.svg`, `/robots.txt`, `/sitemap.xml` |
 
----
+## Requirement Verification Map
 
-## Per-Task Verification Map
+| Task ID | Plan | Requirement | Test Type | Evidence | Status |
+|---------|------|-------------|-----------|----------|--------|
+| 01-02-03 + 01-06-01/02 + 01-07-02 | 02, 06, 07 | FOUND-01 | structural + browser | One provider mount; only `hooks/use-legacy-parallax.ts` contains `requestAnimationFrame`; ReactLenis options show `autoRaf:false`; fast wheel scroll reached the target without console/page errors or observable double-scroll | ✅ green |
+| 01-02-02/03 + 01-07-02 | 02, 07 | FOUND-02 | structural + browser media emulation | Normal ReactLenis fiber props: `lerp:0.07`; reduced-motion props: `lerp:0.15`; smoothing remains active, video pauses, and all 35 reveals remain visible | ✅ green |
+| 01-02-02/03 + 01-06-01 + 01-07-01/02 | 02, 06, 07 | FOUND-03 | build + runtime | Production build exits 0; layout stays server-side; browser console 0 errors/0 warnings and pageerror count 0 | ✅ green |
+| 01-01-01 + 01-05-03 + 01-07-01/02 | 01, 05, 07 | ARCH-01 | structural + mocked browser POST | `ContactForm` owns `onSubmit`; all six payload keys plus empty honeypot captured; success state rendered; no remote request escaped interception | ✅ green |
+| 01-03/04/05 + 01-06-02 + 01-07-01/02 | 03–07 | ARCH-02 | structural + visual/runtime | `Experience` absent; six section files and six scoped `useGSAP` lifecycles; no GSAP-native reveal migration; original section order and all 35 reveals verified at both viewports | ✅ green |
+| 01-01-02 + 01-07-01 | 01, 07 | ARCH-03 | filesystem + build | Zero legacy files under `local-2`; all three preserved under `../referencias`; no active source references; production build green | ✅ green |
 
-| Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 01-01-XX | 01 | 1 | FOUND-01 | — | Single frame loop, no hydration/console errors from Lenis+GSAP wiring | build + manual | `npm run build` then manual fast-scroll-flick visual check | N/A — manual-only per D-02 | ⬜ pending |
-| 01-01-XX | 01 | 1 | FOUND-02 | — | Reduced-motion toggles Lenis lerp 0.07→0.15, GSAP timelines soften (not off) | manual | DevTools "Emulate CSS prefers-reduced-motion: reduce" toggle, visual/feel check | N/A — manual-only | ⬜ pending |
-| 01-01-XX | 01 | 1 | FOUND-03 | — | Clean build, no SSR/hydration errors | automated | `npm run build` (exit code 0, no console warnings) | N/A — build command is the check | ⬜ pending |
-| 01-01-XX | 01 | 1 | ARCH-01 | T-01-01 | Form markup + handler co-located, no `FormConnector`/`querySelector`, no dead `.form-event-bridge` | code review + build | `npm run typecheck`; grep for `document.querySelector` and `form-event-bridge` in `contact-form.tsx` (expect zero matches) | N/A — manual code review, no live submission test per D-03 | ⬜ pending |
-| 01-01-XX | 01 | 1 | ARCH-02 | — | `experience.tsx` decomposed, each section has own scoped `useGSAP`; parallax rAF loop and cursor listener stay single shared instances (not duplicated per-section) | code review + build | `npm run build`; grep for `experience.tsx` imports (expect zero after deletion) | N/A | ⬜ pending |
-| 01-01-XX | 01 | 1 | ARCH-03 | T-01-02 | Legacy v4 files moved to `referencias/`, zero effect on live site | build + manual | `npm run build`; grep for `v4-template`/`v4-interactions`/`landing-page-v4` imports (expect zero) | N/A — pre-verified unreferenced in 01-RESEARCH.md | ⬜ pending |
+## Structural Evidence
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+- Forbidden references (`FormConnector`, `form-event-bridge`, `components/experience`, `<Experience`): **0**.
+- Contact contract: direct `onSubmit={handleSubmit}`, `/api/contact` fetch, fields `name`, `company`, `email`, `service`, `message`, and honeypot `website`: **all present**.
+- Root `<SmoothScrollProvider>` mounts: **1**.
+- Application `requestAnimationFrame` references: **1**, only in `hooks/use-legacy-parallax.ts`.
+- Section components: **6**; section files containing scoped `useGSAP`: **6**.
+- Premature `gsap.from`, `gsap.to`, or `ScrollTrigger.create` calls in sections: **0**.
+- Exact packages: `@gsap/react@2.1.2`, `gsap@3.15.0`, `lenis@1.3.25`.
+- Legacy files: active tree **0**, archive **3**.
 
-*Task IDs are placeholders (`01-01-XX`) — the planner assigns final task IDs; this map's Req→Test mapping is what matters and carries forward regardless of exact task numbering.*
+## Browser Regression Evidence
 
----
+| Check | Desktop 1440×900 | Mobile 390×844 | Status |
+|-------|------------------|----------------|--------|
+| Horizontal overflow | `scrollWidth=1440`, `clientWidth=1440` | `scrollWidth=390`, `clientWidth=390` | ✅ |
+| Section order | inicio → nosotros → capacidades → tecnologia → proceso → contacto | same | ✅ |
+| Reveal completion | 35/35 visible | 35/35 visible | ✅ |
+| Menu | opens with `aria-expanded=true`, closes after anchor, body lock removed | opens/closes; contact anchor resolves | ✅ |
+| Hero video | plays; toggle pauses and resumes with correct label | plays; control remains inside viewport | ✅ |
+| Footer / badge | footer present; `LOCAL · 2` present | footer present; `LOCAL · 2` present | ✅ |
+| Console / page errors | 0 / 0 on fresh production session | 0 / 0 during combined run | ✅ |
 
-## Wave 0 Requirements
+Visual artifacts:
 
-*None — no test framework install needed. Explicitly out of scope for this phase and this project's v1 milestone (`.planning/REQUIREMENTS.md` Out of Scope table: "Tests automatizados (unit/E2E)"). Existing build tooling (`eslint`, `tsc --noEmit`, `next build`) fully covers this phase's verification needs per the project's own decided workflow (CONTEXT.md D-02).*
+- `../.playwright-cli/phase1-desktop-1440x900-final.png`
+- `../.playwright-cli/phase1-mobile-390x844-final.png`
+- `../.playwright-cli/phase1-desktop-full.png`
+- `../.playwright-cli/phase1-mobile-full.png`
 
----
+The initial screenshots captured the intentionally still-visible intro transition at 1.7s. Final viewport screenshots were repeated after 3s and confirm the completed hero state (`visibility:hidden` on the intro).
 
-## Manual-Only Verifications
+## Reduced Motion Evidence
 
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| Scroll feels physically smooth, single frame loop, no jitter | FOUND-01 | No automated test framework in project; "feels smooth" is not a build-checkable assertion | Scroll with mouse wheel and trackpad on desktop; fast-flick scroll to check for desync/double-scroll artifacts |
-| Reduced-motion softens (not disables) Lenis + GSAP | FOUND-02 | Requires OS/DevTools-level media query emulation, not testable via build | Chrome DevTools → Rendering tab → "Emulate CSS media feature prefers-reduced-motion: reduce" → verify scroll snappier (lerp 0.15) and GSAP timelines shorter/gentler, not fully frozen nor full-intensity |
-| No visual regression from component decomposition | ARCH-02 | UI-SPEC contract is "nothing may look different" — only a human visual comparison confirms this | Compare desktop (1440×900) and mobile (390×844) screenshots/live view before and after decomposition; confirm pixel-equivalent layout |
-| Contact form submits correctly end-to-end | ARCH-01 | No `.env.local` with Supabase credentials exists in this environment (per CONTEXT.md D-03) | Deferred — code-level check only this phase (schema match, no `FormConnector`); live submission test requires test credentials, out of scope for Phase 1 |
+- Browser media emulation reports `prefers-reduced-motion: reduce = true`.
+- ReactLenis runtime props change from `{ lerp: 0.07, autoRaf: false, anchors: true }` to `{ lerp: 0.15, autoRaf: false, anchors: true }`.
+- The hero video is paused and its button label changes to `Reproducir video de fondo`.
+- Smooth scrolling remains instantiated rather than being disabled.
+- All 35 reveal elements remain visible while reduced motion is active.
 
----
+## Contact Form Evidence
+
+The browser intercepted `**/api/contact` before submission. Captured payload:
+
+```json
+{
+  "name": "Prueba local",
+  "company": "Sky Tech QA",
+  "email": "qa@local.test",
+  "service": "Topografía con drones",
+  "message": "Validación local sin escritura remota",
+  "website": ""
+}
+```
+
+The form rendered `Solicitud recibida. Nos pondremos en contacto contigo.` with class `form-status is-success`. The intercepted route prevented any Supabase or other remote write.
 
 ## Validation Sign-Off
 
-- [x] All tasks have manual or build-command verify (no unit-test framework exists or is being added this phase — explicit project decision)
-- [x] Sampling continuity: N/A — single end-of-phase gate per D-02, not per-task automated sampling
-- [x] Wave 0 covers all MISSING references — none required
-- [x] No watch-mode flags
-- [x] Feedback latency < 90s (full build command)
-- [x] `nyquist_compliant: true` set in frontmatter
+- [x] All automated quality commands green
+- [x] All structural acceptance checks green
+- [x] Both target viewports reviewed with no overflow
+- [x] Runtime console/page error count zero
+- [x] Menu, anchors, video, reveals, reduced motion, and mocked contact submission green
+- [x] Evidence artifacts retained locally
+- [ ] User visual approval — plan 01-08 checkpoint
 
-**Approval:** approved 2026-07-18 (build-level + manual-visual strategy matches project's explicit "no automated tests" decision; see `.planning/REQUIREMENTS.md` Out of Scope and `01-CONTEXT.md` D-02/D-03)
+**Technical status:** green. **Phase status:** awaiting explicit human approval.
