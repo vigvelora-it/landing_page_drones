@@ -27,7 +27,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Success Criteria** (what must be TRUE):
   1. `npm run build` completes with no errors and no SSR/hydration warnings; GSAP and Lenis are initialized only inside a client component boundary.
   2. Scrolling the site with mouse wheel or trackpad feels physically smooth (Lenis-driven, ticked from GSAP's ticker), with no visible desync or double-scroll jitter.
-  3. Enabling `prefers-reduced-motion` measurably disables/softens Lenis smooth scroll and stops GSAP timelines from animating, verified via `gsap.matchMedia()` (not CSS alone).
+  3. Enabling `prefers-reduced-motion` measurably softens Lenis smooth scroll (snappier lerp, per UI-SPEC: 0.15 vs. normal 0.07) and softens GSAP timelines (reduced duration/distance, gentler easing) rather than either playing at full intensity or jumping instantly to end-state — verified via `gsap.matchMedia()` (not CSS alone). This is a "softened, not binary-off" contract, locked in `01-UI-SPEC.md`.
   4. `components/experience.tsx` no longer exists as a monolith — each visual section (hero, manifesto, capabilities, process, contact, menu, cursor) is its own component with its own scoped `useGSAP` call.
   5. The contact form's markup and its `onSubmit` handler live in the same component (no `FormConnector`, no `querySelector` coupling), and `landing-page-v4.html`, `lib/v4-template.ts`, `components/v4-interactions.tsx` no longer exist in the repo.
 **Plans**: TBD
