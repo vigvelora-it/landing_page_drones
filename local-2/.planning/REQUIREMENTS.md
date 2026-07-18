@@ -82,25 +82,25 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 ## Traceability
 
-Se completa durante la creación del roadmap (`gsd-roadmapper`).
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| THEME-01, THEME-02, THEME-03, THEME-04 | TBD | Pending |
-| ARCH-01, ARCH-02, ARCH-03 | TBD | Pending |
-| SERV-01, SERV-02, SERV-03 | TBD | Pending |
-| HEAD-01, HEAD-02 | TBD | Pending |
-| TEAM-01, PROJ-01 | TBD | Pending |
-| DIFF-01, EQUIP-01 | TBD | Pending |
-| BROCH-01 | TBD | Pending |
-| BRAND-01, BRAND-02 | TBD | Pending |
-| QA-01, QA-02, QA-03 | TBD | Pending |
+| THEME-01, THEME-02, THEME-03, THEME-04 | Phase 1 — Fundación: Tema Claro y Especificación de Movimiento Moderado | Pending |
+| ARCH-01, ARCH-02, ARCH-03 | Phase 2 — Modelo de Datos y Hooks Compartidos | Pending |
+| SERV-01, SERV-02, SERV-03 | Phase 3 — Servicios y Drawer de Detalle | Pending |
+| HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Pending |
+| EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Pending |
+| BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| TEAM-01, PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| QA-01, QA-02, QA-03 | Phase 6 — Calidad y Regresión Final | Pending |
+| BRAND-02 | Phase 6 — Calidad y Regresión Final | Pending |
 
 **Coverage:**
-- v1 requirements: 24 total
-- Mapped to phases: 0 (pendiente de roadmap)
-- Unmapped: 24 ⚠️ (se resolverá en la creación del roadmap)
+- v1 requirements: 22 total (correción: el conteo previo de "24" en este documento era incorrecto; el conteo real de IDs únicos THEME/ARCH/SERV/HEAD/TEAM/PROJ/DIFF/EQUIP/BROCH/BRAND/QA es 22)
+- Mapped to phases: 22/22 ✓
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-18*
-*Last updated: 2026-07-18 after milestone v1.0-corporate research*
+*Last updated: 2026-07-18 after ROADMAP.md creation (gsd-roadmapper) — traceability mapped, count corrected from 24 to 22*

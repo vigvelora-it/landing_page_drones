@@ -1,12 +1,12 @@
 ---
-gsd_state_version: 1.0
+gsd_state_version: '1.0'
 milestone: v1.0-corporate
 milestone_name: Identidad Corporativa Premium (Fugro/Seequent)
 status: planning
-last_updated: "2026-07-18T19:58:36.891Z"
+last_updated: "2026-07-18T00:00:00.000Z"
 last_activity: 2026-07-18
 progress:
-  total_phases: 0
+  total_phases: 6
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -19,20 +19,21 @@ progress:
 
 See: .planning/PROJECT.md (updated 2026-07-18)
 
-**Core value:** La experiencia debe sentirse tan fluida, animada y pulida como un sitio de estudio creativo de alto nivel — scroll físico suave, transiciones elaboradas, micro-interacciones cuidadas — mientras conserva la identidad de marca de Sky Tech Perú y el formulario de contacto funcional.
-**Current focus:** Phase 01 — Motion Foundation & Architecture Cleanup
+**Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
+**Current focus:** Phase 1 — Fundación — Tema Claro y Especificación de Movimiento Moderado
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-07-18 — Milestone v1.0-corporate started
+Phase: 1 of 6 (Fundación — Tema Claro y Especificación de Movimiento Moderado)
+Plan: — of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-07-18 — ROADMAP.md creado para el milestone v1.0-corporate (6 fases, numeración reiniciada en Fase 1)
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
-
 - Total plans completed: 0
 - Average duration: - min
 - Total execution time: 0 hours
@@ -44,18 +45,10 @@ Last activity: 2026-07-18 — Milestone v1.0-corporate started
 | - | - | - | - |
 
 **Recent Trend:**
-
 - Last 5 plans: -
 - Trend: -
 
 *Updated after each plan completion*
-| Phase 01 P01 | 5 min | 2 tasks | 9 files |
-| Phase 01 P02 | 5 min | 3 tasks | 6 files |
-| Phase 01 P03 | 3 min | 3 tasks | 3 files |
-| Phase 01 P04 | 5 min | 3 tasks | 3 files |
-| Phase 01 P05 | 2 min | 3 tasks | 3 files |
-| Phase 01 P06 | 2 min | 2 tasks | 3 files |
-| Phase 01 P07 | 13 min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -64,11 +57,12 @@ Last activity: 2026-07-18 — Milestone v1.0-corporate started
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- Roadmap: Merged research's proposed Phase 1 (motion foundation) and Phase 2 (decompose monolith) into a single Phase 1 — both are prerequisite, non-user-facing engineering work with no independent success criteria, avoiding a thin single-requirement phase.
-- Roadmap: PERF-01/02 (asset optimization) grouped with PERF-03/04 and QA-01..03 into a single closing "Performance & Quality Gate" phase, matching the requirements doc's own "Rendimiento y accesibilidad" + "Calidad" grouping.
-- Adoptar GSAP + Lenis para animación (see PROJECT.md Key Decisions).
-- Sin WebGL/shaders en el hero (see PROJECT.md Key Decisions).
-- Incluir limpieza de deuda técnica en el alcance (see PROJECT.md Key Decisions).
+- Roadmap: numeración de fases reiniciada en Fase 1 para este milestone (no continúa desde la Fase 1 técnica del milestone Dogstudio archivado) — decisión explícita del usuario, ver PROJECT.md Key Decisions.
+- Roadmap: Header Sticky (HEAD-01/02) y Carrusel de Equipos (EQUIP-01) fusionados en una sola Fase 4 — HEAD-02 exige explícitamente probar el header con el carrusel presente, así que separarlos en fases distintas hubiera forzado una dependencia circular de pruebas.
+- Roadmap: BRAND-02 (regresión del formulario de contacto) agrupado con QA-01/02/03 en la Fase 6 de cierre — es un chequeo de no-regresión, no una pieza de contenido nueva, y encaja con el resto de gates finales.
+- Roadmap: BRAND-01 (historia/misión/visión/valores) agrupado con TEAM-01/PROJ-01/DIFF-01/BROCH-01 en la Fase 5 — todo es contenido de marca ya redactado por el cliente, de bajo riesgo técnico, correctamente secuenciado después de la base visual y de datos.
+- Pivote de dirección visual: Dogstudio oscuro/cinematográfico → Fugro/Seequent claro/corporativo (ver PROJECT.md Key Decisions).
+- Reutilizar íntegramente la arquitectura Lenis+GSAP + componentes por sección + formulario de la Fase 1 técnica anterior; solo se reemplaza la capa visual/CSS y el contenido.
 
 ### Pending Todos
 
@@ -76,8 +70,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 3 (mask/block-reveal transition) and Phase 4 (scroll-velocity/scrubbed timeline techniques) were flagged by research as needing deeper technical validation during planning — only one Codrops reference found for the mask technique. Consider `/gsd-research` at plan-time if the pattern isn't clear.
-- Codebase has zero existing automated tests and zero performance benchmarks (per CONCERNS.md) — Phase 5 establishes the first real verification pass; no baseline to regress against from earlier phases.
+- Fase 3 (Servicios y Drawer de Detalle) fue marcada por research como la más estructuralmente involucrada — decisión `<dialog>` nativo vs. fallback Radix, y su interacción exacta con el z-index/top-layer de `custom-cursor.tsx`, no ha sido probada aún en este codebase. Considerar `/gsd-research --phase 3` si el patrón no queda claro al planificar.
+- Fase 4 (Header Sticky) necesita verificar la API exacta de `lenis@1.3.25` (modo `root`/native-scroll-friendly) contra la versión instalada antes de implementar — los nombres de opciones han cambiado entre versiones mayores de Lenis.
+- Assets de fotografía reales (equipo técnico/drones/cámaras para el carrusel, imágenes de misión/visión) son un bloqueo de contenido, no de ingeniería — deben conseguirse del cliente antes de planificar en detalle las Fases 4 y 5; ninguna imagen debe depender solo de drones (QA-03).
+- Confirmar con el cliente antes de la Fase 5 que el brochure va sin gating (recomendación de research, no decisión cerrada).
+- Regla dura de despliegue: ningún `npm run deploy` ni despliegue a Vercel/otro servicio sin aprobación explícita del usuario en la conversación activa — ver incidente documentado en PROJECT.md y `.planning/DEPLOYMENT-VERCEL.md`.
+- Discrepancia de conteo corregida durante el roadmapping: REQUIREMENTS.md indicaba "24 requirements v1 total" pero el conteo real de IDs únicos (THEME/ARCH/SERV/HEAD/TEAM/PROJ/DIFF/EQUIP/BROCH/BRAND/QA) es 22. El roadmap y la traceability usan el número correcto (22/22 mapeados).
 
 ## Deferred Items
 
@@ -85,11 +83,14 @@ Items acknowledged and carried forward from previous milestone close:
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| Movimiento avanzado | MOTION-V2-01: Efectos reactivos a la velocidad de scroll (skew/stretch) | Deferred to v2 | Requirements definition |
-| Movimiento avanzado | MOTION-V2-02: Transiciones adicionales tipo máscara más allá del momento hero→sección | Deferred to v2 | Requirements definition |
+| Brochure | V2-01: Brochure con variante gated para captura de leads | Deferred to v2 | Requirements definition |
+| Servicios | V2-02: Sub-páginas propias por eje de servicio más allá del drawer | Deferred to v2 | Requirements definition |
+| Contenido avanzado | V2-03: Soporte multi-idioma, mapa interactivo de proyectos, páginas de detalle por caso de estudio | Deferred to v2 | Requirements definition |
+| Movimiento avanzado (milestone anterior) | MOTION-V2-01: Efectos reactivos a la velocidad de scroll (skew/stretch) | Deferred to v2 | Milestone Dogstudio (archivado) |
+| Movimiento avanzado (milestone anterior) | MOTION-V2-02: Transiciones adicionales tipo máscara más allá del momento hero→sección | Deferred to v2 — no aplica bajo la nueva dirección visual "moderada" | Milestone Dogstudio (archivado) |
 
 ## Session Continuity
 
-Last session: 2026-07-18T07:29:12.336Z
-Stopped at: Completed 01-07-PLAN.md; awaiting 01-08 human checkpoint
+Last session: 2026-07-18
+Stopped at: ROADMAP.md y STATE.md creados para v1.0-corporate; REQUIREMENTS.md traceability actualizado. Pendiente aprobación del usuario y arranque de `/gsd-plan-phase 1`.
 Resume file: None

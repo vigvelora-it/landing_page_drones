@@ -1,113 +1,107 @@
-# Roadmap: Sky Tech Perú — local-2 (rediseño visual cinematográfico)
+# Roadmap: Sky Tech Perú — local-2 (v1.0-corporate — Identidad Corporativa Premium)
 
 ## Overview
 
-This roadmap takes `local-2` from its current vanilla-JS animation layer to a Dogstudio/Awwwards-tier cinematic motion experience built on GSAP + Lenis, without WebGL/shaders. The work is sequenced foundation-first: a unified Lenis+GSAP scroll engine and a decomposed component architecture must exist before any new creative timelines are built, or the same animation code would need to be rebuilt twice. From there, the site's baseline motion (reveal, parallax, cursor, menu, typography) is re-implemented natively on GSAP, followed by the project's single highest-impact signature moment (the hero→section mask transition), then the smaller differentiators (magnetic CTAs, image reveals, marquee, scrubbed timeline). The roadmap closes with a dedicated performance/accessibility/quality gate — asset optimization, throttled-mobile verification, a full reduced-motion audit, and clean lint/typecheck/build — since this codebase has zero existing automated tests or performance benchmarks to regress against.
+Este roadmap lleva `local-2` desde la dirección visual oscura/cinematográfica (Dogstudio, archivada en `.planning/archive/v1.0-dogstudio-superseded/`) hasta una identidad corporativa clara, técnica y premium inspirada en Fugro/Seequent, reutilizando íntegramente el motor Lenis+GSAP, la arquitectura de componentes por sección y el formulario de contacto ya construidos. El trabajo está secuenciado fundación-primero: el sistema de tokens de tema claro y la especificación literal de "animación moderada" deben existir antes de tocar cualquier sección visual, o el mismo CSS/motion tendría que rehacerse dos veces. Le sigue una fase de modelo de datos y hooks compartidos (contenido real de marca, bloqueo de scroll compartido, corrección del cursor) que no produce salida visual propia pero desbloquea las tres fases de UI siguientes. El drawer de servicios y el header sticky se construyen en fases adyacentes porque comparten el mismo modo de fallo conocido (bloqueo de scroll de Lenis + `overflow-x` rompiendo `position: sticky`); el carrusel de equipos se agrupa con el header porque la propia especificación de header exige probarlo explícitamente con el carrusel presente. El roadmap cierra con las secciones de contenido real (historia, equipo, proyectos, diferenciación, brochure) y una fase de calidad y regresión final que verifica build/lint/typecheck, ausencia de overflow horizontal, representación visual balanceada del negocio (no solo drones) y que el formulario de contacto siga funcionando sin regresiones.
+
+**Nota de numeración:** esta es la Fase 1 del milestone `v1.0-corporate`. El milestone anterior (Dogstudio, oscuro/cinematográfico) fue archivado sin completarse; por decisión explícita del usuario (ver PROJECT.md Key Decisions) la numeración de fases se reinicia en 1 en vez de continuar desde la Fase 1 técnica archivada.
 
 ## Phases
 
 **Phase Numbering:**
-
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Motion Foundation & Architecture Cleanup** - Unified Lenis+GSAP engine, reduced-motion gate, decomposed components, FormConnector/legacy v4 removed
-- [ ] **Phase 2: GSAP-Native Reveal, Parallax, Cursor & Typography** - Baseline motion (reveal/parallax/cursor/menu/headlines) rebuilt natively on GSAP, old loops removed
-- [ ] **Phase 3: Signature Moments — Mask Transition & Intro** - The hero→section mask transition and refined intro sequence, the site's visual high point
-- [ ] **Phase 4: Differentiators & Polish** - Magnetic CTAs, wrapper-based image reveals, marquee strip, scrubbed process timeline
-- [ ] **Phase 5: Performance & Quality Gate** - Asset optimization, mobile perf verification, reduced-motion audit, lint/typecheck/build/form regression checks
+- [ ] **Phase 1: Fundación — Tema Claro y Especificación de Movimiento Moderado** - Paleta clara WCAG AA y especificación literal de "animación moderada" que reemplaza el tema oscuro anterior
+- [ ] **Phase 2: Modelo de Datos y Hooks Compartidos** - Contenido real de marca en `lib/site-content.ts`, `useScrollLock` compartido y `custom-cursor.tsx` con delegación de eventos
+- [ ] **Phase 3: Servicios y Drawer de Detalle** - Los 5 ejes de servicio como tarjetas navegables con panel lateral accesible de detalle
+- [ ] **Phase 4: Header Sticky y Carrusel de Equipos** - Header reactivo al scroll y carrusel de equipos/drones/cámaras, probados juntos con el drawer
+- [ ] **Phase 5: Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure** - Historia/misión/visión/valores, 4 geólogos, 3 proyectos reales, diferenciación basada en evidencia y brochure descargable
+- [ ] **Phase 6: Calidad y Regresión Final** - Build/lint/typecheck limpios, revisión visual sin overflow, imágenes representativas del negocio y formulario de contacto sin regresiones
 
 ## Phase Details
 
-### Phase 1: Motion Foundation & Architecture Cleanup
-
-**Goal**: The codebase has a single unified Lenis+GSAP scroll/motion engine wired at the client boundary, a working reduced-motion kill-switch, and is decomposed into per-section components with the fragile FormConnector pattern and dead v4 legacy files removed — ready for new animation work to be built section-by-section instead of inside one monolith.
+### Phase 1: Fundación — Tema Claro y Especificación de Movimiento Moderado
+**Goal**: El sitio se ve y se mueve con una identidad corporativa clara y técnica — paleta clara/celeste de bajo contraste, contraste WCAG AA garantizado en todos los pares texto/fondo, y una animación consistentemente moderada en todas las secciones — reemplazando por completo la dirección visual oscura/cinematográfica anterior antes de que empiece cualquier trabajo de contenido por sección.
 **Depends on**: Nothing (first phase)
-**Requirements**: FOUND-01, FOUND-02, FOUND-03, ARCH-01, ARCH-02, ARCH-03
+**Requirements**: THEME-01, THEME-02, THEME-03, THEME-04
 **Success Criteria** (what must be TRUE):
-
-  1. `npm run build` completes with no errors and no SSR/hydration warnings; GSAP and Lenis are initialized only inside a client component boundary.
-  2. Scrolling the site with mouse wheel or trackpad feels physically smooth (Lenis-driven, ticked from GSAP's ticker), with no visible desync or double-scroll jitter.
-  3. Enabling `prefers-reduced-motion` measurably softens Lenis smooth scroll (snappier lerp, per UI-SPEC: 0.15 vs. normal 0.07) and softens GSAP timelines (reduced duration/distance, gentler easing) rather than either playing at full intensity or jumping instantly to end-state — verified via `gsap.matchMedia()` (not CSS alone). This is a "softened, not binary-off" contract, locked in `01-UI-SPEC.md`.
-  4. `components/experience.tsx` no longer exists as a monolith — each visual section (hero, manifesto, capabilities, process, contact, menu, cursor) is its own component with its own scoped `useGSAP` call.
-  5. The contact form's markup and its `onSubmit` handler live in the same component (no `FormConnector`, no `querySelector` coupling), and `landing-page-v4.html`, `lib/v4-template.ts`, `components/v4-interactions.tsx` no longer exist in the repo.
-
+  1. El sitio completo se renderiza con la nueva paleta clara/celeste (fondo blanco/gris claro, un solo acento restringido) — no queda ningún fondo oscuro de la dirección Dogstudio anterior.
+  2. Un chequeo de contraste (automatizado o manual con una herramienta como el contrast checker de WebAIM) confirma que todos los pares texto/fondo cumplen 4.5:1 (texto normal) y que los anillos de foco y elementos UI grandes cumplen 3:1 (WCAG AA).
+  3. Una búsqueda en el código por literales de color/`rgba()`/`blend-mode`/`filter` ajustados al tema oscuro anterior no devuelve resultados fuera de las variables CSS del nuevo sistema de tokens.
+  4. Existe una especificación documentada y literal de "animación moderada" (distancias máximas de traslado, rangos de duración, límites de stagger, sin `pin`/scroll-jacking) y las secciones ya migradas la referencian de forma consistente en sus llamadas `useGSAP()`.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 2: GSAP-Native Reveal, Parallax, Cursor & Typography
-
-**Goal**: Every core vanilla-JS motion behavior — scroll reveal, parallax, cursor, menu, headline typography — is re-implemented natively on GSAP/ScrollTrigger with the old rAF/IntersectionObserver code fully removed, so the site's baseline movement layer reaches the "creative studio" quality bar before any signature moments are added.
+### Phase 2: Modelo de Datos y Hooks Compartidos
+**Goal**: Existe la base de contenido real de marca y los hooks/infraestructura compartidos (bloqueo de scroll vía Lenis, cursor con delegación de eventos) que las fases de UI siguientes van a consumir directamente, sin necesidad de volver a tocarlos más adelante.
 **Depends on**: Phase 1
-**Requirements**: MOTION-01, MOTION-02, MOTION-03, MOTION-04, MOTION-05
+**Requirements**: ARCH-01, ARCH-02, ARCH-03
 **Success Criteria** (what must be TRUE):
-
-  1. Section content reveals on scroll using ScrollTrigger (not the old `[data-reveal]` + IntersectionObserver pattern), preserving the current visual language with smoother, more consistent timing.
-  2. Parallax elements move via ScrollTrigger/Lenis-driven animation only — the old manual `requestAnimationFrame` parallax loop no longer exists in the codebase.
-  3. On devices with a precise pointer, the custom cursor tracks the pointer via `gsap.quickTo` with no lag or jump artifacts; it remains absent on touch devices.
-  4. The overlay menu opens and closes as a single GSAP timeline (backdrop first, then links cascade in stagger), replacing the CSS-only transition.
-  5. Hero and section headlines reveal word-by-word or line-by-line via SplitText when scrolled into view.
-
+  1. `lib/site-content.ts` exporta datos completos y tipados para los 5 ejes de servicio (con detalle largo), los 4 geólogos del equipo, los 3 proyectos reales y los datos de la brochure.
+  2. `hooks/use-scroll-lock.ts` existe, envuelve `lenis.stop()/lenis.start()` (no `overflow: hidden`), y `menu-overlay.tsx` ya lo usa en vez de su mecanismo de bloqueo anterior.
+  3. `custom-cursor.tsx` ya no usa `querySelectorAll` en el montaje — usa delegación de eventos, y reacciona correctamente sobre un elemento `[data-cursor]` insertado dinámicamente después del montaje inicial (verificable con una prueba manual).
 **Plans**: TBD
-**UI hint**: yes
 
-### Phase 3: Signature Moments — Mask Transition & Intro
-
-**Goal**: The site's single highest-impact visual moment — a mask/block transition from the hero into the first section — and a refined intro sequence are built on top of the GSAP-native reveal system, giving the site its distinctive premium creative-studio signature.
+### Phase 3: Servicios y Drawer de Detalle
+**Goal**: Los usuarios pueden explorar los 5 ejes de servicio como tarjetas navegables y ver el detalle de cualquiera de ellos en un panel lateral accesible, sin abandonar la página ni entrar en conflicto con el menú overlay existente.
 **Depends on**: Phase 2
-**Requirements**: SIGNATURE-01, SIGNATURE-02
+**Requirements**: SERV-01, SERV-02, SERV-03
 **Success Criteria** (what must be TRUE):
-
-  1. Scrolling from the hero into the first content section (or completing the intro) triggers a mask/block-reveal transition, not a plain scroll-into-view fade.
-  2. The transition reads as the clear visual high point of the page compared to the rest of the site's motion — distinctly more elaborate than a standard section reveal.
-  3. The intro sequence plays briefly on load, then calls `ScrollTrigger.refresh()` on completion so every subsequent scroll-triggered animation calculates correct trigger positions.
-  4. Both the intro and the mask transition respect the reduced-motion gate established in Phase 1 (skip or simplify under `prefers-reduced-motion`).
-
+  1. Los 5 ejes de servicio se presentan como tarjetas en un grid navegable (no como texto corrido).
+  2. Al seleccionar una tarjeta se abre un `<dialog>` nativo (drawer lateral) con `inert` aplicado al fondo, foco atrapado dentro del panel y devuelto al elemento disparador al cerrarlo (Esc o botón de cierre).
+  3. Con el drawer abierto no puede abrirse el menú overlay (y viceversa) — son mutuamente excluyentes y ambos usan `useScrollLock` de la Fase 2 sin que el scroll de Lenis quede en un estado inconsistente.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 4: Differentiators & Polish
-
-**Goal**: The site gains its final layer of creative-studio differentiation — magnetic CTAs, wrapper-based image reveals, a marquee capability strip, and a scroll-scrubbed process timeline — layered on top of the stable, signature-complete motion system.
+### Phase 4: Header Sticky y Carrusel de Equipos
+**Goal**: El header reacciona visualmente al scroll sin duplicar el motor de scroll existente, y los usuarios pueden explorar el equipo técnico (drones/cámaras) en un carrusel accesible por teclado y touch — ambas piezas se prueban juntas, con el drawer de la Fase 3 presente, para descartar el conflicto conocido entre `overflow-x`, `position: sticky` y Lenis.
 **Depends on**: Phase 3
-**Requirements**: POLISH-01, POLISH-02, POLISH-03, POLISH-04
+**Requirements**: HEAD-01, HEAD-02, EQUIP-01
 **Success Criteria** (what must be TRUE):
-
-  1. The 2-4 primary CTA buttons visibly attract toward the cursor within a hover radius (magnetic effect) and release cleanly on mouse-leave.
-  2. Key images reveal on scroll using a wrapper+transform technique (translate/scale on an inner element) — no `clip-path` is animated directly in the implementation.
-  3. The capabilities band scrolls continuously as a marquee/ticker using pure CSS, with no jank or stutter and no GSAP driving it.
-  4. The process section's timeline progress is scrubbed directly by scroll position, not just triggered once on entry.
-
+  1. El header cambia a fondo sólido/sombra al hacer scroll hacia abajo, implementado vía `ScrollTrigger.create({ toggleClass })` sobre el ticker único existente — no existe un segundo `window.addEventListener('scroll')` en el código.
+  2. El comportamiento sticky del header se verifica manualmente con el drawer de servicio abierto y cerrado, y con el carrusel de equipos visible en la página, sin que `position: sticky` se rompa por `overflow-x`.
+  3. El carrusel de equipos/drones/cámaras (`embla-carousel-react`) permite navegación completa por teclado y touch/swipe, sin auto-avance por defecto, con `data-lenis-prevent` en el track.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 5: Performance & Quality Gate
-
-**Goal**: The finished motion layer is asset-optimized, verified performant on throttled mobile hardware, confirmed fully reduced-motion-safe end-to-end, and passes every code-quality gate — the site is ready to hand off as done.
+### Phase 5: Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure
+**Goal**: El sitio cuenta la historia real de SkyTech — misión, visión, valores, los 4 geólogos fundadores, 3 proyectos reales y una diferenciación basada en evidencia — y permite descargar la brochure de la empresa, todo sobre la base visual y de datos ya construida en las fases anteriores.
 **Depends on**: Phase 4
-**Requirements**: PERF-01, PERF-02, PERF-03, PERF-04, QA-01, QA-02, QA-03
+**Requirements**: BRAND-01, TEAM-01, PROJ-01, DIFF-01, BROCH-01
 **Success Criteria** (what must be TRUE):
+  1. El texto de historia, "quiénes somos", misión, visión y los 6 valores corporativos aparece en el sitio exactamente como lo redactó el cliente (sin reescritura), integrado con la paleta clara de la Fase 1.
+  2. La sección de equipo muestra a los 4 geólogos fundadores con foto, nombre, cargo y bio según el contenido ya redactado por el cliente.
+  3. La sección de proyectos muestra los 3 casos reales (GESAC/Huarmey, Lezard/Huaral, Las Dunas/Piura) con cliente, ubicación y servicio realizado, en formato "proyecto destacado + lista".
+  4. La sección de diferenciación presenta evidencia/datos concretos (casos, no afirmaciones genéricas) sin nombrar a ningún competidor en el texto visible de la página.
+  5. El brochure en PDF se descarga correctamente desde un enlace `<a download>` que apunta a un asset estático en `public/`, verificado corriendo `npm run build && npm start` (no solo `npm run dev`).
+**Plans**: TBD
+**UI hint**: yes
 
-  1. The hero video is served as WebM/AV1 with an MP4 fallback and is measurably smaller than the original 9.37 MB; `dron.png`, `equipos1.png`, and `monumentacion_puntos_referencia.png` are served as WebP.
-  2. With CPU throttling enabled in DevTools, scrolling through animated sections on a simulated mobile device shows no perceptible FPS drop or jank.
-  3. With `prefers-reduced-motion` emulated in DevTools, a full-page walkthrough confirms zero animations fire anywhere on the site (Lenis, GSAP, intro, signature transition, all included).
-  4. `npm run lint`, `npm run typecheck`, and `npm run build` all pass with zero errors, and manual review at 1440×900 and 390×844 shows no horizontal overflow anywhere on the page.
-  5. Submitting the contact form still successfully posts to `/api/contact` (Supabase-backed) with no regression from the Phase 1 form refactor.
-
+### Phase 6: Calidad y Regresión Final
+**Goal**: El milestone completo pasa todos los gates de calidad técnica y de contenido antes de considerarse listo: build limpio, sin overflow horizontal en ningún viewport, imágenes representativas de todos los ejes del negocio (no solo drones), y el formulario de contacto intacto tras todos los cambios visuales y estructurales.
+**Depends on**: Phase 5
+**Requirements**: QA-01, QA-02, QA-03, BRAND-02
+**Success Criteria** (what must be TRUE):
+  1. `npm run lint`, `npm run typecheck` y `npm run build` se ejecutan sin errores.
+  2. Una revisión visual manual en desktop (p.ej. 1440×900) y móvil (p.ej. 390×844) no muestra overflow horizontal en ninguna página, con el header sticky, el drawer y el carrusel probados juntos.
+  3. Ninguna imagen del sitio depende únicamente de drones — la revisión confirma presencia de imágenes de geología, ingeniería, minería e infraestructura también.
+  4. El formulario de contacto sigue enviando correctamente a `/api/contact` (Supabase) sin regresiones introducidas por los cambios de este milestone.
 **Plans**: TBD
 **UI hint**: yes
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Motion Foundation & Architecture Cleanup | 7/8 | In Progress|  |
-| 2. GSAP-Native Reveal, Parallax, Cursor & Typography | 0/TBD | Not started | - |
-| 3. Signature Moments — Mask Transition & Intro | 0/TBD | Not started | - |
-| 4. Differentiators & Polish | 0/TBD | Not started | - |
-| 5. Performance & Quality Gate | 0/TBD | Not started | - |
+| 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 0/TBD | Not started | - |
+| 2. Modelo de Datos y Hooks Compartidos | 0/TBD | Not started | - |
+| 3. Servicios y Drawer de Detalle | 0/TBD | Not started | - |
+| 4. Header Sticky y Carrusel de Equipos | 0/TBD | Not started | - |
+| 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
+| 6. Calidad y Regresión Final | 0/TBD | Not started | - |
