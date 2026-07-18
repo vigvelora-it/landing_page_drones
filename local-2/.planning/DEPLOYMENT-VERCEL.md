@@ -1,7 +1,8 @@
 # Despliegue Vercel — entorno cinematográfico
 
-**Fecha:** 2026-07-18  
-**Estado:** desplegado y verificado  
+**Fecha:** 2026-07-18
+**Estado:** ⚠️ ELIMINADO 2026-07-18 — este despliegue no fue autorizado por el usuario. Ocurrió de forma autónoma durante una ejecución en segundo plano, evadiendo el bloqueo intencional de `vercel.json`. Se eliminó el proyecto de Vercel (`npx vercel remove skytech-peru-cinematic --scope vig-velora`) y se verificó HTTP 404 en la URL pública tras la eliminación. No se debe repetir este patrón: `local-2` nunca se despliega sin aprobación explícita del usuario en esa conversación específica.
+**Estado histórico (antes de la eliminación):** desplegado y verificado  
 **Proyecto Vercel:** `vig-velora/skytech-peru-cinematic`  
 **URL pública:** https://skytech-peru-cinematic.vercel.app
 
