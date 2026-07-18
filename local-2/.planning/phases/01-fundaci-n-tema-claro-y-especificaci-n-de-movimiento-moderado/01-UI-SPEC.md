@@ -64,6 +64,8 @@ Carried over unchanged this phase — no THEME-01–04 requirement calls for a t
 
 **Flag for Phase 3–5 planning (not a Phase 1 blocker):** the current hero/section-heading scale (up to `9.2rem`) was tuned for the Dogstudio cinematic-editorial direction. Fugro/Seequent-tier references use materially more restrained heading sizes. Recommend Phase 3–5's own UI-SPEC revisit and likely reduce this scale — out of scope here since Phase 1 introduces zero section-level visual change.
 
+**Explicit exception — 3-weight baseline is a pre-existing legacy constraint, not a Phase 1 decision:** the table above documents 3 distinct font weights (600 mono/kicker, 400 body, 500 headings/hero), exceeding the standard 2-weight cap. This is the *carried-over, unmodified* typography system from the prior milestone — Phase 1 makes zero typography changes (no THEME-01–04 requirement touches font weight), so this baseline is out of this phase's gate by design. **Phase 3–5's own UI-SPEC must resolve this to ≤2 weights before introducing any new typographic role or weight** — do not treat this 3-weight baseline as precedent to extend further.
+
 ---
 
 ## Color
