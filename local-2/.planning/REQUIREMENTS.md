@@ -74,23 +74,38 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 ## Traceability
 
-Se completa durante la creación del roadmap (`/gsd-plan-phase` / roadmapper).
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01, FOUND-02, FOUND-03 | TBD | Pending |
-| ARCH-01, ARCH-02, ARCH-03 | TBD | Pending |
-| MOTION-01 … MOTION-05 | TBD | Pending |
-| SIGNATURE-01, SIGNATURE-02 | TBD | Pending |
-| POLISH-01 … POLISH-04 | TBD | Pending |
-| PERF-01 … PERF-04 | TBD | Pending |
-| QA-01, QA-02, QA-03 | TBD | Pending |
+| FOUND-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| FOUND-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| FOUND-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| ARCH-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| ARCH-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| ARCH-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| MOTION-01 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
+| MOTION-02 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
+| MOTION-03 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
+| MOTION-04 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
+| MOTION-05 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
+| SIGNATURE-01 | Phase 3 - Signature Moments — Mask Transition & Intro | Pending |
+| SIGNATURE-02 | Phase 3 - Signature Moments — Mask Transition & Intro | Pending |
+| POLISH-01 | Phase 4 - Differentiators & Polish | Pending |
+| POLISH-02 | Phase 4 - Differentiators & Polish | Pending |
+| POLISH-03 | Phase 4 - Differentiators & Polish | Pending |
+| POLISH-04 | Phase 4 - Differentiators & Polish | Pending |
+| PERF-01 | Phase 5 - Performance & Quality Gate | Pending |
+| PERF-02 | Phase 5 - Performance & Quality Gate | Pending |
+| PERF-03 | Phase 5 - Performance & Quality Gate | Pending |
+| PERF-04 | Phase 5 - Performance & Quality Gate | Pending |
+| QA-01 | Phase 5 - Performance & Quality Gate | Pending |
+| QA-02 | Phase 5 - Performance & Quality Gate | Pending |
+| QA-03 | Phase 5 - Performance & Quality Gate | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0 (pendiente de roadmap)
-- Unmapped: 24 ⚠️ (se resolverá en `/gsd-new-project` → creación de roadmap)
+- Mapped to phases: 24
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-18*
-*Last updated: 2026-07-18 after initial definition*
+*Last updated: 2026-07-18 after roadmap creation (5 phases, full coverage)*
