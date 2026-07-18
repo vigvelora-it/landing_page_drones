@@ -1,63 +1,68 @@
-# Requirements: Sky Tech Perú — local-2 (rediseño visual cinematográfico)
+# Requirements: Sky Tech Perú — local-2 (v1.0-corporate — Identidad Corporativa Premium)
 
 **Defined:** 2026-07-18
-**Core Value:** La experiencia debe sentirse tan fluida, animada y pulida como un sitio de estudio creativo de alto nivel — scroll físico suave, transiciones elaboradas, micro-interacciones cuidadas — mientras conserva la identidad de marca de Sky Tech Perú y el formulario de contacto funcional.
+**Core Value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
 
 ## v1 Requirements
 
-### Foundation (motor de movimiento)
+### Foundation (tema claro y especificación de movimiento)
 
-- [x] **FOUND-01**: El sitio usa scroll físico suave (Lenis) sincronizado en un único loop de `requestAnimationFrame` con el ticker de GSAP — sin desincronización ni jitter
-- [x] **FOUND-02**: `prefers-reduced-motion` desactiva/suaviza el motor de movimiento completo (Lenis + todas las animaciones GSAP), no solo CSS, mediante `gsap.matchMedia()`
-- [x] **FOUND-03**: `npm run build` pasa limpio con GSAP/Lenis inicializados solo en el límite de cliente (sin errores de hidratación/SSR)
+- [ ] **THEME-01**: El sitio usa una paleta clara/celeste de bajo contraste (fondo blanco/gris claro, un solo acento restringido), reemplazando la paleta oscura anterior
+- [ ] **THEME-02**: Todos los pares texto/fondo y anillos de foco cumplen contraste WCAG AA (4.5:1 texto normal, 3:1 elementos grandes/UI)
+- [ ] **THEME-03**: No quedan literales de color/blend-mode/filtros ajustados para el tema oscuro anterior — todo pasa por las variables CSS del nuevo sistema de tokens
+- [ ] **THEME-04**: Existe una especificación literal de "animación moderada" (distancias de traslado, duraciones, límites de stagger, sin pinning) aplicada de forma consistente en todas las secciones — reemplaza la intensidad "cinematográfica" anterior
 
-### Arquitectura (deuda estructural)
+### Arquitectura (fundación de datos y hooks compartidos)
 
-- [x] **ARCH-01**: El formulario de contacto tiene su markup y su manejador `onSubmit` en el mismo componente (sin `FormConnector` ni acoplamiento por `querySelector`)
-- [x] **ARCH-02**: `components/experience.tsx` (monolito actual) se descompone en componentes por sección, cada uno con su propio scope de animación (`useGSAP`)
-- [x] **ARCH-03**: Se eliminan `landing-page-v4.html`, `lib/v4-template.ts` y `components/v4-interactions.tsx` (archivos legacy sin uso)
+- [ ] **ARCH-01**: `lib/site-content.ts` extendido con los datos reales de marca: 5 ejes de servicio (con detalle largo), equipo de 4 geólogos, 3 proyectos reales, y datos de la brochure
+- [ ] **ARCH-02**: Existe un hook compartido `useScrollLock` (basado en `lenis.stop()/start()`, no en `overflow:hidden`) usado tanto por el nuevo drawer como por el menú overlay existente
+- [ ] **ARCH-03**: `custom-cursor.tsx` usa delegación de eventos en vez de `querySelectorAll` en el montaje, para que funcione con elementos `[data-cursor]` añadidos dinámicamente (drawer, carrusel)
 
-### Movimiento principal
+### Servicios y drawer de detalle
 
-- [ ] **MOTION-01**: Sistema de revelado por scroll (actualmente `[data-reveal]` + IntersectionObserver) migrado a ScrollTrigger, con el mismo lenguaje visual pero más pulido
-- [ ] **MOTION-02**: Parallax existente migrado a ScrollTrigger/Lenis; el loop `requestAnimationFrame` manual actual se elimina (no queda en paralelo)
-- [ ] **MOTION-03**: Cursor contextual migrado a `gsap.quickTo` (solo en dispositivos con puntero preciso, como hoy)
-- [ ] **MOTION-04**: Menú overlay abre/cierra como timeline de GSAP (fondo → enlaces en cascada)
-- [ ] **MOTION-05**: Titulares del hero y de cada sección usan revelado tipográfico por palabra/línea (SplitText)
+- [ ] **SERV-01**: Los 5 ejes de servicio se presentan como tarjetas navegables (grid), no como texto corrido
+- [ ] **SERV-02**: Al seleccionar un eje, se abre un panel lateral (drawer) con el detalle del servicio, usando `<dialog>` nativo con `inert` en el fondo y retorno de foco al cerrar
+- [ ] **SERV-03**: El drawer y el menú overlay existente son mutuamente excluyentes (no pueden estar abiertos los dos a la vez) y comparten el mecanismo de bloqueo de scroll
 
-### Momentos distintivos
+### Header
 
-- [ ] **SIGNATURE-01**: Una transición tipo máscara/bloque entre el hero y la primera sección (el momento de mayor impacto visual del sitio)
-- [ ] **SIGNATURE-02**: Secuencia de intro breve refinada, con `ScrollTrigger.refresh()` al completarse
+- [ ] **HEAD-01**: El header fijo existente gana un estado visual reactivo al scroll (fondo sólido/sombra al bajar), implementado con `ScrollTrigger.create({ toggleClass })` sobre el ticker único existente — no un segundo listener de scroll
+- [ ] **HEAD-02**: El header sticky se prueba explícitamente con el drawer abierto/cerrado y el carrusel presente, para evitar el conflicto conocido `overflow-x` + `position: sticky` + Lenis
 
-### Pulido / diferenciadores
+### Equipo y proyectos
 
-- [ ] **POLISH-01**: Botones/CTA principales (máx. 2-4) con efecto magnético en hover
-- [ ] **POLISH-02**: Imágenes clave con revelado en scroll vía técnica de wrapper+transform (no animar `clip-path` directamente)
-- [ ] **POLISH-03**: Banda de capacidades con efecto marquee/ticker continuo (CSS puro)
-- [ ] **POLISH-04**: Sección de proceso con timeline scrubbed por scroll
+- [ ] **TEAM-01**: Sección de equipo con los 4 geólogos fundadores (foto, nombre, cargo, bio) según el contenido ya redactado por el cliente
+- [ ] **PROJ-01**: Sección de proyectos con los 3 casos reales (GESAC/Huarmey, Lezard/Huaral, Las Dunas/Piura) con cliente, ubicación y servicio realizado, en formato "proyecto destacado + lista"
 
-### Rendimiento y accesibilidad
+### Diferenciación y equipo técnico (carrusel)
 
-- [ ] **PERF-01**: Video del hero optimizado (WebM/AV1 con fallback MP4), reduciendo el peso desde 9.37 MB
-- [ ] **PERF-02**: Imágenes PNG (`dron.png`, `equipos1.png`, `monumentacion_puntos_referencia.png`) convertidas a WebP
-- [ ] **PERF-03**: Verificación de rendimiento móvil (CPU throttling) sin caída perceptible de FPS en las secciones animadas
-- [ ] **PERF-04**: Auditoría de `prefers-reduced-motion` en todo el sitio (emulación DevTools) confirmando que ninguna animación se ejecuta con la preferencia activa
+- [ ] **DIFF-01**: Sección de diferenciación competitiva basada en evidencia (casos/datos), sin nombrar competidores en la página
+- [ ] **EQUIP-01**: Carrusel de equipos/drones/cámaras usando `embla-carousel-react`, con paridad de teclado/touch y `data-lenis-prevent` en el track — sin auto-avance por defecto
+
+### Brochure
+
+- [ ] **BROCH-01**: Brochure descargable en PDF servido como asset estático (`public/`) con enlace `<a download>` — sin gating, verificado en build de producción (no solo `npm run dev`)
+
+### Contenido y marca (heredado, sin cambios)
+
+- [ ] **BRAND-01**: El texto de historia, "quiénes somos", misión, visión y valores corporativos usa el contenido ya redactado por el cliente, sin reescritura
+- [ ] **BRAND-02**: El formulario de contacto sigue funcionando vía `/api/contact` + Supabase sin regresiones
 
 ### Calidad
 
-- [ ] **QA-01**: `npm run lint`, `npm run typecheck` y `npm run build` pasan sin errores tras todos los cambios
-- [ ] **QA-02**: Revisión visual manual en desktop (1440×900) y móvil (390×844) sin overflow horizontal
-- [ ] **QA-03**: Formulario de contacto sigue enviando correctamente a `/api/contact` sin regresiones
+- [ ] **QA-01**: `npm run lint`, `npm run typecheck` y `npm run build` pasan sin errores
+- [ ] **QA-02**: Revisión visual manual en desktop y móvil sin overflow horizontal, con el header sticky, drawer y carrusel probados juntos
+- [ ] **QA-03**: Ninguna imagen del sitio depende solo de drones — refleja también geología, ingeniería, minería e infraestructura (según el veto explícito del brief)
 
 ## v2 Requirements
 
 Deferido a una futura iteración. No se planifica en este roadmap.
 
-### Movimiento avanzado
+### Contenido avanzado
 
-- **MOTION-V2-01**: Efectos reactivos a la velocidad de scroll (skew/stretch)
-- **MOTION-V2-02**: Transiciones adicionales tipo máscara más allá del momento hero→sección
+- **V2-01**: Brochure con variante gated para captura de leads (solo si el cliente cambia su prioridad declarada de SEO/presentación)
+- **V2-02**: Sub-páginas propias por eje de servicio más allá del drawer (solo si el contenido crece más de lo que cabe en el panel)
+- **V2-03**: Soporte multi-idioma, mapa interactivo de proyectos, páginas de detalle por caso de estudio
 
 ## Out of Scope
 
@@ -65,48 +70,37 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Efectos WebGL/shaders | Usuario prefiere menor riesgo técnico; evolucionar el hero existente en vez de introducir un stack gráfico nuevo |
-| Reescritura de copy/contenido | El esfuerzo se concentra en visual/movimiento, no en redacción |
-| Despliegue a Vercel/producción | `npm run deploy` permanece bloqueado deliberadamente; ningún cambio sale de `local-2/` |
-| Tests automatizados (unit/E2E) | Codebase ya documenta esta brecha en `CONCERNS.md`; fuera de alcance de este milestone |
-| Sonido/audio design | No mencionado por el usuario; fuera del lenguaje de marca actual |
-| Gestor de transiciones de ruta completo | Sitio de una sola página estática, sin rutas entre las que transicionar |
+| Copiar código, textos, imágenes, videos o colores de Fugro/Seequent | Son solo referencia de calidad/estructura, no plantillas — brief del cliente lo prohíbe explícitamente |
+| Efectos WebGL/shaders | Se mantiene la decisión previa de menor riesgo técnico |
+| Colores muy llamativos, iconografía caricaturesca/"estilo startup" | Vetado explícitamente en el brief de identidad visual |
+| Fondos oscuros con exceso de efectos, animación intensa/cinematográfica | Vetado explícitamente — el brief pide "Moderado", no "Dinámico" |
+| Nombrar competidores en la página | El cliente quiere diferenciación basada en evidencia, no comparación directa |
+| Adoptar Tailwind CSS | El research confirma que el sistema de variables CSS existente es suficiente; migrar sería un riesgo/costo no justificado para este milestone |
+| Cualquier despliegue a Vercel u otro servicio externo sin autorización explícita | Ver incidente documentado en `PROJECT.md` — regla dura tras la corrección aplicada |
+| Cualquier cambio a `../local/` o `../produccion/` | Aislamiento estricto entre ambientes |
+| Tests automatizados (unit/E2E) | Fuera de alcance, ya documentado en `CONCERNS.md` |
 
 ## Traceability
 
+Se completa durante la creación del roadmap (`gsd-roadmapper`).
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| FOUND-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| FOUND-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| ARCH-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| ARCH-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| ARCH-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
-| MOTION-01 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
-| MOTION-02 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
-| MOTION-03 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
-| MOTION-04 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
-| MOTION-05 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
-| SIGNATURE-01 | Phase 3 - Signature Moments — Mask Transition & Intro | Pending |
-| SIGNATURE-02 | Phase 3 - Signature Moments — Mask Transition & Intro | Pending |
-| POLISH-01 | Phase 4 - Differentiators & Polish | Pending |
-| POLISH-02 | Phase 4 - Differentiators & Polish | Pending |
-| POLISH-03 | Phase 4 - Differentiators & Polish | Pending |
-| POLISH-04 | Phase 4 - Differentiators & Polish | Pending |
-| PERF-01 | Phase 5 - Performance & Quality Gate | Pending |
-| PERF-02 | Phase 5 - Performance & Quality Gate | Pending |
-| PERF-03 | Phase 5 - Performance & Quality Gate | Pending |
-| PERF-04 | Phase 5 - Performance & Quality Gate | Pending |
-| QA-01 | Phase 5 - Performance & Quality Gate | Pending |
-| QA-02 | Phase 5 - Performance & Quality Gate | Pending |
-| QA-03 | Phase 5 - Performance & Quality Gate | Pending |
+| THEME-01, THEME-02, THEME-03, THEME-04 | TBD | Pending |
+| ARCH-01, ARCH-02, ARCH-03 | TBD | Pending |
+| SERV-01, SERV-02, SERV-03 | TBD | Pending |
+| HEAD-01, HEAD-02 | TBD | Pending |
+| TEAM-01, PROJ-01 | TBD | Pending |
+| DIFF-01, EQUIP-01 | TBD | Pending |
+| BROCH-01 | TBD | Pending |
+| BRAND-01, BRAND-02 | TBD | Pending |
+| QA-01, QA-02, QA-03 | TBD | Pending |
 
 **Coverage:**
-
 - v1 requirements: 24 total
-- Mapped to phases: 24
-- Unmapped: 0 ✓
+- Mapped to phases: 0 (pendiente de roadmap)
+- Unmapped: 24 ⚠️ (se resolverá en la creación del roadmap)
 
 ---
 *Requirements defined: 2026-07-18*
-*Last updated: 2026-07-18 after roadmap creation (5 phases, full coverage)*
+*Last updated: 2026-07-18 after milestone v1.0-corporate research*
