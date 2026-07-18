@@ -13,9 +13,9 @@
 
 ### Arquitectura (deuda estructural)
 
-- [ ] **ARCH-01**: El formulario de contacto tiene su markup y su manejador `onSubmit` en el mismo componente (sin `FormConnector` ni acoplamiento por `querySelector`)
+- [x] **ARCH-01**: El formulario de contacto tiene su markup y su manejador `onSubmit` en el mismo componente (sin `FormConnector` ni acoplamiento por `querySelector`)
 - [ ] **ARCH-02**: `components/experience.tsx` (monolito actual) se descompone en componentes por sección, cada uno con su propio scope de animación (`useGSAP`)
-- [ ] **ARCH-03**: Se eliminan `landing-page-v4.html`, `lib/v4-template.ts` y `components/v4-interactions.tsx` (archivos legacy sin uso)
+- [x] **ARCH-03**: Se eliminan `landing-page-v4.html`, `lib/v4-template.ts` y `components/v4-interactions.tsx` (archivos legacy sin uso)
 
 ### Movimiento principal
 
@@ -79,9 +79,9 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | FOUND-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
 | FOUND-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
 | FOUND-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
-| ARCH-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| ARCH-01 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
 | ARCH-02 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
-| ARCH-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Pending |
+| ARCH-03 | Phase 1 - Motion Foundation & Architecture Cleanup | Complete |
 | MOTION-01 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
 | MOTION-02 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
 | MOTION-03 | Phase 2 - GSAP-Native Reveal, Parallax, Cursor & Typography | Pending |
@@ -102,6 +102,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | QA-03 | Phase 5 - Performance & Quality Gate | Pending |
 
 **Coverage:**
+
 - v1 requirements: 24 total
 - Mapped to phases: 24
 - Unmapped: 0 ✓
