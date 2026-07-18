@@ -13,7 +13,8 @@ export function HeroSection() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       videoRef.current?.pause()
-      setVideoPlaying(false)
+      const reducedMotionTimer = window.setTimeout(() => setVideoPlaying(false), 0)
+      return () => window.clearTimeout(reducedMotionTimer)
     }
   }, [])
 
