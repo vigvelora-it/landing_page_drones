@@ -293,17 +293,17 @@ Concrete, codebase-specific sequencing (fulfills `01-CONTEXT.md`'s "Claude's Dis
 | A2 | `gsap.registerPlugin(ScrollTrigger, useGSAP)` at module scope inside `lib/gsap.ts` is safe to execute without an explicit `typeof window !== "undefined"` guard, as long as `lib/gsap.ts` is only ever imported transitively from `"use client"` files | Import Hygiene Constraint | Medium — if a future edit accidentally imports `lib/gsap.ts` from a server component, `npm run build` would fail loudly (per FOUND-03's own gate), so this is self-detecting, not a silent risk |
 | A3 | Lenis's `lerp` option needs to be re-applied via `gsap.matchMedia()`-driven instance recreation (or an options update) to satisfy FOUND-02's "live-updating" implication of `gsap.matchMedia()`, rather than a one-time `getLenisLerp()` read at mount | Code Examples section | Low — if a one-time read is used instead, the OS-level reduced-motion toggle would only take effect on next page load, not live-updating mid-session; a defensible interpretation but worth flagging explicitly to the planner since it affects task-level acceptance criteria for FOUND-02 |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Should `Footer` be extracted into its own component during this phase?**
+1. **Should `Footer` be extracted into its own component during this phase? — RESOLVED**
    - What we know: The footer (`app/page.tsx` lines 273-282) is fully static with no interactivity, no `[data-reveal]`, no client-side logic.
    - What's unclear: ARCH-02's requirement text says "decompose `experience.tsx`" specifically — Footer was never part of `experience.tsx`, so it's arguably out of scope either way.
-   - Recommendation: Leave `Footer` inline in `app/page.tsx` (or extract trivially, Claude's discretion per CONTEXT.md) — either choice satisfies ARCH-02 since Footer isn't part of the monolith being decomposed. Not a blocking decision for the plan.
+   - Resolution: Leave `Footer` inline in `app/page.tsx`. Plan 06 explicitly preserves its markup while replacing only the interactive monolith and inline page sections.
 
-2. **Exact Lenis API surface for live-reactive `lerp` changes (Assumption A3).**
+2. **Exact Lenis API surface for live-reactive `lerp` changes (Assumption A3). — RESOLVED**
    - What we know: `lenis@1.3.25`'s `options` are normally set at construction (`new Lenis({...})`); STACK.md/ARCHITECTURE.md's code samples set `lerp` once at instantiation.
    - What's unclear: Whether Lenis 1.3.x exposes a supported way to update `lerp` on an already-running instance (vs. needing to destroy/recreate the instance inside the `gsap.matchMedia()` callback) — this wasn't verified against the Lenis package's actual TypeScript types/API surface in this research session (would require installing the package first, which hadn't happened yet at research time).
-   - Recommendation: Flag as a first-task investigation for the plan's FOUND-02 task — check `node_modules/lenis/dist/types/lenis.d.ts` (once installed) for a mutable `lerp` property or an `options()`/`updateOptions()` method before deciding between "mutate in place" vs. "destroy and recreate inside `gsap.matchMedia()`."
+   - Resolution: Do not mutate `lenis.options` or rely on an undocumented update method. Plan 02 uses `gsap.matchMedia()` to update React state and changes a `normal`/`reduced` key on `<ReactLenis>`, allowing ReactLenis to destroy/recreate the instance through its supported lifecycle. A nested `LenisGsapBridge` cleans up and reconnects the GSAP ticker for the active instance.
 
 ## Validation Architecture
 
