@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 (v1.0-corporate) UI-SPEC approved
-last_updated: "2026-07-18T22:07:25.732Z"
+stopped_at: Phase 1 context gathered
+last_updated: "2026-07-18T22:13:52.498Z"
 last_activity: 2026-07-18 — ROADMAP.md creado para el milestone v1.0-corporate (6 fases, numeración reiniciada en Fase 1)
 progress:
   total_phases: 6
@@ -94,6 +94,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-18T22:07:25.713Z
-Stopped at: Phase 1 (v1.0-corporate) UI-SPEC approved
-Resume file: .planning/phases/01-fundaci-n-tema-claro-y-especificaci-n-de-movimiento-moderado/01-UI-SPEC.md
+Last session: 2026-07-18T22:13:52.476Z
+Stopped at: Phase 1 context gathered
+Resume file: .planning/phases/01-fundaci-n-tema-claro-y-especificaci-n-de-movimiento-moderado/01-CONTEXT.md
