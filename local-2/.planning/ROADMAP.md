@@ -16,7 +16,7 @@ Este roadmap lleva `local-2` desde la dirección visual oscura/cinematográfica 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Fundación — Tema Claro y Especificación de Movimiento Moderado** - Paleta clara WCAG AA y especificación literal de "animación moderada" que reemplaza el tema oscuro anterior (completed 2026-07-19)
-- [ ] **Phase 2: Modelo de Datos y Hooks Compartidos** - Contenido real de marca en `lib/site-content.ts`, `useScrollLock` compartido y `custom-cursor.tsx` con delegación de eventos
+- [x] **Phase 2: Modelo de Datos y Hooks Compartidos** - Contenido real de marca en `lib/site-content.ts`, `useScrollLock` compartido y `custom-cursor.tsx` con delegación de eventos (completed 2026-07-19)
 - [ ] **Phase 3: Servicios y Drawer de Detalle** - Los 5 ejes de servicio como tarjetas navegables con panel lateral accesible de detalle
 - [ ] **Phase 4: Header Sticky y Carrusel de Equipos** - Header reactivo al scroll y carrusel de equipos/drones/cámaras, probados juntos con el drawer
 - [ ] **Phase 5: Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure** - Historia/misión/visión/valores, 4 geólogos, 3 proyectos reales, diferenciación basada en evidencia y brochure descargable
@@ -61,7 +61,7 @@ Plans:
 Plans:
 
 - [x] 02-01-PLAN.md — Modelo de datos tipado real de marca en lib/site-content.ts (5 ejes, 4 geólogos, 3 proyectos, brochure)
-- [ ] 02-02-PLAN.md — Hooks compartidos: useScrollLock (Lenis) en menu-overlay + CustomCursor con delegación de eventos
+- [x] 02-02-PLAN.md — Hooks compartidos: useScrollLock (Lenis) en menu-overlay + CustomCursor con delegación de eventos
 
 ### Phase 3: Servicios y Drawer de Detalle
 
@@ -130,7 +130,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 4/4 | Complete   | 2026-07-19 |
-| 2. Modelo de Datos y Hooks Compartidos | 1/2 | In Progress|  |
+| 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
 | 3. Servicios y Drawer de Detalle | 0/TBD | Not started | - |
 | 4. Header Sticky y Carrusel de Equipos | 0/TBD | Not started | - |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |

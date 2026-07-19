@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-07-19T21:49:16.162Z"
+status: verifying
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-07-19T21:59:48.700Z"
 last_activity: 2026-07-19 -- Phase 02 execution started
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
-  percent: 17
+  completed_plans: 6
+  percent: 33
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 
 Phase: 02 (Modelo de Datos y Hooks Compartidos) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-19 -- Phase 02 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P03 | ~20min | 3 tasks | 1 files |
 | Phase 01 P04 | ~20min | 3 tasks | 1 files |
 | Phase 02 P01 | 15min | 2 tasks | 1 files |
+| Phase 02 P02 | 15min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,8 @@ Recent decisions affecting current work:
 - [Phase 01]: Phase 01 cierre: audit de fase completo confirma 0 hits en los 8 grep gates de THEME-01/02/03/04; unico infinite survivors son los 4 ya documentados en Planes 02-03 (spin/orbit x2/marquee)
 - [Phase ?]: [Phase 02]: Service.detail reuses the verbatim tagline string (no fabricated short summary) to preserve capabilities-section.tsx's number/title/detail contract
 - [Phase ?]: [Phase 02]: TeamMember.photo and brochure.href left unset/placeholder — real team photos and brochure PDF are Phase 5 (TEAM-01/BROCH-01) client deliverables not yet provided
+- [Phase 02]: Phase 02: useScrollLock uses lenis.stop()/start() as the sole scroll-lock mechanism, no overflow:hidden or body-class backstop, per strict ARCH-02 reading
+- [Phase 02]: Phase 02: dead body.menu-open{overflow:hidden} CSS rule deleted outright rather than repurposed, since menu-overlay.tsx no longer toggles that class and it was confirmed its sole consumer
 
 ### Pending Todos
 
@@ -112,6 +115,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-19T21:49:16.148Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-07-19T21:59:48.684Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

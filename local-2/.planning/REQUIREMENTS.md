@@ -15,8 +15,8 @@
 ### Arquitectura (fundación de datos y hooks compartidos)
 
 - [x] **ARCH-01**: `lib/site-content.ts` extendido con los datos reales de marca: 5 ejes de servicio (con detalle largo), equipo de 4 geólogos, 3 proyectos reales, y datos de la brochure
-- [ ] **ARCH-02**: Existe un hook compartido `useScrollLock` (basado en `lenis.stop()/start()`, no en `overflow:hidden`) usado tanto por el nuevo drawer como por el menú overlay existente
-- [ ] **ARCH-03**: `custom-cursor.tsx` usa delegación de eventos en vez de `querySelectorAll` en el montaje, para que funcione con elementos `[data-cursor]` añadidos dinámicamente (drawer, carrusel)
+- [x] **ARCH-02**: Existe un hook compartido `useScrollLock` (basado en `lenis.stop()/start()`, no en `overflow:hidden`) usado tanto por el nuevo drawer como por el menú overlay existente
+- [x] **ARCH-03**: `custom-cursor.tsx` usa delegación de eventos en vez de `querySelectorAll` en el montaje, para que funcione con elementos `[data-cursor]` añadidos dinámicamente (drawer, carrusel)
 
 ### Servicios y drawer de detalle
 
