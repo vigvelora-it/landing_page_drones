@@ -32,7 +32,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Un chequeo de contraste (automatizado o manual con una herramienta como el contrast checker de WebAIM) confirma que todos los pares texto/fondo cumplen 4.5:1 (texto normal) y que los anillos de foco y elementos UI grandes cumplen 3:1 (WCAG AA).
   3. Una búsqueda en el código por literales de color/`rgba()`/`blend-mode`/`filter` ajustados al tema oscuro anterior no devuelve resultados fuera de las variables CSS del nuevo sistema de tokens.
   4. Existe una especificación documentada y literal de "animación moderada" (distancias máximas de traslado, rangos de duración, límites de stagger, sin `pin`/scroll-jacking) y las secciones ya migradas la referencian de forma consistente en sus llamadas `useGSAP()`.
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 01-01-PLAN.md — Layer de tokens claros (:root) + tokens de movimiento + reglas base/reveal + Lenis lerp 0.1
+- [ ] 01-02-PLAN.md — Migración de secciones superiores: Apertura, Navegación, Hero, Perspectiva
+- [ ] 01-03-PLAN.md — Migración de secciones centrales: Capacidades, Tecnología, Proceso
+- [ ] 01-04-PLAN.md — Migración de Contacto/Footer/Cursor/Badge + audit de fase completo (grep gates + build/lint/typecheck)
 **UI hint**: yes
 
 ### Phase 2: Modelo de Datos y Hooks Compartidos
@@ -99,7 +104,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 0/TBD | Not started | - |
+| 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 0/4 | Planned | - |
 | 2. Modelo de Datos y Hooks Compartidos | 0/TBD | Not started | - |
 | 3. Servicios y Drawer de Detalle | 0/TBD | Not started | - |
 | 4. Header Sticky y Carrusel de Equipos | 0/TBD | Not started | - |
