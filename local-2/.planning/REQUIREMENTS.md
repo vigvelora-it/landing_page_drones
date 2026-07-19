@@ -84,7 +84,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| THEME-01, THEME-02, THEME-03, THEME-04 | Phase 1 — Fundación: Tema Claro y Especificación de Movimiento Moderado | Pending |
+| THEME-01, THEME-02, THEME-03, THEME-04 | Phase 1 — Fundación: Tema Claro y Especificación de Movimiento Moderado | Complete |
 | ARCH-01, ARCH-02, ARCH-03 | Phase 2 — Modelo de Datos y Hooks Compartidos | Pending |
 | SERV-01, SERV-02, SERV-03 | Phase 3 — Servicios y Drawer de Detalle | Pending |
 | HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Pending |
