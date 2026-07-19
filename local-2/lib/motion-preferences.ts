@@ -1,5 +1,5 @@
 export const LENIS_LERP = {
-  normal: 0.07,
+  normal: 0.1,
   reduced: 0.15,
 } as const
 
