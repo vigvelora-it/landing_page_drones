@@ -172,3 +172,86 @@ export const process = [
   ["03", "Capturamos la realidad", "Volamos, verificamos la cobertura y controlamos la calidad desde campo."],
   ["04", "Convertimos datos", "Procesamos, validamos y entregamos información lista para tus equipos CAD y GIS."],
 ]
+
+export interface TeamMember {
+  id: string
+  name: string
+  role: string
+  bio: string
+  photo?: string
+}
+
+export interface Project {
+  id: string
+  name: string
+  client: string
+  location: string
+  service: string
+  featured?: boolean
+}
+
+export interface Brochure {
+  title: string
+  href: string
+  fileSizeLabel?: string
+}
+
+export const teamIntro =
+  "SKYTECH SOLUTIONS está conformada por un equipo fundador de cuatro ingenieros geólogos, lo que nos permite integrar el conocimiento técnico de la geología con la tecnología de drones desde el diseño mismo de cada proyecto — no como un servicio externo, sino como parte de nuestro ADN profesional."
+
+export const team: TeamMember[] = [
+  {
+    id: "paulo-rodriguez",
+    name: "Paulo Alfredo Rodríguez Coronado",
+    role: "Ingeniero Geólogo Senior · Gerente General",
+    bio: "Cuenta con 10 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, control de riesgos geológicos, además de experiencia como piloto de dron certificado.",
+  },
+  {
+    id: "harold-navarro",
+    name: "Harold Jesús Navarro Saavedra",
+    role: "Ingeniero Geólogo Senior · Sub Gerente",
+    bio: "Cuenta con más de 10 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, con experiencia en el sector construcción, además de piloto de dron certificado.",
+  },
+  {
+    id: "luis-alban",
+    name: "Luis Alberto Alban Zapata",
+    role: "Ingeniero Geólogo Senior · Socio Fundador",
+    bio: "Amplia experiencia en el sector minero, con dirección de proyectos de exploración en etapa greenfield y brownfield, y gestión medioambiental.",
+  },
+  {
+    id: "juan-ruiz",
+    name: "Juan Carlos Ruiz Gonzales",
+    role: "Ingeniero Geólogo Project · Socio Fundador",
+    bio: "Cuenta con 5 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, ensayos en mecánica de suelos, además de piloto de dron certificado.",
+  },
+]
+
+export const projects: Project[] = [
+  {
+    id: "gesac-huarmey",
+    name: "Proyecto GESAC",
+    client: "German Engineering & Cie. S.A.C",
+    location: "Huarmey, Ancash",
+    service: "Levantamiento Aerofotogramétrico",
+    featured: true,
+  },
+  {
+    id: "lezard-huaral",
+    name: "Proyecto Lezard",
+    client: "Black Swan Minerals S.A.C.",
+    location: "Huaral, Lima",
+    service: "Levantamiento Aerofotogramétrico",
+  },
+  {
+    id: "las-dunas-piura",
+    name: "Proyecto Las Dunas",
+    client: "Asociación Las Dunas Ecological",
+    location: "Castilla, Piura",
+    service: "Levantamiento Aerofotogramétrico",
+  },
+]
+
+export const brochure: Brochure = {
+  title: "Brochure SkyTech Solutions",
+  href: "/brochures/skytech-solutions-brochure.pdf",
+}
