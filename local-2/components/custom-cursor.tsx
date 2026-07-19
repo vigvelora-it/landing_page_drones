@@ -2,6 +2,14 @@
 
 import { useEffect, useRef } from "react"
 
+// Enter/leave pointer events don't bubble, so delegating from document
+// requires the bubbling over/out pair instead — but those also fire on
+// child-element boundary crossings inside a [data-cursor] target, hence the
+// closest()-based same-target guard below to avoid cursor-active flicker.
+function closestCursorTarget(node: EventTarget | null): HTMLElement | null {
+  return node instanceof Element ? node.closest<HTMLElement>("[data-cursor]") : null
+}
+
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
 
@@ -16,26 +24,29 @@ export function CustomCursor() {
       cursor.classList.add("cursor-ready")
     }
 
-    const cursorTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-cursor]"))
-    const enterCursor = (event: Event) => {
-      const target = event.currentTarget as HTMLElement
+    const onPointerOver = (event: PointerEvent) => {
+      const target = closestCursorTarget(event.target)
+      if (!target) return
+      if (closestCursorTarget(event.relatedTarget) === target) return
       if (cursorLabel) cursorLabel.textContent = target.dataset.cursor ?? "Abrir"
       cursor?.classList.add("cursor-active")
     }
-    const leaveCursor = () => cursor?.classList.remove("cursor-active")
+
+    const onPointerOut = (event: PointerEvent) => {
+      const target = closestCursorTarget(event.target)
+      if (!target) return
+      if (closestCursorTarget(event.relatedTarget) === target) return
+      cursor?.classList.remove("cursor-active")
+    }
 
     window.addEventListener("pointermove", onPointerMove, { passive: true })
-    cursorTargets.forEach((target) => {
-      target.addEventListener("pointerenter", enterCursor)
-      target.addEventListener("pointerleave", leaveCursor)
-    })
+    document.addEventListener("pointerover", onPointerOver)
+    document.addEventListener("pointerout", onPointerOut)
 
     return () => {
       window.removeEventListener("pointermove", onPointerMove)
-      cursorTargets.forEach((target) => {
-        target.removeEventListener("pointerenter", enterCursor)
-        target.removeEventListener("pointerleave", leaveCursor)
-      })
+      document.removeEventListener("pointerover", onPointerOver)
+      document.removeEventListener("pointerout", onPointerOut)
     }
   }, [])
 
