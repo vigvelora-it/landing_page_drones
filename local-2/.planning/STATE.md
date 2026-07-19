@@ -4,13 +4,13 @@ milestone: v1.0-corporate
 milestone_name: milestone
 status: executing
 stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-07-19T09:29:42.444Z"
+last_updated: "2026-07-19T14:55:33.041Z"
 last_activity: 2026-07-19 -- Phase 01 execution started
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 ## Current Position
 
 Phase: 01 (Fundación — Tema Claro y Especificación de Movimiento Moderado) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-07-19 -- Phase 01 execution started
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 15min | 2 tasks | 2 files |
 | Phase 01 P02 | 25min | 3 tasks | 1 files |
+| Phase 01 P03 | ~20min | 3 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ Recent decisions affecting current work:
 - [Phase 01]: Parallax de .hero-media clampeado a ±8px con clamp(-8px,var(--parallax,0),8px); .hero-shade rederivado como scrim claro con color-mix() en vez de oscurecimiento
 - [Phase 01]: mix-blend-mode:difference retirado de .site-header y .frame-coordinates; ambos usan color solido tokenizado var(--ink-primary)
 - [Phase 01]: Animaciones infinite decorativas del hero (.pulse-dot, .scroll-cue i:after) acotadas a 3 iteraciones; .hero-orbit y .intro-brand span quedan flagged/diferidos segun Open Question #4 y auto-hide del intro
+- [Phase ?]: Phase 01: .capabilities pasa de --ink a --bg-surface-alt (flip completo a superficie clara); .service-row:hover y .moving-band usan texto blanco sobre var(--accent) (Pitfall 1)
+- [Phase ?]: Phase 01: .tech-vignette (base + duplicado media query 720px) re-derivado con color-mix(in srgb,var(--bg-surface) X%,transparent) en vez de eliminado, preservando los stops de opacidad originales
+- [Phase ?]: Phase 01: parallax de .tech-media clampeado a +-8px (THEME-04), segundo consumidor tras .hero-media del Plan 02; cero literales #0a0c0f en todo app/globals.css
 
 ### Pending Todos
 
@@ -102,6 +106,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-19T09:29:42.430Z
+Last session: 2026-07-19T14:55:33.016Z
 Stopped at: Completed 01-02-PLAN.md
 Resume file: None
