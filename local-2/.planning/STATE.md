@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 01-04-PLAN.md
-last_updated: "2026-07-19T16:04:36.335Z"
-last_activity: 2026-07-19 -- Phase 01 execution started
+status: executing
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-07-19T21:49:16.162Z"
+last_activity: 2026-07-19 -- Phase 02 execution started
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
   percent: 17
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-18)
 
 **Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
-**Current focus:** Phase 01 — Fundación — Tema Claro y Especificación de Movimiento Moderado
+**Current focus:** Phase 02 — Modelo de Datos y Hooks Compartidos
 
 ## Current Position
 
-Phase: 01 (Fundación — Tema Claro y Especificación de Movimiento Moderado) — EXECUTING
-Plan: 4 of 4
-Status: Phase complete — ready for verification
-Last activity: 2026-07-19 -- Phase 01 execution started
+Phase: 02 (Modelo de Datos y Hooks Compartidos) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-07-19 -- Phase 02 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P02 | 25min | 3 tasks | 1 files |
 | Phase 01 P03 | ~20min | 3 tasks | 1 files |
 | Phase 01 P04 | ~20min | 3 tasks | 1 files |
+| Phase 02 P01 | 15min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,8 @@ Recent decisions affecting current work:
 - [Phase ?]: Phase 01: parallax de .tech-media clampeado a +-8px (THEME-04), segundo consumidor tras .hero-media del Plan 02; cero literales #0a0c0f en todo app/globals.css
 - [Phase 01]: Phase 01 cierre: .contact-section:before (glow ring decorativo) eliminado por completo en vez de re-derivado con color-mix, por ser invisible sobre --bg-surface y sin funcion de legibilidad
 - [Phase 01]: Phase 01 cierre: audit de fase completo confirma 0 hits en los 8 grep gates de THEME-01/02/03/04; unico infinite survivors son los 4 ya documentados en Planes 02-03 (spin/orbit x2/marquee)
+- [Phase ?]: [Phase 02]: Service.detail reuses the verbatim tagline string (no fabricated short summary) to preserve capabilities-section.tsx's number/title/detail contract
+- [Phase ?]: [Phase 02]: TeamMember.photo and brochure.href left unset/placeholder — real team photos and brochure PDF are Phase 5 (TEAM-01/BROCH-01) client deliverables not yet provided
 
 ### Pending Todos
 
@@ -109,6 +112,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-19T16:04:36.321Z
-Stopped at: Completed 01-04-PLAN.md
+Last session: 2026-07-19T21:49:16.148Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None

@@ -60,7 +60,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 
-- [ ] 02-01-PLAN.md — Modelo de datos tipado real de marca en lib/site-content.ts (5 ejes, 4 geólogos, 3 proyectos, brochure)
+- [x] 02-01-PLAN.md — Modelo de datos tipado real de marca en lib/site-content.ts (5 ejes, 4 geólogos, 3 proyectos, brochure)
 - [ ] 02-02-PLAN.md — Hooks compartidos: useScrollLock (Lenis) en menu-overlay + CustomCursor con delegación de eventos
 
 ### Phase 3: Servicios y Drawer de Detalle
@@ -130,7 +130,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 4/4 | Complete   | 2026-07-19 |
-| 2. Modelo de Datos y Hooks Compartidos | 0/2 | Not started | - |
+| 2. Modelo de Datos y Hooks Compartidos | 1/2 | In Progress|  |
 | 3. Servicios y Drawer de Detalle | 0/TBD | Not started | - |
 | 4. Header Sticky y Carrusel de Equipos | 0/TBD | Not started | - |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
