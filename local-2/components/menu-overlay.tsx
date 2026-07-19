@@ -1,14 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
+
+import { useScrollLock } from "@/hooks/use-scroll-lock"
 
 export function MenuOverlay() {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen)
-    return () => document.body.classList.remove("menu-open")
-  }, [menuOpen])
+  useScrollLock(menuOpen)
 
   const navigate = () => setMenuOpen(false)
 
