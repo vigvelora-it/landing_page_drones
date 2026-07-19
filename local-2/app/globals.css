@@ -1,11 +1,17 @@
 :root {
-  --ink:#0c0e12;--soft:#14171d;--paper:#eeeae3;--orange:#e46d4b;--hot:#ff7852;
-  --dark-line:rgba(12,14,18,.18);--light-line:rgba(255,255,255,.18);
+  --bg-surface:#FFFFFF;--bg-surface-alt:#EEF1F4;--bg-surface-deep:#E3E8ED;
+  --ink-primary:#1C2530;--ink-secondary:#4A5568;
+  --accent:#0B6E8F;--accent-hover:#0A5A78;--accent-soft:#E4F0F4;
+  --destructive:#B3261E;--success:#1E7A3E;
+  --border-subtle:#DCE2E8;--border-strong:#7C899A;--focus-ring:var(--accent);
+  --motion-distance-max:24px;--motion-distance-min:12px;
+  --motion-duration-fast:200ms;--motion-duration-base:450ms;--motion-duration-slow:650ms;
+  --motion-stagger-max:60ms;--ease-moderate:cubic-bezier(0.33,1,0.68,1);
   --display:"Space Grotesk","Arial Narrow",Arial,sans-serif;--body:"Inter",Arial,sans-serif;
   --shell:min(calc(100% - 64px),1440px)
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink)}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}body.menu-open{overflow:hidden}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{color:inherit}::selection{color:var(--ink);background:var(--hot)}
-.site-shell{width:var(--shell);margin-inline:auto}.section-pad{padding:clamp(7rem,12vw,13rem) 0}.mono-label,.section-kicker,.hero-index,.scroll-cue,.frame-coordinates,.tech-caption{font-size:.68rem;font-weight:600;letter-spacing:.15em;line-height:1.4;text-transform:uppercase}
+.site-shell{width:var(--shell);margin-inline:auto}.section-pad{padding:clamp(7rem,12vw,13rem) 0}.mono-label,.section-kicker,.hero-index,.scroll-cue,.frame-coordinates,.tech-caption{font-size:.68rem;font-weight:500;letter-spacing:.15em;line-height:1.4;text-transform:uppercase}
 [data-reveal]{opacity:0;transform:translateY(44px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}[data-reveal].is-visible{opacity:1;transform:none}.title-line[data-reveal]{transform:none}.title-line[data-reveal]>span{display:block;transform:translateY(115%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}.title-line[data-reveal].is-visible>span{transform:none}.title-line:nth-child(2)>span{transition-delay:.08s}.title-line:nth-child(3)>span{transition-delay:.16s}.title-line:nth-child(4)>span{transition-delay:.23s}
 
 /* Apertura */
