@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 plans verified, ready to execute
-last_updated: "2026-07-19T00:59:50.514Z"
-last_activity: 2026-07-18 — ROADMAP.md creado para el milestone v1.0-corporate (6 fases, numeración reiniciada en Fase 1)
+status: executing
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-07-19T01:09:09.907Z"
+last_activity: 2026-07-19 -- Phase 01 execution started
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 4
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-18)
 
 **Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
-**Current focus:** Phase 1 — Fundación — Tema Claro y Especificación de Movimiento Moderado
+**Current focus:** Phase 01 — Fundación — Tema Claro y Especificación de Movimiento Moderado
 
 ## Current Position
 
-Phase: 1 of 6 (Fundación — Tema Claro y Especificación de Movimiento Moderado)
-Plan: — of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-07-18 — ROADMAP.md creado para el milestone v1.0-corporate (6 fases, numeración reiniciada en Fase 1)
+Phase: 01 (Fundación — Tema Claro y Especificación de Movimiento Moderado) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-07-19 -- Phase 01 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01 P01 | 15min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,9 @@ Recent decisions affecting current work:
 - Roadmap: BRAND-01 (historia/misión/visión/valores) agrupado con TEAM-01/PROJ-01/DIFF-01/BROCH-01 en la Fase 5 — todo es contenido de marca ya redactado por el cliente, de bajo riesgo técnico, correctamente secuenciado después de la base visual y de datos.
 - Pivote de dirección visual: Dogstudio oscuro/cinematográfico → Fugro/Seequent claro/corporativo (ver PROJECT.md Key Decisions).
 - Reutilizar íntegramente la arquitectura Lenis+GSAP + componentes por sección + formulario de la Fase 1 técnica anterior; solo se reemplaza la capa visual/CSS y el contenido.
+- [Phase ?]: Layer completo de tokens claros WCAG AA + movimiento moderado establecido en app/globals.css :root; base para Planes 02-04
+- [Phase ?]: LENIS_LERP.normal retuneado de 0.07 (cinematográfico) a 0.1 (moderado)
+- [Phase ?]: motion-stagger-max fijado en 60ms, corrigiendo un error del bloque de ejemplo de 01-RESEARCH.md que mostraba 80ms
 
 ### Pending Todos
 
@@ -94,6 +98,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-19T00:59:50.495Z
-Stopped at: Phase 1 plans verified, ready to execute
-Resume file: .planning/phases/01-fundaci-n-tema-claro-y-especificaci-n-de-movimiento-moderado/01-01-PLAN.md
+Last session: 2026-07-19T01:09:09.890Z
+Stopped at: Completed 01-01-PLAN.md
+Resume file: None

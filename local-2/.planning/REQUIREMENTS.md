@@ -7,10 +7,10 @@
 
 ### Foundation (tema claro y especificación de movimiento)
 
-- [ ] **THEME-01**: El sitio usa una paleta clara/celeste de bajo contraste (fondo blanco/gris claro, un solo acento restringido), reemplazando la paleta oscura anterior
-- [ ] **THEME-02**: Todos los pares texto/fondo y anillos de foco cumplen contraste WCAG AA (4.5:1 texto normal, 3:1 elementos grandes/UI)
-- [ ] **THEME-03**: No quedan literales de color/blend-mode/filtros ajustados para el tema oscuro anterior — todo pasa por las variables CSS del nuevo sistema de tokens
-- [ ] **THEME-04**: Existe una especificación literal de "animación moderada" (distancias de traslado, duraciones, límites de stagger, sin pinning) aplicada de forma consistente en todas las secciones — reemplaza la intensidad "cinematográfica" anterior
+- [x] **THEME-01**: El sitio usa una paleta clara/celeste de bajo contraste (fondo blanco/gris claro, un solo acento restringido), reemplazando la paleta oscura anterior
+- [x] **THEME-02**: Todos los pares texto/fondo y anillos de foco cumplen contraste WCAG AA (4.5:1 texto normal, 3:1 elementos grandes/UI)
+- [x] **THEME-03**: No quedan literales de color/blend-mode/filtros ajustados para el tema oscuro anterior — todo pasa por las variables CSS del nuevo sistema de tokens
+- [x] **THEME-04**: Existe una especificación literal de "animación moderada" (distancias de traslado, duraciones, límites de stagger, sin pinning) aplicada de forma consistente en todas las secciones — reemplaza la intensidad "cinematográfica" anterior
 
 ### Arquitectura (fundación de datos y hooks compartidos)
 
@@ -97,6 +97,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | BRAND-02 | Phase 6 — Calidad y Regresión Final | Pending |
 
 **Coverage:**
+
 - v1 requirements: 22 total (correción: el conteo previo de "24" en este documento era incorrecto; el conteo real de IDs únicos THEME/ARCH/SERV/HEAD/TEAM/PROJ/DIFF/EQUIP/BROCH/BRAND/QA es 22)
 - Mapped to phases: 22/22 ✓
 - Unmapped: 0 ✓
