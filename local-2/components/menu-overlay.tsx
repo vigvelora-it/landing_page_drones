@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 
+import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
 
@@ -10,6 +11,7 @@ export function MenuOverlay() {
   const drawerOpen = useOverlayCoordination("menu", menuOpen)
 
   useScrollLock(menuOpen)
+  useHeaderScrollState()
 
   const navigate = () => setMenuOpen(false)
 
