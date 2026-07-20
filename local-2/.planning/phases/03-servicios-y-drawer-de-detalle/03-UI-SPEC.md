@@ -47,17 +47,19 @@ Exceptions: none.
 
 ## Typography
 
-Reused verbatim from Phase 1's locked 2-weight system (500 for kicker/headings, 400 for body — no third weight introduced). Sizes below are this phase's specific role assignments, chosen to fit the drawer's narrower `clamp(420px,44vw,560px)` panel rather than the full-bleed section widths used elsewhere:
+Reused verbatim from Phase 1's locked 2-weight system (500 for kicker/headings, 400 for body — no third weight introduced). **Consolidated to exactly 4 sizes this phase** (down from an initial 7-size draft that the checker correctly BLOCKed) by merging every label/eyebrow-style role into one shared size, and every secondary-body role into one shared size:
 
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
-| Drawer eyebrow (service number, mono-label style) | 0.68rem (≈11px) | 500 | 1.4 — reuses existing `.mono-label`/`.section-kicker` rule verbatim, no new CSS declaration needed |
+| Label/eyebrow style — **shared by**: drawer eyebrow (service number), group heading, footer CTA | 0.68rem (≈11px) | 500 | 1.4–1.5, uppercase where noted below — reuses existing `.mono-label`/`.section-kicker` rule verbatim, no new CSS declaration needed |
 | Drawer title (service name) | `clamp(1.6rem, 2.4vw, 2.2rem)` (≈26–35px) | 500 | 1.05 — deliberately smaller than `.service-title`'s `clamp(1.45rem,2.8vw,2.7rem)` since the drawer panel is narrower than a full-width row |
 | Drawer tagline | 0.95rem (≈15px) | 400 | 1.7 — matches existing secondary-copy convention (`.statement-aside p`) |
-| Group heading (e.g. "Consultoría para pequeños productores mineros:") | 0.7rem (≈11px) | 500 | 1.5, uppercase, `letter-spacing:.1em` — reuses the existing caption/label visual language (`.tech-specs span`, `.file-types span`) |
-| Bullet item text | 0.85rem (≈14px) | 400 | 1.6 |
-| Note callout (ejes 1 and 5 only) | 0.8rem (≈13px) | 400 | 1.6 |
-| Footer CTA ("Cotizar este servicio") | 0.72rem (≈12px) | **500** | 1, uppercase, `letter-spacing:.1em` |
+| Body copy — **shared by**: bullet item text, note callout (ejes 1 and 5 only) | 0.85rem (≈14px) | 400 | 1.6 |
+
+**Per-role treatment within the shared label size (0.68rem):**
+- Drawer eyebrow: no uppercase transform (matches `.mono-label` as-is)
+- Group heading: uppercase, `letter-spacing:.1em` (matches `.tech-specs span`/`.file-types span`)
+- Footer CTA ("Cotizar este servicio"): uppercase, `letter-spacing:.1em`, line-height 1
 
 **Flag for executor:** the existing `.submit-button` (contact form) uses `font-weight:700`, which predates and falls outside Phase 1's 2-weight consolidation (contact form was explicitly out of scope for the Phase 1 retheme). The new drawer CTA is a **new** component introduced under the now-locked 2-weight contract — it must use weight **500**, not 700, even though it will sit visually near the site's one other CTA archetype. Do not copy `.submit-button`'s weight; do reuse its `--accent` fill / `#FFFFFF` text / hover-to-`--accent-hover` color behavior.
 
@@ -114,6 +116,8 @@ Reused verbatim from Phase 1's locked token layer (`app/globals.css` `:root`) �
 ## Component Inventory & Interaction States
 
 This section is additive to the base template — included because this phase introduces the milestone's first genuinely new component, and the planner/executor need an explicit states contract, not just tokens.
+
+**Visual focal point:** On drawer open, the primary visual anchor is the **drawer title** (service name, `clamp(1.6rem,2.4vw,2.2rem)`, weight 500) — it's the largest text in the panel and sits directly below the smaller eyebrow label, drawing the eye first per standard type-hierarchy scanning order. The scrim backdrop and `inert`-dimmed background reinforce this by removing competing focal points from the rest of the page while the drawer is open.
 
 ### Service row/card trigger (`components/sections/capabilities-section.tsx`, existing element, behavior change only)
 
