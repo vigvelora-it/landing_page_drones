@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-07-20T17:39:00.627Z"
+status: verifying
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-07-20T21:12:57.091Z"
 last_activity: 2026-07-20 -- Phase 03 execution started
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 8
-  percent: 33
+  completed_plans: 9
+  percent: 50
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 
 Phase: 03 (Servicios y Drawer de Detalle) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-20 -- Phase 03 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -60,6 +60,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02 P02 | 15min | 3 tasks | 4 files |
 | Phase 03 P01 | 10min | 3 tasks | 3 files |
 | Phase 03 P02 | 15min | 2 tasks | 3 files |
+| Phase 03 P03 | 10min | 2 tasks tasks | 4 files files |
 
 ## Accumulated Context
 
@@ -93,6 +94,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 03]: ServiceDrawer added tablet-width (70vw, 721-1000px) media query beyond the plan's literal Task 3 text, to satisfy 03-UI-SPEC.md's confirmed tablet sizing decision that the desktop clamp() alone could not produce
 - [Phase ?]: Phase 03: Service-row selected indicator implemented as a 4px persistent accent left-edge bar (not a full pinned-open :before fill), per the plan's own read_first guidance over the UI-SPEC's more ambiguous states-table phrasing
 - [Phase ?]: Phase 03: hooks/use-overlay-coordination.ts (Plan 01) fixed with getServerSnapshot for useSyncExternalStore, surfaced only once Plan 02 wired the hook into CapabilitiesSection's force-static prerender path
+- [Phase 03]: MenuOverlay wired to useOverlayCoordination('menu', menuOpen), completing the SERV-03 mutual-exclusivity contract symmetrically with Plan 02's drawer-side wiring
+- [Phase 03]: InertBoundary client wrapper added around header + Hero/Manifesto + Technology/Process/Contact, driven by useOverlayOpen('drawer'), leaving CapabilitiesSection and the drawer interactive; satisfies SERV-02's grep-able 'inert en el fondo' wording
 
 ### Pending Todos
 
@@ -121,6 +124,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T17:39:00.610Z
-Stopped at: Completed 03-02-PLAN.md
-Resume file: .planning/phases/03-servicios-y-drawer-de-detalle/03-UI-SPEC.md
+Last session: 2026-07-20T21:12:57.074Z
+Stopped at: Completed 03-03-PLAN.md
+Resume file: None
