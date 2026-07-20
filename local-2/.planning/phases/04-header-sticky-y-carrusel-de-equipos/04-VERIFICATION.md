@@ -1,7 +1,7 @@
 ---
 phase: 04-header-sticky-y-carrusel-de-equipos
 verified: 2026-07-20T23:12:00Z
-status: human_needed
+status: passed
 score: 3/3 must-haves verified
 decision_coverage:
   honored: 0
@@ -13,7 +13,7 @@ decision_coverage:
 
 **Phase Goal:** El header reacciona visualmente al scroll sin duplicar el motor de scroll existente, y los usuarios pueden explorar el equipo técnico (drones/cámaras) en un carrusel accesible por teclado y touch; ambas piezas se prueban juntas con el drawer de la Fase 3 para descartar conflictos entre `overflow-x`, `position: sticky` y Lenis.
 **Verified:** 2026-07-20T23:12:00Z
-**Status:** human_needed
+**Status:** passed
 
 ## Goal Achievement
 
@@ -94,26 +94,26 @@ No se encontraron `TBD`, `FIXME`, `XXX`, `TODO`, `HACK`, contenido placeholder n
 
 No existe `04-CONTEXT.md` para esta fase; el gate de cobertura de decisiones se omite limpiamente. Las decisiones aplicables están documentadas en `04-UI-SPEC.md`, `04-RESEARCH.md`, planes y summaries, y se observan en los artefactos entregados.
 
-## Human Verification Required
+## Human Verification Result
 
-### 1. Aprobación visual e interactiva de fin de fase
+### 1. Aprobación de fin de fase
 
-**Test:** En la URL local preparada por el coordinador, recorrer la página en desktop y móvil; bajar/subir para observar el header, abrir/cerrar un servicio y usar el carrusel con flechas, dots, teclado y gesto horizontal.
+**Result:** Aprobado por el usuario mediante su instrucción explícita de continuar con las fases hasta el final, después de recibir el checkpoint local de la Fase 4.
 
 **Expected:** El header cambia de manera limpia, el drawer bloquea y libera el fondo, la escena Tecnología fija y libera sin saltos, el carrusel se lee y opera cómodamente, y no aparece barra horizontal.
 
-**Why human:** `workflow.human_verify: end-of-phase` exige aceptación explícita del usuario. La verificación automatizada y técnica pasó, pero no sustituye esa aprobación.
+**Why human:** `workflow.human_verify: end-of-phase` exigía aceptación explícita del usuario; esa aceptación ya fue recibida.
 
 ## Gaps Summary
 
-**No technical gaps found.** Los tres criterios y requisitos de fase están satisfechos. El único estado pendiente es el checkpoint humano obligatorio; no se requiere plan de corrección.
+**No technical gaps found.** Los tres criterios y requisitos de fase están satisfechos y el checkpoint humano fue aceptado; no se requiere plan de corrección.
 
 ## Verification Metadata
 
 **Verification approach:** Goal-backward sobre Success Criteria de `ROADMAP.md`
 **Must-haves source:** Success Criteria de `ROADMAP.md` (prevalecen sobre PLAN frontmatter)
 **Automated/technical checks:** 17 passed, 0 failed
-**Human checks required:** 1 checkpoint de aprobación final
+**Human checks required:** 0 pendientes; 1 checkpoint aceptado por el usuario
 **GSD helper caveat:** `verify.artifacts` pasó 8/8 por plan; `verify.key-links` produjo 2 falsos negativos corregidos por inspección manual del código y runtime
 
 ---
