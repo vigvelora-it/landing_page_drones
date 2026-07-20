@@ -26,7 +26,7 @@
 
 ### Header
 
-- [ ] **HEAD-01**: El header fijo existente gana un estado visual reactivo al scroll (fondo sólido/sombra al bajar), implementado con `ScrollTrigger.create({ toggleClass })` sobre el ticker único existente — no un segundo listener de scroll
+- [x] **HEAD-01**: El header fijo existente gana un estado visual reactivo al scroll (fondo sólido/sombra al bajar), implementado con `ScrollTrigger.create({ toggleClass })` sobre el ticker único existente — no un segundo listener de scroll
 - [ ] **HEAD-02**: El header sticky se prueba explícitamente con el drawer abierto/cerrado y el carrusel presente, para evitar el conflicto conocido `overflow-x` + `position: sticky` + Lenis
 
 ### Equipo y proyectos

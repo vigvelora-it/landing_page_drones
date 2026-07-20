@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 4 UI-SPEC approved
-last_updated: "2026-07-20T21:43:07.120Z"
-last_activity: 2026-07-20 -- Phase 03 execution started
+status: executing
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-07-20T22:23:20.775Z"
+last_activity: 2026-07-20 -- Phase 04 execution started
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 11
+  completed_plans: 10
   percent: 50
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-18)
 
 **Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
-**Current focus:** Phase 03 — Servicios y Drawer de Detalle
+**Current focus:** Phase 04 — Header Sticky y Carrusel de Equipos
 
 ## Current Position
 
-Phase: 03 (Servicios y Drawer de Detalle) — EXECUTING
-Plan: 3 of 3
-Status: Phase complete — ready for verification
-Last activity: 2026-07-20 -- Phase 03 execution started
+Phase: 04 (Header Sticky y Carrusel de Equipos) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-07-20 -- Phase 04 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -61,6 +61,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03 P01 | 10min | 3 tasks | 3 files |
 | Phase 03 P02 | 15min | 2 tasks | 3 files |
 | Phase 03 P03 | 10min | 2 tasks tasks | 4 files files |
+| Phase 04 P01 | 8min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -96,6 +97,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Phase 03: hooks/use-overlay-coordination.ts (Plan 01) fixed with getServerSnapshot for useSyncExternalStore, surfaced only once Plan 02 wired the hook into CapabilitiesSection's force-static prerender path
 - [Phase 03]: MenuOverlay wired to useOverlayCoordination('menu', menuOpen), completing the SERV-03 mutual-exclusivity contract symmetrically with Plan 02's drawer-side wiring
 - [Phase 03]: InertBoundary client wrapper added around header + Hero/Manifesto + Technology/Process/Contact, driven by useOverlayOpen('drawer'), leaving CapabilitiesSection and the drawer interactive; satisfies SERV-02's grep-able 'inert en el fondo' wording
+- [Phase ?]: Phase 04 Plan 01: ScrollTrigger.create con trigger document.body, start top -80px, end max reemplaza el placeholder de UI-SPEC 80px top, verificado contra docs de GSAP
 
 ### Pending Todos
 
@@ -124,6 +126,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T21:43:07.101Z
-Stopped at: Phase 4 UI-SPEC approved
-Resume file: .planning/phases/04-header-sticky-y-carrusel-de-equipos/04-UI-SPEC.md
+Last session: 2026-07-20T22:23:20.757Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: None

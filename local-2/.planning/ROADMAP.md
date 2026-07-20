@@ -97,7 +97,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 
-- [ ] 04-01-PLAN.md — Header scroll-reactive (`.is-scrolled` vía ScrollTrigger toggleClass) + hook + CSS (HEAD-01, HEAD-02)
+- [x] 04-01-PLAN.md — Header scroll-reactive (`.is-scrolled` vía ScrollTrigger toggleClass) + hook + CSS (HEAD-01, HEAD-02)
 - [ ] 04-02-PLAN.md — Carrusel de equipos (embla-carousel-react) + datos + wiring en Tecnología + gate de estrés HEAD-02 (EQUIP-01, HEAD-02)
 
 **UI hint**: yes
@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 4/4 | Complete   | 2026-07-19 |
 | 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
 | 3. Servicios y Drawer de Detalle | 3/3 | Complete   | 2026-07-20 |
-| 4. Header Sticky y Carrusel de Equipos | 0/2 | Not started | - |
+| 4. Header Sticky y Carrusel de Equipos | 1/2 | In Progress|  |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
 | 6. Calidad y Regresión Final | 0/TBD | Not started | - |
