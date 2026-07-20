@@ -1,7 +1,7 @@
 ---
 phase: 5
 slug: contenido-de-marca-historia-equipo-proyectos-diferenciacion-y-brochure
-status: draft
+status: approved
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-07-20
@@ -19,7 +19,7 @@ created: 2026-07-20
 |----------|-------|
 | **Framework** | Ninguno — tests unit/E2E están fuera de alcance en `REQUIREMENTS.md`; Playwright CLI/manual + gates de source/build son el patrón aprobado |
 | **Config file** | none |
-| **Quick run command** | `npm.cmd run lint && npm.cmd run typecheck` |
+| **Quick run command** | `npm.cmd run lint; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm.cmd run typecheck` |
 | **Full suite command** | `npm.cmd run build` seguido de producción local con `npm.cmd run start` |
 | **Estimated runtime** | ~90 segundos para gates; browser QA aparte |
 
@@ -38,12 +38,12 @@ created: 2026-07-20
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 05-01-01 | 01 | 1 | BRAND-01 | T-05-01 | Copy en fuente única, exacto y escapado por React | source + typecheck | `npm.cmd run typecheck && rg -n "brandStory|corporateValues" lib/site-content.ts` | N/A — source gate | ⬜ pending |
-| 05-01-02 | 01 | 1 | BRAND-01, TEAM-01 | T-05-01, T-05-02 | 6 valores, 4 profiles, rama Image solo para photo real | lint + typecheck + source | `npm.cmd run lint && npm.cmd run typecheck && rg -n "member.photo|team.map|corporateValues.map" components/sections/brand-section.tsx` | N/A — source gate | ⬜ pending |
+| 05-01-01 | 01 | 1 | BRAND-01 | T-05-01 | Copy en fuente única, exacto y escapado por React | source + typecheck | `npm.cmd run typecheck; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; rg -n "brandStory|corporateValues" lib/site-content.ts` | N/A — source gate | ⬜ pending |
+| 05-01-02 | 01 | 1 | BRAND-01, TEAM-01 | T-05-01, T-05-02 | 6 valores, 4 profiles, rama Image solo para photo real | lint + typecheck + source | `npm.cmd run lint; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm.cmd run typecheck; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; rg -n "member.photo|team.map|corporateValues.map" components/sections/brand-section.tsx` | N/A — source gate | ⬜ pending |
 | 05-01-03 | 01 | 1 | BRAND-01, TEAM-01 | T-05-01 | Claims inventados ausentes; fallback no-JS presente | build + source + browser | `npm.cmd run build` + greps del plan | N/A — browser manual | ⬜ pending |
-| 05-02-01 | 02 | 2 | PROJ-01, DIFF-01, BROCH-01 | T-05-04/05/06 | Facts exactos, cero competidores y cero control de descarga falso | lint + typecheck + source | `npm.cmd run lint && npm.cmd run typecheck` + greps del plan | N/A — source gate | ⬜ pending |
-| 05-02-02 | 02 | 2 | PROJ-01, DIFF-01 | T-05-04 | Sección dentro de InertBoundary y layout 7/5→stack | typecheck + source | `npm.cmd run typecheck && rg -n "ProjectsSection" app/page.tsx` | N/A — source gate | ⬜ pending |
-| 05-02-03 | 02 | 2 | PROJ-01, DIFF-01, BROCH-01 | T-05-05/06 | Menú 6 destinos, no overflow/regresión, brochure omitido | full build + browser | `npm.cmd run lint && npm.cmd run typecheck && npm.cmd run build` | N/A — browser manual | ⬜ pending |
+| 05-02-01 | 02 | 2 | PROJ-01, DIFF-01, BROCH-01 | T-05-04/05/06 | Facts exactos, cero competidores y cero control de descarga falso | lint + typecheck + source | `npm.cmd run lint; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm.cmd run typecheck` + greps del plan | N/A — source gate | ⬜ pending |
+| 05-02-02 | 02 | 2 | PROJ-01, DIFF-01 | T-05-04 | Sección dentro de InertBoundary y layout 7/5→stack | typecheck + source | `npm.cmd run typecheck; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; rg -n "ProjectsSection" app/page.tsx` | N/A — source gate | ⬜ pending |
+| 05-02-03 | 02 | 2 | PROJ-01, DIFF-01, BROCH-01 | T-05-05/06 | Menú 6 destinos, no overflow/regresión, brochure omitido | full build + browser | `npm.cmd run lint; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm.cmd run typecheck; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm.cmd run build` | N/A — browser manual | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 

@@ -106,7 +106,8 @@ Plans:
 
 **Goal**: El sitio cuenta la historia real de SkyTech — misión, visión, valores, los 4 geólogos fundadores, 3 proyectos reales y una diferenciación basada en evidencia — y permite descargar la brochure de la empresa, todo sobre la base visual y de datos ya construida en las fases anteriores.
 **Depends on**: Phase 4
-**Requirements**: BRAND-01, TEAM-01, PROJ-01, DIFF-01, BROCH-01
+**Requirements**: BRAND-01, PROJ-01, DIFF-01
+**Blocked carry-over**: TEAM-01 (faltan cuatro retratos reales identificados) y BROCH-01 (falta el PDF final real) permanecen pendientes para un futuro 05-03; no se incluyen en `requirements:` de los planes ejecutables porque GSD marca automáticamente ese campo como completo.
 **Success Criteria** (what must be TRUE):
 
   1. El texto de historia, "quiénes somos", misión, visión y los 6 valores corporativos aparece en el sitio exactamente como lo redactó el cliente (sin reescritura), integrado con la paleta clara de la Fase 1.
