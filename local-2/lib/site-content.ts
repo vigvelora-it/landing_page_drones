@@ -195,6 +195,62 @@ export const equipment: EquipmentItem[] = [
   },
 ]
 
+export interface CorporateValue {
+  id: string
+  name: string
+  description: string
+}
+
+export const brandStory = {
+  history:
+    "SKYTECH SOLUTIONS nació en 2024 en Lima, Perú, de la mano de un equipo de ingenieros con una visión clara: transformar la manera en que la industria —minería, infraestructura, agricultura y gestión de recursos naturales— entiende y mide su entorno físico. Combinamos tecnología de drones de última generación con conocimiento especializado en topografía, geodesia y geociencias para ofrecer levantamientos de alta precisión, modelos 3D, inspección de infraestructuras críticas y estudios geológicos y geofísicos. Desde nuestros inicios, hemos apostado por la innovación constante, incorporando fotogrametría aérea, teledetección multiespectral y análisis de riesgos geológicos a nuestro portafolio de servicios. Hoy, SKYTECH SOLUTIONS acompaña a empresas del sector minero e industrial en sus proyectos más exigentes, entregando datos precisos y confiables que permiten decisiones más seguras e informadas.",
+  about:
+    "Somos una empresa peruana especializada en topografía, geodesia e inspección aérea con drones. Desde 2024, brindamos servicios de alta precisión para los sectores minero, industrial y agrícola: levantamientos geodésicos, fotogrametría aérea, modelos 3D de infraestructuras y estudios geológicos, uniendo tecnología de punta con experiencia técnica especializada para ayudar a nuestros clientes a tomar mejores decisiones sobre sus proyectos.",
+  mission:
+    "Somos una empresa especializada en servicios geológicos-geotécnicos, dedicada a brindar soluciones integrales y de alta precisión mediante el uso de tecnologías avanzadas como drones, fotogrametría y teledetección. Nuestro compromiso es apoyar a nuestros clientes en la obtención de datos de precisión en levantamientos topográficos, la identificación de recursos naturales, la evaluación de riesgos geológicos y la planificación territorial, contribuyendo al éxito de sus proyectos y al desarrollo sostenible.",
+  vision:
+    "Ser líderes en el rubro de la topografía y geología-geotecnia, reconocidos por nuestra excelencia técnica, innovación tecnológica y compromiso con el desarrollo sostenible. Aspiramos a ser el socio estratégico preferido de empresas e instituciones, contribuyendo al éxito de proyectos que impulsen el crecimiento económico y la gestión responsable de los recursos naturales.",
+}
+
+export const corporateValues: CorporateValue[] = [
+  {
+    id: "precision",
+    name: "Precisión",
+    description:
+      "Cada dato que entregamos está respaldado por rigor técnico y control de calidad, porque en geología y topografía los detalles marcan la diferencia entre un buen proyecto y uno excelente.",
+  },
+  {
+    id: "innovacion",
+    name: "Innovación",
+    description:
+      "Incorporamos constantemente tecnología de punta —drones, sensores multiespectrales, fotogrametría e inteligencia geoespacial— para ofrecer soluciones más rápidas, seguras y confiables.",
+  },
+  {
+    id: "integridad",
+    name: "Integridad",
+    description:
+      "Actuamos con transparencia y ética profesional en cada proyecto, construyendo relaciones de largo plazo basadas en la confianza de nuestros clientes.",
+  },
+  {
+    id: "seguridad",
+    name: "Compromiso con la seguridad",
+    description:
+      "Priorizamos la seguridad de nuestro equipo y de las operaciones en campo, reduciendo riesgos mediante el uso de tecnología aérea no tripulada en zonas de difícil acceso.",
+  },
+  {
+    id: "sostenibilidad",
+    name: "Sostenibilidad",
+    description:
+      "Promovemos una gestión responsable de los recursos naturales, generando información que contribuye a decisiones más sostenibles para nuestros clientes y el entorno.",
+  },
+  {
+    id: "trabajo-equipo",
+    name: "Trabajo en equipo",
+    description:
+      "Combinamos la experiencia técnica de cada integrante de nuestro equipo para entregar soluciones integrales, eficientes y de alta calidad.",
+  },
+]
+
 export interface TeamMember {
   id: string
   name: string
