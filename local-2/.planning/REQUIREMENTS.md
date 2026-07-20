@@ -27,7 +27,7 @@
 ### Header
 
 - [x] **HEAD-01**: El header fijo existente gana un estado visual reactivo al scroll (fondo sólido/sombra al bajar), implementado con `ScrollTrigger.create({ toggleClass })` sobre el ticker único existente — no un segundo listener de scroll
-- [ ] **HEAD-02**: El header sticky se prueba explícitamente con el drawer abierto/cerrado y el carrusel presente, para evitar el conflicto conocido `overflow-x` + `position: sticky` + Lenis
+- [x] **HEAD-02**: El header sticky se prueba explícitamente con el drawer abierto/cerrado y el carrusel presente, para evitar el conflicto conocido `overflow-x` + `position: sticky` + Lenis
 
 ### Equipo y proyectos
 
@@ -37,7 +37,7 @@
 ### Diferenciación y equipo técnico (carrusel)
 
 - [ ] **DIFF-01**: Sección de diferenciación competitiva basada en evidencia (casos/datos), sin nombrar competidores en la página
-- [ ] **EQUIP-01**: Carrusel de equipos/drones/cámaras usando `embla-carousel-react`, con paridad de teclado/touch y `data-lenis-prevent` en el track — sin auto-avance por defecto
+- [x] **EQUIP-01**: Carrusel de equipos/drones/cámaras usando `embla-carousel-react`, con paridad de teclado/touch y `data-lenis-prevent` en el track — sin auto-avance por defecto
 
 ### Brochure
 
@@ -87,8 +87,8 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | THEME-01, THEME-02, THEME-03, THEME-04 | Phase 1 — Fundación: Tema Claro y Especificación de Movimiento Moderado | Complete |
 | ARCH-01, ARCH-02, ARCH-03 | Phase 2 — Modelo de Datos y Hooks Compartidos | Pending |
 | SERV-01, SERV-02, SERV-03 | Phase 3 — Servicios y Drawer de Detalle | Pending |
-| HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Pending |
-| EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Pending |
+| HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
+| EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | TEAM-01, PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |

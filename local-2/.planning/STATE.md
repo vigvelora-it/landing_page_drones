@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: executing
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-07-20T22:23:20.775Z"
+status: verifying
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-07-20T23:00:22.264Z"
 last_activity: 2026-07-20 -- Phase 04 execution started
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 11
-  completed_plans: 10
-  percent: 50
+  completed_plans: 11
+  percent: 67
 ---
 
 # Project State
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 
 Phase: 04 (Header Sticky y Carrusel de Equipos) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-20 -- Phase 04 execution started
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03 P02 | 15min | 2 tasks | 3 files |
 | Phase 03 P03 | 10min | 2 tasks tasks | 4 files files |
 | Phase 04 P01 | 8min | 2 tasks | 3 files |
+| Phase 04 P02 | 29min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,8 @@ Recent decisions affecting current work:
 - [Phase 03]: MenuOverlay wired to useOverlayCoordination('menu', menuOpen), completing the SERV-03 mutual-exclusivity contract symmetrically with Plan 02's drawer-side wiring
 - [Phase 03]: InertBoundary client wrapper added around header + Hero/Manifesto + Technology/Process/Contact, driven by useOverlayOpen('drawer'), leaving CapabilitiesSection and the drawer interactive; satisfies SERV-02's grep-able 'inert en el fondo' wording
 - [Phase ?]: Phase 04 Plan 01: ScrollTrigger.create con trigger document.body, start top -80px, end max reemplaza el placeholder de UI-SPEC 80px top, verificado contra docs de GSAP
+- [Phase 04]: El carrusel usa jump por llamada bajo reduced-motion y mantiene la fisica de drag de Embla. — Cumple EQUIP-01 sin aplicar duration cero global ni introducir otra autoridad de animacion.
+- [Phase 04]: TechnologyStage conserva 180vh desktop y 130vh mobile como limite del sticky antes del carrusel. — Evita overlap con Proceso y permite que tech-sticky libere realmente antes del contenido normal del carrusel.
 
 ### Pending Todos
 
@@ -126,6 +129,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T22:23:20.757Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-07-20T22:59:31.573Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
