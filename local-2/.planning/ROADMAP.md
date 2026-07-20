@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 4/4 | Complete   | 2026-07-19 |
 | 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
 | 3. Servicios y Drawer de Detalle | 3/3 | Complete   | 2026-07-20 |
-| 4. Header Sticky y Carrusel de Equipos | 2/2 | Complete   | 2026-07-20 |
+| 4. Header Sticky y Carrusel de Equipos | 2/2 | Complete    | 2026-07-20 |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
 | 6. Calidad y Regresión Final | 0/TBD | Not started | - |
