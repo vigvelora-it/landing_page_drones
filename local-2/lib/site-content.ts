@@ -173,6 +173,28 @@ export const process = [
   ["04", "Convertimos datos", "Procesamos, validamos y entregamos información lista para tus equipos CAD y GIS."],
 ]
 
+export interface EquipmentItem {
+  id: string
+  image: string
+  alt: string
+  caption: string
+}
+
+export const equipment: EquipmentItem[] = [
+  {
+    id: "captura-fotogrametrica",
+    image: "/IMAGENES_PAGINA_WEB/equipos1.png",
+    alt: "Equipo de captura fotogramétrica utilizado en campo",
+    caption: "Equipo de captura fotogramétrica",
+  },
+  {
+    id: "matrice-350-rtk",
+    image: "/IMAGENES_PAGINA_WEB/dron.png",
+    alt: "Drone Matrice 350 RTK, plataforma aérea de precisión",
+    caption: "Matrice 350 RTK / Plataforma aérea",
+  },
+]
+
 export interface TeamMember {
   id: string
   name: string

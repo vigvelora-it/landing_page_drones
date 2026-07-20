@@ -8,3 +8,7 @@ export function getLenisLerp() {
     ? LENIS_LERP.reduced
     : LENIS_LERP.normal
 }
+
+export function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
