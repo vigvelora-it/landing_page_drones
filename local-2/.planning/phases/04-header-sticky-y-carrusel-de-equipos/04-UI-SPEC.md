@@ -121,6 +121,8 @@ ScrollTrigger.create({
 
 ## Equipment Carousel Contract (EQUIP-01)
 
+**Visual focal point:** The peeking carousel slide image is the primary visual anchor of this phase's UI — it's the largest, highest-contrast element in the block and the peek-ratio sizing (58–84% depending on viewport) is specifically chosen to make the partial next-slide edge draw the eye and signal "more to scroll." The header's scrolled-state change (solid background/shadow) is intentionally a secondary/ambient cue, never accent-tinted, per the Color contract's "never used for" list — it should register peripherally, not compete with the carousel or any other section's own focal point.
+
 ### Placement (Discretion Call 1 — see rationale below)
 
 The carousel is a **sub-block appended inside the existing `TechnologySection` component** (`components/sections/technology-section.tsx`), rendered after `.tech-sticky` and before the section's closing tag — **not** a new standalone numbered section. It inherits `.technology`'s existing `--bg-surface` (white) background; no new section-level background declaration is needed. It does **not** get a new `.section-kicker` with a `01–05` number (see Typography above) and does **not** get a new `menu-overlay.tsx` nav entry — both would ripple into renumbering the four other locked section kickers and are out of scope for a phase whose own ROADMAP goal is "header + carousel," not a new page section.
