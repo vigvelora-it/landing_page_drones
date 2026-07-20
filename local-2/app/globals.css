@@ -79,19 +79,25 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 
 /* Carrusel de equipos (EQUIP-01) */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.equipment-showcase{padding-top:32px}
+.technology{height:auto}
+.technology-stage{height:180vh}
+.equipment-showcase{position:relative;z-index:3;padding-top:32px;background:var(--bg-surface)}
+.equipment-showcase>.site-shell{margin-bottom:24px}
+.equipment-showcase h3{max-width:760px;margin:16px 0 0;font:500 clamp(1.6rem,2.4vw,2.2rem)/1.05 var(--display);letter-spacing:-.04em}
+.equipment-showcase>.site-shell>p{max-width:620px;margin:16px 0 0;color:var(--ink-secondary);font-size:.85rem;line-height:1.7}
 .embla{position:relative}
 .embla__viewport{overflow:hidden}
 .embla__container{display:flex;gap:24px;touch-action:pan-y}
-.embla__slide{flex:0 0 58%;min-width:0}
+.embla__slide{position:relative;flex:0 0 58%;min-width:0}
 .embla__frame{aspect-ratio:4/5}
+.embla__slide>.tech-caption{position:static;margin:8px 0 0}
 .embla__prev,.embla__next{position:absolute;top:40%;width:44px;height:44px}
-.embla__prev{left:-22px}
-.embla__next{right:-22px}
+.embla__prev{left:16px}
+.embla__next{right:16px}
 .embla__prev:disabled,.embla__next:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
 .embla__dots{display:flex;gap:8px;justify-content:center;margin-top:16px}
 .embla__dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--border-subtle);background:transparent;padding:0}
 .embla__dots button.is-active{background:var(--accent);border-color:var(--accent)}
-.embla__dots button:focus-visible,.embla__prev:focus-visible,.embla__next:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.embla__viewport:focus-visible,.embla__dots button:focus-visible,.embla__prev:focus-visible,.embla__next:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 @media(max-width:1000px){.embla__slide{flex-basis:72%}.embla__container{gap:16px}}
-@media(max-width:720px){.embla__slide{flex-basis:84%}}
+@media(max-width:720px){.technology-stage{height:130vh}.embla__slide{flex-basis:84%}}
