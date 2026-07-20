@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
 status: executing
-stopped_at: Phase 3 UI-SPEC approved
-last_updated: "2026-07-20T16:32:11.964Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-07-20T17:39:00.627Z"
 last_activity: 2026-07-20 -- Phase 03 execution started
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
   percent: 33
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 ## Current Position
 
 Phase: 03 (Servicios y Drawer de Detalle) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-07-20 -- Phase 03 execution started
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02 P01 | 15min | 2 tasks | 1 files |
 | Phase 02 P02 | 15min | 3 tasks | 4 files |
 | Phase 03 P01 | 10min | 3 tasks | 3 files |
+| Phase 03 P02 | 15min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Phase 02: dead body.menu-open{overflow:hidden} CSS rule deleted outright rather than repurposed, since menu-overlay.tsx no longer toggles that class and it was confirmed its sole consumer
 - [Phase ?]: [Phase 03]: Overlay coordination via module-scope useSyncExternalStore store (hooks/use-overlay-coordination.ts), not Context or a body-attribute + observer, satisfying SERV-03's mutual-exclusivity substrate
 - [Phase ?]: [Phase 03]: ServiceDrawer added tablet-width (70vw, 721-1000px) media query beyond the plan's literal Task 3 text, to satisfy 03-UI-SPEC.md's confirmed tablet sizing decision that the desktop clamp() alone could not produce
+- [Phase ?]: Phase 03: Service-row selected indicator implemented as a 4px persistent accent left-edge bar (not a full pinned-open :before fill), per the plan's own read_first guidance over the UI-SPEC's more ambiguous states-table phrasing
+- [Phase ?]: Phase 03: hooks/use-overlay-coordination.ts (Plan 01) fixed with getServerSnapshot for useSyncExternalStore, surfaced only once Plan 02 wired the hook into CapabilitiesSection's force-static prerender path
 
 ### Pending Todos
 
@@ -118,6 +121,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T16:29:56.231Z
-Stopped at: Phase 3 UI-SPEC approved
+Last session: 2026-07-20T17:39:00.610Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: .planning/phases/03-servicios-y-drawer-de-detalle/03-UI-SPEC.md
