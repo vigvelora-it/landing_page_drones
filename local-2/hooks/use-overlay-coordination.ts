@@ -28,11 +28,18 @@ function getSnapshot() {
   return state
 }
 
+// Deterministic snapshot for the initial static prerender (force-static
+// SSR pass) — mirrors the module's own initial state, so there is no
+// client/server mismatch once hydration re-subscribes on the client.
+function getServerSnapshot() {
+  return state
+}
+
 // Call with your OWN key + isOpen; writes your state into the shared store
 // and returns whether the OTHER overlay is open. Used by MenuOverlay and
 // CapabilitiesSection to disable each other's trigger while one is active.
 export function useOverlayCoordination(key: OverlayKey, isOpen: boolean): boolean {
-  const snapshot = useSyncExternalStore(subscribe, getSnapshot)
+  const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   useEffect(() => {
     setOverlay(key, isOpen)
@@ -47,6 +54,6 @@ export function useOverlayCoordination(key: OverlayKey, isOpen: boolean): boolea
 // consumers like an inert boundary can read whether the drawer/menu is open
 // without clobbering the state either side owns.
 export function useOverlayOpen(key: OverlayKey): boolean {
-  const snapshot = useSyncExternalStore(subscribe, getSnapshot)
+  const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
   return snapshot[key]
 }
