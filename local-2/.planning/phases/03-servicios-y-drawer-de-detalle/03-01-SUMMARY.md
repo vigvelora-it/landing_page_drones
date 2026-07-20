@@ -124,3 +124,7 @@ None - no external service configuration required.
 ---
 *Phase: 03-servicios-y-drawer-de-detalle*
 *Completed: 2026-07-20*
+
+## Self-Check: PASSED
+
+All created files verified on disk (`hooks/use-overlay-coordination.ts`, `components/service-drawer.tsx`, `app/globals.css`, this summary) and all four commit hashes (`1011d59`, `0d31527`, `890c410`, `013ddca`) verified present in `git log`.

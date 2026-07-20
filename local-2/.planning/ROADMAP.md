@@ -77,7 +77,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 
-- [ ] 03-01-PLAN.md — Store de coordinación de overlays + componente ServiceDrawer (`<dialog>` nativo) + CSS del drawer
+- [x] 03-01-PLAN.md — Store de coordinación de overlays + componente ServiceDrawer (`<dialog>` nativo) + CSS del drawer
 - [ ] 03-02-PLAN.md — Conversión de las filas de servicio a botones-disparadores (SERV-01) + wiring del drawer + CSS de fila (focus-visible, disabled, indicador seleccionado)
 - [ ] 03-03-PLAN.md — Exclusión mutua lado-menú (SERV-03) + InertBoundary aplicado en page.tsx (fondo `inert`)
 
@@ -137,7 +137,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Fundación — Tema Claro y Especificación de Movimiento Moderado | 4/4 | Complete   | 2026-07-19 |
 | 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
-| 3. Servicios y Drawer de Detalle | 0/3 | Not started | - |
+| 3. Servicios y Drawer de Detalle | 1/3 | In Progress|  |
 | 4. Header Sticky y Carrusel de Equipos | 0/TBD | Not started | - |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
 | 6. Calidad y Regresión Final | 0/TBD | Not started | - |

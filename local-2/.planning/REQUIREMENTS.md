@@ -21,8 +21,8 @@
 ### Servicios y drawer de detalle
 
 - [ ] **SERV-01**: Los 5 ejes de servicio se presentan como tarjetas navegables (grid), no como texto corrido
-- [ ] **SERV-02**: Al seleccionar un eje, se abre un panel lateral (drawer) con el detalle del servicio, usando `<dialog>` nativo con `inert` en el fondo y retorno de foco al cerrar
-- [ ] **SERV-03**: El drawer y el menú overlay existente son mutuamente excluyentes (no pueden estar abiertos los dos a la vez) y comparten el mecanismo de bloqueo de scroll
+- [x] **SERV-02**: Al seleccionar un eje, se abre un panel lateral (drawer) con el detalle del servicio, usando `<dialog>` nativo con `inert` en el fondo y retorno de foco al cerrar
+- [x] **SERV-03**: El drawer y el menú overlay existente son mutuamente excluyentes (no pueden estar abiertos los dos a la vez) y comparten el mecanismo de bloqueo de scroll
 
 ### Header
 

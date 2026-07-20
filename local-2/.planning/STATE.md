@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: verifying
+status: executing
 stopped_at: Phase 3 UI-SPEC approved
-last_updated: "2026-07-20T08:17:21.514Z"
-last_activity: 2026-07-19 -- Phase 02 execution started
+last_updated: "2026-07-20T16:32:11.964Z"
+last_activity: 2026-07-20 -- Phase 03 execution started
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 9
+  completed_plans: 7
   percent: 33
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-18)
 
 **Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
-**Current focus:** Phase 02 — Modelo de Datos y Hooks Compartidos
+**Current focus:** Phase 03 — Servicios y Drawer de Detalle
 
 ## Current Position
 
-Phase: 02 (Modelo de Datos y Hooks Compartidos) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-07-19 -- Phase 02 execution started
+Phase: 03 (Servicios y Drawer de Detalle) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
+Last activity: 2026-07-20 -- Phase 03 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P04 | ~20min | 3 tasks | 1 files |
 | Phase 02 P01 | 15min | 2 tasks | 1 files |
 | Phase 02 P02 | 15min | 3 tasks | 4 files |
+| Phase 03 P01 | 10min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 02]: TeamMember.photo and brochure.href left unset/placeholder — real team photos and brochure PDF are Phase 5 (TEAM-01/BROCH-01) client deliverables not yet provided
 - [Phase 02]: Phase 02: useScrollLock uses lenis.stop()/start() as the sole scroll-lock mechanism, no overflow:hidden or body-class backstop, per strict ARCH-02 reading
 - [Phase 02]: Phase 02: dead body.menu-open{overflow:hidden} CSS rule deleted outright rather than repurposed, since menu-overlay.tsx no longer toggles that class and it was confirmed its sole consumer
+- [Phase ?]: [Phase 03]: Overlay coordination via module-scope useSyncExternalStore store (hooks/use-overlay-coordination.ts), not Context or a body-attribute + observer, satisfying SERV-03's mutual-exclusivity substrate
+- [Phase ?]: [Phase 03]: ServiceDrawer added tablet-width (70vw, 721-1000px) media query beyond the plan's literal Task 3 text, to satisfy 03-UI-SPEC.md's confirmed tablet sizing decision that the desktop clamp() alone could not produce
 
 ### Pending Todos
 
@@ -115,6 +118,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T08:17:21.475Z
+Last session: 2026-07-20T16:29:56.231Z
 Stopped at: Phase 3 UI-SPEC approved
 Resume file: .planning/phases/03-servicios-y-drawer-de-detalle/03-UI-SPEC.md
