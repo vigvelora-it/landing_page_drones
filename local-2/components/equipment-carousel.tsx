@@ -1,0 +1,135 @@
+"use client"
+
+import Image from "next/image"
+import useEmblaCarousel from "embla-carousel-react"
+import { useCallback, useEffect, useState } from "react"
+
+import { equipment } from "@/lib/site-content"
+import { prefersReducedMotion } from "@/lib/motion-preferences"
+
+export function EquipmentCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    containScroll: "trimSnaps",
+  })
+
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    setSelectedIndex(emblaApi.selectedScrollSnap())
+    setCanScrollPrev(emblaApi.canScrollPrev())
+    setCanScrollNext(emblaApi.canScrollNext())
+  }, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    // from Embla (an external, already-initialized library instance), matching Embla's
+    // own documented React integration pattern; not a React state/prop-derived value.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync external Embla state
+    onSelect()
+    emblaApi.on("select", onSelect)
+    emblaApi.on("reInit", onSelect)
+    return () => {
+      emblaApi.off("select", onSelect)
+      emblaApi.off("reInit", onSelect)
+    }
+  }, [emblaApi, onSelect])
+
+  // Only click/dot-triggered transitions are gated by reduced-motion (jump = instant).
+  // Drag-gesture physics are left at Embla's default regardless (user-initiated, not decorative).
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(prefersReducedMotion()), [emblaApi])
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(prefersReducedMotion()), [emblaApi])
+  const scrollToIndex = useCallback(
+    (index: number) => emblaApi?.scrollTo(index, prefersReducedMotion()),
+    [emblaApi],
+  )
+
+  const onViewportKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault()
+      scrollPrev()
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault()
+      scrollNext()
+    }
+  }
+
+  return (
+    <div className="equipment-showcase" data-reveal>
+      <div className="site-shell">
+        <span className="mono-label">Equipo en campo</span>
+        <h3>Instrumentos que usamos en cada levantamiento.</h3>
+        <p>Equipos de captura aérea y fotogramétrica operados por el equipo técnico en cada proyecto.</p>
+      </div>
+      <div className="embla" aria-roledescription="carousel" aria-label="Equipo técnico">
+        <div
+          className="embla__viewport"
+          ref={emblaRef}
+          tabIndex={0}
+          onKeyDown={onViewportKeyDown}
+        >
+          <div className="embla__container" data-lenis-prevent>
+            {equipment.map((item, index) => (
+              <div
+                key={item.id}
+                className="embla__slide"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} de ${equipment.length}`}
+              >
+                <div className="media-frame embla__frame">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 720px) 84vw, (max-width: 1000px) 72vw, 58vw"
+                  />
+                </div>
+                <p className="tech-caption">{item.caption}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button
+          className="circle-link embla__prev"
+          type="button"
+          aria-label="Equipo anterior"
+          disabled={!canScrollPrev}
+          onClick={scrollPrev}
+        >
+          ←
+        </button>
+        <button
+          className="circle-link embla__next"
+          type="button"
+          aria-label="Equipo siguiente"
+          disabled={!canScrollNext}
+          onClick={scrollNext}
+        >
+          →
+        </button>
+        <div className="embla__dots" role="tablist" aria-label="Seleccionar equipo">
+          {equipment.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-label={`Ir al equipo ${index + 1}`}
+              aria-selected={index === selectedIndex}
+              className={index === selectedIndex ? "is-active" : ""}
+              onClick={() => scrollToIndex(index)}
+            />
+          ))}
+        </div>
+        <p className="sr-only" aria-live="polite">
+          Equipo {selectedIndex + 1} de {equipment.length}
+        </p>
+      </div>
+    </div>
+  )
+}
