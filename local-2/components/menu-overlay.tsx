@@ -2,10 +2,12 @@
 
 import { useState } from "react"
 
+import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
 
 export function MenuOverlay() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const drawerOpen = useOverlayCoordination("menu", menuOpen)
 
   useScrollLock(menuOpen)
 
@@ -23,7 +25,11 @@ export function MenuOverlay() {
           type="button"
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
+          aria-disabled={drawerOpen}
+          onClick={() => {
+            if (drawerOpen) return
+            setMenuOpen((open) => !open)
+          }}
         >
           <span>{menuOpen ? "Cerrar" : "Menú"}</span><i /><i />
         </button>
