@@ -1,4 +1,5 @@
 import { CustomCursor } from "@/components/custom-cursor";
+import { InertBoundary } from "@/components/inert-boundary";
 import { IntroSequence } from "@/components/intro-sequence";
 import { MenuOverlay } from "@/components/menu-overlay";
 import { CapabilitiesSection } from "@/components/sections/capabilities-section";
@@ -14,16 +15,22 @@ export default function Home() {
   return (
     <>
       <IntroSequence />
-      <MenuOverlay />
+      <InertBoundary>
+        <MenuOverlay />
+      </InertBoundary>
       <CustomCursor />
 
       <main>
-        <HeroSection />
-        <ManifestoSection />
+        <InertBoundary>
+          <HeroSection />
+          <ManifestoSection />
+        </InertBoundary>
         <CapabilitiesSection />
-        <TechnologySection />
-        <ProcessSection />
-        <ContactSection />
+        <InertBoundary>
+          <TechnologySection />
+          <ProcessSection />
+          <ContactSection />
+        </InertBoundary>
       </main>
 
       <footer className="footer">
