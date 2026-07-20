@@ -115,7 +115,11 @@ Plans:
   4. La sección de diferenciación presenta evidencia/datos concretos (casos, no afirmaciones genéricas) sin nombrar a ningún competidor en el texto visible de la página.
   5. El brochure en PDF se descarga correctamente desde un enlace `<a download>` que apunta a un asset estático en `public/`, verificado corriendo `npm run build && npm start` (no solo `npm run dev`).
 
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+
+- [ ] 05-01-PLAN.md — Nosotros canónico, misión/visión/valores y equipo con fallback honesto; TEAM-01 queda parcial por retratos faltantes
+- [ ] 05-02-PLAN.md — Proyectos, diferenciación, navegación 01–06 y verificación integral; BROCH-01 queda bloqueado por PDF faltante
 **UI hint**: yes
 
 ### Phase 6: Calidad y Regresión Final
@@ -144,5 +148,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
 | 3. Servicios y Drawer de Detalle | 3/3 | Complete   | 2026-07-20 |
 | 4. Header Sticky y Carrusel de Equipos | 2/2 | Complete    | 2026-07-20 |
-| 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/TBD | Not started | - |
+| 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 0/2 | Planned | - |
 | 6. Calidad y Regresión Final | 0/TBD | Not started | - |
