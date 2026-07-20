@@ -96,3 +96,13 @@ None - no external service configuration required.
 ---
 *Phase: 04-header-sticky-y-carrusel-de-equipos*
 *Completed: 2026-07-20*
+
+## Self-Check: PASSED
+
+- FOUND: hooks/use-header-scroll-state.ts
+- FOUND: components/menu-overlay.tsx
+- FOUND: app/globals.css
+- FOUND: .planning/phases/04-header-sticky-y-carrusel-de-equipos/04-01-SUMMARY.md
+- FOUND: e4ed5b8 (Task 1 commit)
+- FOUND: 6919dad (Task 2 commit)
+- FOUND: 1b8750b (SUMMARY.md commit)
