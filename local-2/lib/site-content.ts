@@ -329,6 +329,13 @@ export const projects: Project[] = [
   },
 ]
 
+export const differentiation = {
+  advantage:
+    "Skytech integra la experiencia de cuatro Ingenieros Geólogos con tecnología geoespacial de última generación, ofreciendo soluciones integrales para minería, infraestructura y gestión del territorio. No solo entregamos datos, sino análisis técnico y recomendaciones para la toma de decisiones.",
+  message:
+    "Skytech Solutions es un aliado estratégico que combina conocimiento geológico, ingeniería y tecnología de vanguardia para desarrollar soluciones confiables y de alta precisión para proyectos de minería, infraestructura y gestión del territorio.",
+}
+
 export const brochure: Brochure = {
   title: "Brochure SkyTech Solutions",
   href: "/brochures/skytech-solutions-brochure.pdf",
