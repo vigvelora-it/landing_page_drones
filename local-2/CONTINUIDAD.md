@@ -214,3 +214,13 @@ Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.plann
 Los 22/22 requisitos del milestone v1.0-corporate están completos y verificados (`.planning/REQUIREMENTS.md`, `.planning/STATE.md`). **No se ha desplegado nada** — sigue vigente la regla dura de no desplegar a Vercel/ningún servicio externo sin aprobación explícita del usuario en la conversación activa. El siguiente paso, cuando el usuario lo pida, es una revisión final conjunta (visual + contenido) antes de considerar un despliegue autorizado.
 
 Documentos clave para retomar: `.planning/REQUIREMENTS.md` (checklist 22/22), `.planning/STATE.md` (estado + tabla de quick tasks), `.planning/BRAND-CONTENT.md` (contenido de marca canónico), `public/IMAGENES_PAGINA_WEB/PROVENANCE.md` (procedencia de imágenes).
+
+## Quick task 260720-vda — Rediseño del header a estilo Fugro (2026-07-21)
+
+Trabajo posterior al cierre del milestone (22/22), pedido explícitamente por el usuario a partir de dos capturas de fugro.com. Flujo completo: discuss → research → plan → plan-checker (2 iteraciones, encontró 2 blockers reales: selector CSS `data-open` desalineado con su ancestro, y el handler de Escape no devolvía el foco al trigger) → executor → verificación visual propia con Playwright.
+
+**Durante mi propia verificación** (más allá de lo que el ejecutor había comprobado) encontré un tercer bug no capturado por el plan-checker ni por el script de verificación del ejecutor: el fallback CSS `:focus-within` dejaba el mega-panel **visualmente abierto** después de Escape, aunque `aria-expanded` y el foco ya estaban correctos — porque el foco vuelve a un elemento que sigue siendo descendiente de `.nav-item`. Lo arreglé eliminando esa regla CSS redundante (la apertura ya la maneja el estado de React vía `onFocus`), reconstruí en producción y reverifiqué todo el flujo de teclado.
+
+**Resultado:** header transparente/degradado sobre el hero (texto blanco, contraste verificado con muestreo de píxeles — ~9:1 incluso sobre las nubes más brillantes del hero) que pasa a blanco sólido al hacer scroll (reutiliza `useHeaderScrollState` de HEAD-01 sin tocar su lógica); nav horizontal con mega-menús accesibles por hover y teclado en Nosotros/Capacidades/Tecnología/Proyectos; overlay móvil a pantalla completa intacto, verificado con un contexto Playwright de touch real (`pointer:coarse`), no solo con resize de viewport. Sin regresiones en SERV-03 (drawer sigue dejando el header `inert`). Commits: `1a78571`, `9074a32`, `235d45b`, `72939df` (revisión del plan), `cd800f7` (fix de Escape), `4bfa0b7` (docs).
+
+Documentos: `.planning/quick/260720-vda-redise-ar-el-header-a-estilo-fugro-trans/` (CONTEXT, RESEARCH, PLAN, SUMMARY).
