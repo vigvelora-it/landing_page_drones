@@ -136,7 +136,11 @@ Plans:
   3. Ninguna imagen del sitio depende únicamente de drones — la revisión confirma presencia de imágenes de geología, ingeniería, minería e infraestructura también.
   4. El formulario de contacto sigue enviando correctamente a `/api/contact` (Supabase) sin regresiones introducidas por los cambios de este milestone.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+
+- [ ] 06-01-PLAN.md — QA/regresión final local: gates, matriz interactiva, provenance de medios y formulario sin escrituras externas
+
 **UI hint**: yes
 
 ## Progress
@@ -151,4 +155,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Servicios y Drawer de Detalle | 3/3 | Complete   | 2026-07-20 |
 | 4. Header Sticky y Carrusel de Equipos | 2/2 | Complete    | 2026-07-20 |
 | 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 1/2 | In Progress|  |
-| 6. Calidad y Regresión Final | 0/TBD | Not started | - |
+| 6. Calidad y Regresión Final | 0/1 | Planned    |  |
