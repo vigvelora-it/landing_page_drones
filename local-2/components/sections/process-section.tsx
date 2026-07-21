@@ -28,7 +28,7 @@ export function ProcessSection() {
   return (
     <section ref={root} className="process-section section-pad" id="proceso">
       <div className="site-shell">
-        <div className="section-kicker" data-reveal><span>04</span><span>Cómo trabajamos</span></div>
+        <div className="section-kicker" data-reveal><span>05</span><span>Cómo trabajamos</span></div>
         <div className="process-intro">
           <h2 data-reveal>De la pregunta<br />a la <em>certeza.</em></h2>
           <p data-reveal>Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.</p>

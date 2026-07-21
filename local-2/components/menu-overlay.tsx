@@ -40,11 +40,12 @@ export function MenuOverlay() {
       <div className={`menu-overlay ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
         <div className="menu-index">NAVEGACIÓN / 2026</div>
         <nav aria-label="Navegación principal">
-          <a href="#nosotros" onClick={navigate}><span>01</span>Perspectiva</a>
+          <a href="#nosotros" onClick={navigate}><span>01</span>Nosotros</a>
           <a href="#capacidades" onClick={navigate}><span>02</span>Capacidades</a>
           <a href="#tecnologia" onClick={navigate}><span>03</span>Tecnología</a>
-          <a href="#proceso" onClick={navigate}><span>04</span>Proceso</a>
-          <a href="#contacto" onClick={navigate}><span>05</span>Contacto</a>
+          <a href="#proyectos" onClick={navigate}><span>04</span>Proyectos</a>
+          <a href="#proceso" onClick={navigate}><span>05</span>Proceso</a>
+          <a href="#contacto" onClick={navigate}><span>06</span>Contacto</a>
         </nav>
         <div className="menu-meta">
           <a href="mailto:skytsperu@gmail.com">skytsperu@gmail.com</a>
