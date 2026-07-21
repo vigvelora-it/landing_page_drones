@@ -1,7 +1,7 @@
 ---
 phase: 6
 slug: calidad-y-regresion-final
-status: draft
+status: gaps_found
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-07-20
@@ -122,3 +122,14 @@ PowerShell 5.1, secuencial y sin `&&`:
 - [x] `nyquist_compliant: true` y `wave_0_complete: true` son consistentes.
 
 **Planning approval:** strategy ready for independent gsd-plan-checker; runtime statuses remain pending until `06-01` executes.
+
+## Final execution — 2026-07-20
+
+| Gate | Final status | Evidence |
+|---|---|---|
+| 06-01-01 / QA-01 | ✅ green | `evidence/quality-gates.md`: tres secuencias post-fix limpias; build final servido por PID verificado. |
+| 06-01-02 / QA-02 | ✅ green | `evidence/browser-matrix.md`: cuatro viewports, stress, reduced motion, no-JS, keyboard, touch y zoom efectivo. |
+| 06-01-03A / BRAND-02 | ✅ green | `evidence/contact-regression.md`: 400/503 locales y mocks 201/400/500 sin escritura externa. |
+| 06-01-03B / QA-03 | ⚠️ blocked | `evidence/media-inventory.md`: faltan sujetos/provenance autorizados de geología y minería. |
+
+TEAM-01 permanece parcial y BROCH-01 bloqueado como gaps heredados. El resultado no autoriza cierre de milestone ni deployment.
