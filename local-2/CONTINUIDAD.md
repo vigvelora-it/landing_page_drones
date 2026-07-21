@@ -181,3 +181,38 @@ El usuario quiere elevar `local-2` a un nivel de pulido visual/animado comparabl
 El roadmap y el UI-SPEC de la Fase 1 están aprobados y comiteados. El siguiente paso es `/gsd-plan-phase 1` (o `/gsd-discuss-phase 1` antes, si se quiere afinar más contexto de implementación) para descomponer la Fase 1 en tareas ejecutables, seguido de `/gsd-execute-phase`. **Aún no se ha modificado ningún código de la aplicación** — todo el trabajo hasta ahora es planificación en `.planning/`.
 
 Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.planning/PROJECT.md`, `local-2/.planning/ROADMAP.md` y `local-2/.planning/STATE.md` para recuperar el estado exacto.
+
+---
+
+## Milestone v1.0-corporate — estado al 2026-07-21
+
+**Resumen:** las Fases 1-4 se ejecutaron con Claude (este agente); las Fases 5 y 6 las ejecutó **Codex** siguiendo un prompt de traspaso que replicaba el mismo flujo GSD (UI-SPEC → research → plan → execute → verify). Verifiqué el trabajo de Codex de forma independiente (build/lint/typecheck propios + revisión visual con Playwright) y es de calidad alta — honesto sobre lo que no pudo completar, sin fabricar contenido.
+
+### Progreso: 19/22 requisitos completos (86%)
+
+**Completo:** THEME-01..04, ARCH-01..03, SERV-01..03, HEAD-01/02, EQUIP-01, BRAND-01/02, PROJ-01, DIFF-01, QA-01/02.
+
+**Bloqueado — requiere assets reales del usuario, no se puede completar sin ellos:**
+1. **TEAM-01**: la sección de equipo (4 geólogos) está construida con nombres/roles/bios reales, pero usa iniciales neutras (PC, HS, LZ, JG) como placeholder honesto en vez de fotos falsas. Faltan los 4 retratos reales.
+2. **BROCH-01**: no existe ningún control de descarga en el sitio (deliberadamente, para no fingir un enlace roto). Falta el PDF final real de la brochure — solo tenemos capturas de pantalla del documento compartido en el chat.
+3. **QA-03**: el sitio usa solo imágenes de drones/equipos (mismo render promocional reciclado 2 veces: `equipos1.png`, `dron.png`). Falta fotografía autorizada y con procedencia documentada que muestre geología/minería, y falta documentar la procedencia de las imágenes PNG/JPG actuales (`public/IMAGENES_PAGINA_WEB/*`).
+
+### Cambios estructurales relevantes hechos por Codex en Fase 5
+- Se eliminó `components/sections/manifesto-section.tsx` (contenía 3 afirmaciones inventadas del milestone anterior) y se reemplazó por `components/sections/brand-section.tsx` con historia/misión/visión/valores/equipo **verbatim** de `BRAND-CONTENT.md`.
+- Se agregó `components/sections/projects-section.tsx` (GESAC destacado + Lezard/Las Dunas).
+- El sitio pasó de 5 a **6 secciones numeradas**: 01 Nosotros, 02 Capacidades, 03 Tecnología, 04 Proyectos, 05 Proceso, 06 Contacto — el menú y los kickers se renumeraron en consecuencia.
+- `workflow.use_worktrees` se puso en `false` en `.planning/config.json` (necesario para que Codex pudiera ejecutar — Codex no soporta el aislamiento con git worktrees que usa Claude).
+
+### Verificación independiente (Fase 6, por Codex + confirmada por mí)
+- `npm run lint && npm run typecheck && npm run build`: limpio.
+- Pruebas de runtime reales (Playwright): menú con foco/Escape/Lenis, drawer con CTA y scroll diferido, formulario `/api/contact` probado con y sin credenciales (400/503 correctos, sin red externa), 0 errores de consola en 1440×900 y 390×844, sin overflow horizontal.
+- Servidor de producción local sigue corriendo en `http://127.0.0.1:4173/` (no se desplegó a ningún lado externo).
+
+### Próximo paso exacto
+
+El milestone **no debe marcarse completo ni desplegarse** mientras TEAM-01/BROCH-01/QA-03 sigan abiertos (esto lo dejó explícito el propio reporte de verificación de Codex en `06-VERIFICATION.md`). Para cerrar el milestone se necesita del usuario:
+1. 4 fotos reales de los geólogos (o autorización para usar las iniciales como solución final)
+2. El PDF final de la brochure
+3. Fotos autorizadas de geología/minería/infraestructura, o procedencia documentada de las imágenes actuales
+
+Documentos clave para retomar: `.planning/phases/06-calidad-y-regresi-n-final/06-VERIFICATION.md` (gaps exactos), `.planning/REQUIREMENTS.md` (checklist), `.planning/BRAND-CONTENT.md` (contenido de marca canónico).
