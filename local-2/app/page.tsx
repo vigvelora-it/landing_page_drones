@@ -7,6 +7,7 @@ import { CapabilitiesSection } from "@/components/sections/capabilities-section"
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProcessSection } from "@/components/sections/process-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 
 export const dynamic = "force-static";
@@ -28,6 +29,7 @@ export default function Home() {
         <CapabilitiesSection />
         <InertBoundary>
           <TechnologySection />
+          <ProjectsSection />
           <ProcessSection />
           <ContactSection />
         </InertBoundary>
