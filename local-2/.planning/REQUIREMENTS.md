@@ -31,7 +31,7 @@
 
 ### Equipo y proyectos
 
-- [ ] **TEAM-01**: Sección de equipo con los 4 geólogos fundadores (foto, nombre, cargo, bio) según el contenido ya redactado por el cliente
+- [x] **TEAM-01**: Sección de equipo con los 4 geólogos fundadores (nombre, cargo, bio según el contenido ya redactado por el cliente; iniciales neutras como placeholder de foto). **Decisión del usuario (2026-07-21): las iniciales quedan como diseño final, no como placeholder temporal — no se requieren fotos reales.**
 - [x] **PROJ-01**: Sección de proyectos con los 3 casos reales (GESAC/Huarmey, Lezard/Huaral, Las Dunas/Piura) con cliente, ubicación y servicio realizado, en formato "proyecto destacado + lista"
 
 ### Diferenciación y equipo técnico (carrusel)
@@ -90,7 +90,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
-| TEAM-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| TEAM-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete (iniciales aceptadas como diseño final) |
 | PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
