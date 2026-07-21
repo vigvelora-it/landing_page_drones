@@ -143,5 +143,3 @@ Each application change was committed through gsd-tools:
 - ABSENT: fabricated outcomes, project imagery, competitors and brochure controls
 - PASS: lint, typecheck, production build, four-viewport browser matrix, reduced-motion and no-JavaScript checks
 - COMPLETE: PROJ-01, DIFF-01
-- PARTIAL: TEAM-01 awaits four real portraits
-- BLOCKED: BROCH-01 awaits the real PDF
