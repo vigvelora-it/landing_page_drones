@@ -29,6 +29,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+        <noscript>
+          <style>{`.intro{display:none!important}[data-reveal]{opacity:1!important;transform:none!important}.title-line[data-reveal]>span{transform:none!important}`}</style>
+        </noscript>
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

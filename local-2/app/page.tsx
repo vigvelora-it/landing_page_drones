@@ -2,10 +2,10 @@ import { CustomCursor } from "@/components/custom-cursor";
 import { InertBoundary } from "@/components/inert-boundary";
 import { IntroSequence } from "@/components/intro-sequence";
 import { MenuOverlay } from "@/components/menu-overlay";
+import { BrandSection } from "@/components/sections/brand-section";
 import { CapabilitiesSection } from "@/components/sections/capabilities-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSection } from "@/components/sections/hero-section";
-import { ManifestoSection } from "@/components/sections/manifesto-section";
 import { ProcessSection } from "@/components/sections/process-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 
@@ -23,7 +23,7 @@ export default function Home() {
       <main>
         <InertBoundary>
           <HeroSection />
-          <ManifestoSection />
+          <BrandSection />
         </InertBoundary>
         <CapabilitiesSection />
         <InertBoundary>
