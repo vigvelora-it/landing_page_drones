@@ -339,4 +339,5 @@ export const differentiation = {
 export const brochure: Brochure = {
   title: "Brochure SkyTech Solutions",
   href: "/brochures/skytech-solutions-brochure.pdf",
+  fileSizeLabel: "PDF · 55 MB",
 }

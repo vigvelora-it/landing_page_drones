@@ -3,7 +3,7 @@
 import { useRef } from "react"
 
 import { useGSAP } from "@/lib/gsap"
-import { differentiation, projects, team, type Project } from "@/lib/site-content"
+import { brochure, differentiation, projects, team, type Project } from "@/lib/site-content"
 
 function ProjectFacts({ project }: { project: Project }) {
   return (
@@ -118,6 +118,23 @@ export function ProjectsSection() {
           </div>
 
           <p className="differentiation-message" data-reveal>{differentiation.message}</p>
+        </section>
+
+        <section className="brochure-block" aria-labelledby="brochure-heading" data-reveal>
+          <div>
+            <p className="mono-label">Material descargable</p>
+            <h3 id="brochure-heading">{brochure.title}</h3>
+          </div>
+          <a
+            className="brochure-cta"
+            href={brochure.href}
+            download
+            type="application/pdf"
+            data-cursor="Descargar"
+          >
+            <span>Descargar brochure</span>
+            {brochure.fileSizeLabel ? <span className="brochure-cta__meta">{brochure.fileSizeLabel}</span> : null}
+          </a>
         </section>
       </div>
     </section>

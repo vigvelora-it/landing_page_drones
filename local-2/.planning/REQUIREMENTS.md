@@ -41,7 +41,7 @@
 
 ### Brochure
 
-- [ ] **BROCH-01**: Brochure descargable en PDF servido como asset estático (`public/`) con enlace `<a download>` — sin gating, verificado en build de producción (no solo `npm run dev`)
+- [x] **BROCH-01**: Brochure descargable en PDF servido como asset estático (`public/brochures/skytech-solutions-brochure.pdf`) con enlace `<a download>` — sin gating, verificado en build de producción (`npm run build && npm start`): `Content-Type: application/pdf`, tamaño exacto (57300931 bytes), magic bytes `%PDF-` confirmados en la respuesta real del servidor
 
 ### Contenido y marca (heredado, sin cambios)
 
@@ -93,7 +93,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | TEAM-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete (iniciales aceptadas como diseño final) |
 | PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
-| BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | QA-01, QA-02, QA-03 | Phase 6 — Calidad y Regresión Final | Pending |
 | BRAND-02 | Phase 6 — Calidad y Regresión Final | Complete |
 
