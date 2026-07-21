@@ -46,7 +46,9 @@ export function ServiceDrawer({ service, isOpen, onClose }: ServiceDrawerProps) 
   function handleCtaClick() {
     requestClose()
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    window.setTimeout(() => lenis?.scrollTo("#contacto"), reduced ? 0 : CLOSE_ANIMATION_MS)
+    // Let the dialog's onClose state update restart Lenis before requesting
+    // the destination; firing on the same tick as close leaves Lenis stopped.
+    window.setTimeout(() => lenis?.scrollTo("#contacto"), reduced ? 0 : CLOSE_ANIMATION_MS + 50)
   }
 
   return (

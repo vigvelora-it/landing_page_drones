@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
@@ -8,12 +8,28 @@ import { useScrollLock } from "@/hooks/use-scroll-lock"
 
 export function MenuOverlay() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const firstLinkRef = useRef<HTMLAnchorElement>(null)
   const drawerOpen = useOverlayCoordination("menu", menuOpen)
 
   useScrollLock(menuOpen)
   useHeaderScrollState()
 
   const navigate = () => setMenuOpen(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+
+    firstLinkRef.current?.focus()
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return
+      setMenuOpen(false)
+      toggleRef.current?.focus()
+    }
+
+    window.addEventListener("keydown", closeOnEscape)
+    return () => window.removeEventListener("keydown", closeOnEscape)
+  }, [menuOpen])
 
   return (
     <>
@@ -23,6 +39,7 @@ export function MenuOverlay() {
         </a>
         <div className="header-center" aria-hidden="true">PRECISIÓN AÉREA / DATOS REALES</div>
         <button
+          ref={toggleRef}
           className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
           type="button"
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
@@ -40,7 +57,7 @@ export function MenuOverlay() {
       <div className={`menu-overlay ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
         <div className="menu-index">NAVEGACIÓN / 2026</div>
         <nav aria-label="Navegación principal">
-          <a href="#nosotros" onClick={navigate}><span>01</span>Nosotros</a>
+          <a ref={firstLinkRef} href="#nosotros" onClick={navigate}><span>01</span>Nosotros</a>
           <a href="#capacidades" onClick={navigate}><span>02</span>Capacidades</a>
           <a href="#tecnologia" onClick={navigate}><span>03</span>Tecnología</a>
           <a href="#proyectos" onClick={navigate}><span>04</span>Proyectos</a>

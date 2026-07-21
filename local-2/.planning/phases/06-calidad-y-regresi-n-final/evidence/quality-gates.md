@@ -25,3 +25,23 @@
    - Listener final: un PID; command line confirmada como perteneciente a `local-2` y `next start -p 4173`.
 
 No se ejecutó despliegue, no se consultó una URL externa y no se conservaron logs crudos ni secretos.
+
+## Secuencia posterior al fix reproducido de menú
+
+El stress test reprodujo que Escape no cerraba el menú. Tras el parche local mínimo en `components/menu-overlay.tsx`, se detuvo otra vez únicamente el listener verificado y se repitió toda la secuencia:
+
+1. `npm.cmd run lint` — Exit code: 0
+2. `npm.cmd run typecheck` — Exit code: 0
+3. `npm.cmd run build` — Exit code: 0
+
+Este segundo build es el build final usado en la revalidación browser.
+
+## Secuencia posterior al fix reproducido de CTA del drawer
+
+La prueba combinada demostró que el callback de scroll podía ejecutarse mientras Lenis seguía detenido. Tras desplazar la solicitud `scrollTo` 50 ms después del cierre del diálogo, se ejecutó nuevamente la secuencia completa:
+
+1. `npm.cmd run lint` — Exit code: 0
+2. `npm.cmd run typecheck` — Exit code: 0
+3. `npm.cmd run build` — Exit code: 0
+
+Este tercer build sustituye al anterior como build final de validación.
