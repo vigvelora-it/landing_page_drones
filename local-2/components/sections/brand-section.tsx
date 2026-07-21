@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 
-import { brandStory, corporateValues, team, teamIntro } from "@/lib/site-content";
+import { brandStory, corporateValues, sectors, team, teamIntro } from "@/lib/site-content";
 import { useGSAP } from "@/lib/gsap";
 
 function getInitials(name: string) {
@@ -81,6 +81,29 @@ export function BrandSection() {
             <p>{brandStory.vision}</p>
           </article>
         </div>
+
+        <section className="sectors-region" aria-labelledby="sectors-heading">
+          <div className="brand-region-heading" data-reveal>
+            <p className="mono-label">Dónde trabajamos</p>
+            <h3 id="sectors-heading">Sectores que atendemos</h3>
+          </div>
+
+          <div className="sectors-grid">
+            {sectors.map((sector) => (
+              <article className="sector-card" data-reveal key={sector.id}>
+                <div className="sector-card__frame">
+                  <Image
+                    src={sector.image}
+                    alt={sector.alt}
+                    fill
+                    sizes="(max-width: 720px) 100vw, (max-width: 1000px) 50vw, 25vw"
+                  />
+                </div>
+                <p>{sector.label}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="values-region" aria-labelledby="values-heading">
           <div className="brand-region-heading" data-reveal>

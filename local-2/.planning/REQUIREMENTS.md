@@ -52,7 +52,7 @@
 
 - [x] **QA-01**: `npm run lint`, `npm run typecheck` y `npm run build` pasan sin errores
 - [x] **QA-02**: Revisión visual manual en desktop y móvil sin overflow horizontal, con el header sticky, drawer y carrusel probados juntos
-- [ ] **QA-03**: Ninguna imagen del sitio depende solo de drones — refleja también geología, ingeniería, minería e infraestructura (según el veto explícito del brief)
+- [x] **QA-03**: Ninguna imagen del sitio depende solo de drones — refleja también geología, ingeniería, minería e infraestructura (según el veto explícito del brief). **Resuelto (2026-07-21):** nueva sección "Sectores que atendemos" en `brand-section.tsx` con 4 fotos HD (Topografía/Geología/Minería/Infraestructura); las 3 nuevas descargadas de Unsplash con licencia libre de uso comercial, procedencia documentada en `public/IMAGENES_PAGINA_WEB/PROVENANCE.md`. Verificado en build de producción, sin overflow, sin errores de consola.
 
 ## v2 Requirements
 
@@ -94,7 +94,8 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
-| QA-01, QA-02, QA-03 | Phase 6 — Calidad y Regresión Final | Pending |
+| QA-01, QA-02 | Phase 6 — Calidad y Regresión Final | Complete |
+| QA-03 | Quick task 260720-ud7 (post Phase 6) | Complete |
 | BRAND-02 | Phase 6 — Calidad y Regresión Final | Complete |
 
 **Coverage:**
@@ -105,4 +106,4 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 
 ---
 *Requirements defined: 2026-07-18*
-*Last updated: 2026-07-18 after ROADMAP.md creation (gsd-roadmapper) — traceability mapped, count corrected from 24 to 22*
+*Last updated: 2026-07-21 — QA-03 closed via quick task 260720-ud7. v1 requirements: 22/22 complete (100%).*

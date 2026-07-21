@@ -188,15 +188,15 @@ Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.plann
 
 **Resumen:** las Fases 1-4 se ejecutaron con Claude (este agente); las Fases 5 y 6 las ejecutó **Codex** siguiendo un prompt de traspaso que replicaba el mismo flujo GSD (UI-SPEC → research → plan → execute → verify). Verifiqué el trabajo de Codex de forma independiente (build/lint/typecheck propios + revisión visual con Playwright) y es de calidad alta — honesto sobre lo que no pudo completar, sin fabricar contenido.
 
-### Progreso: 20/22 requisitos completos (91%) — actualizado 2026-07-21
+### Progreso: 22/22 requisitos completos (100%) — actualizado 2026-07-21
 
-**Completo:** THEME-01..04, ARCH-01..03, SERV-01..03, HEAD-01/02, EQUIP-01, BRAND-01/02, PROJ-01, DIFF-01, QA-01/02, **TEAM-01**.
+**Completo:** THEME-01..04, ARCH-01..03, SERV-01..03, HEAD-01/02, EQUIP-01, BRAND-01/02, PROJ-01, DIFF-01, QA-01/02, TEAM-01, BROCH-01, **QA-03**.
 
 **Decisión del usuario (2026-07-21): TEAM-01 se cierra usando iniciales neutras (PC, HS, LZ, JG) como diseño final** — no se requieren fotos reales de los 4 geólogos, esto no es un placeholder temporal.
 
-**Aún bloqueado — requiere assets reales del usuario:**
-1. **BROCH-01**: no existe ningún control de descarga en el sitio (deliberadamente, para no fingir un enlace roto). Falta el PDF final real de la brochure — solo tenemos capturas de pantalla del documento compartido en el chat.
-2. **QA-03**: el sitio usa solo imágenes de drones/equipos (mismo render promocional reciclado 2 veces: `equipos1.png`, `dron.png`). Falta fotografía autorizada y con procedencia documentada que muestre geología/minería, y falta documentar la procedencia de las imágenes PNG/JPG actuales (`public/IMAGENES_PAGINA_WEB/*`).
+**BROCH-01 resuelto (2026-07-21):** el usuario proporcionó el PDF real (`public/brochures/skytech-solutions-brochure.pdf`, 55 MB). Se agregó el bloque de descarga en `projects-section.tsx` (después de Diferenciación, antes de Proceso, según el UI-SPEC de Fase 5) y se verificó en build de producción real (`npm run build && npm start`): `Content-Type: application/pdf`, tamaño exacto, magic bytes `%PDF-` confirmados en la respuesta HTTP real — no es un 404 ni el fallback HTML de Next.js.
+
+**QA-03 resuelto (2026-07-21, quick task `260720-ud7`):** decisión del usuario — usar fotografía HD descargada de bancos de imágenes de licencia libre para uso comercial ("puedes descargar de internet, necesita quedar bien visualmente"). Se agregó una nueva sección "Sectores que atendemos" en `brand-section.tsx` (entre Misión/Visión y Valores corporativos) con 4 fotos: Topografía (reutiliza `monumentacion_puntos_referencia.png`), Geología, Minería e Infraestructura/ingeniería civil. Las 3 nuevas se descargaron de Unsplash verificando individualmente que cada una usa la licencia gratuita "Unsplash License" (no la de pago "Unsplash+"). Procedencia (fotógrafo, licencia, URL de origen) documentada en `public/IMAGENES_PAGINA_WEB/PROVENANCE.md`. Verificado en build de producción, sin overflow horizontal, sin errores de consola, en 1440×900 y 390×844.
 
 ### Cambios estructurales relevantes hechos por Codex en Fase 5
 - Se eliminó `components/sections/manifesto-section.tsx` (contenía 3 afirmaciones inventadas del milestone anterior) y se reemplazó por `components/sections/brand-section.tsx` con historia/misión/visión/valores/equipo **verbatim** de `BRAND-CONTENT.md`.
@@ -211,9 +211,6 @@ Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.plann
 
 ### Próximo paso exacto
 
-El milestone **no debe marcarse completo ni desplegarse** mientras TEAM-01/BROCH-01/QA-03 sigan abiertos (esto lo dejó explícito el propio reporte de verificación de Codex en `06-VERIFICATION.md`). Para cerrar el milestone se necesita del usuario:
-1. 4 fotos reales de los geólogos (o autorización para usar las iniciales como solución final)
-2. El PDF final de la brochure
-3. Fotos autorizadas de geología/minería/infraestructura, o procedencia documentada de las imágenes actuales
+Los 22/22 requisitos del milestone v1.0-corporate están completos y verificados (`.planning/REQUIREMENTS.md`, `.planning/STATE.md`). **No se ha desplegado nada** — sigue vigente la regla dura de no desplegar a Vercel/ningún servicio externo sin aprobación explícita del usuario en la conversación activa. El siguiente paso, cuando el usuario lo pida, es una revisión final conjunta (visual + contenido) antes de considerar un despliegue autorizado.
 
-Documentos clave para retomar: `.planning/phases/06-calidad-y-regresi-n-final/06-VERIFICATION.md` (gaps exactos), `.planning/REQUIREMENTS.md` (checklist), `.planning/BRAND-CONTENT.md` (contenido de marca canónico).
+Documentos clave para retomar: `.planning/REQUIREMENTS.md` (checklist 22/22), `.planning/STATE.md` (estado + tabla de quick tasks), `.planning/BRAND-CONTENT.md` (contenido de marca canónico), `public/IMAGENES_PAGINA_WEB/PROVENANCE.md` (procedencia de imágenes).

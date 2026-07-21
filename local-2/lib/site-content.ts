@@ -195,6 +195,40 @@ export const equipment: EquipmentItem[] = [
   },
 ]
 
+export interface SectorImage {
+  id: string
+  image: string
+  alt: string
+  label: string
+}
+
+export const sectors: SectorImage[] = [
+  {
+    id: "topografia",
+    image: "/IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png",
+    alt: "Monumentación de puntos de referencia en un levantamiento topográfico",
+    label: "Topografía",
+  },
+  {
+    id: "geologia",
+    image: "/IMAGENES_PAGINA_WEB/geologo-campo-roca.jpg",
+    alt: "Ingeniero geólogo examinando estratos rocosos en campo",
+    label: "Geología",
+  },
+  {
+    id: "mineria",
+    image: "/IMAGENES_PAGINA_WEB/mineria-tajo-abierto.jpg",
+    alt: "Operación minera a tajo abierto con maquinaria pesada",
+    label: "Minería",
+  },
+  {
+    id: "infraestructura",
+    image: "/IMAGENES_PAGINA_WEB/infraestructura-obra-civil.jpg",
+    alt: "Obra civil en construcción, estructura de concreto en altura",
+    label: "Infraestructura e ingeniería civil",
+  },
+]
+
 export interface CorporateValue {
   id: string
   name: string

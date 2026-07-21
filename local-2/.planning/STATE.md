@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: gaps_found
-stopped_at: BROCH-01 completed with real PDF, verified in production build
-last_updated: "2026-07-21T02:43:43.196Z"
-last_activity: 2026-07-20 — Completed Plan 06-01; QA-01, QA-02 and BRAND-02 verified; QA-03 blocked
+status: complete
+stopped_at: "QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete"
+last_updated: "2026-07-21T03:04:38.093Z"
+last_activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 progress:
   total_phases: 6
   completed_phases: 6
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 
 ## Current Position
 
-Phase: 06 (Calidad y Regresión Final)
-Plan: 1 of 1
-Status: gaps_found
-Last activity: 2026-07-20 — Completed Plan 06-01; QA-01, QA-02 and BRAND-02 verified; QA-03 blocked
+Phase: 06 (Calidad y Regresión Final) + Quick task 260720-ud7
+Plan: 1 of 1 (phase) + 1 quick task
+Status: complete
+Last activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 
 Progress: [██████████] 100%
 
@@ -114,7 +114,7 @@ None yet.
 
 - Fase 3 (Servicios y Drawer de Detalle) fue marcada por research como la más estructuralmente involucrada — decisión `<dialog>` nativo vs. fallback Radix, y su interacción exacta con el z-index/top-layer de `custom-cursor.tsx`, no ha sido probada aún en este codebase. Considerar `/gsd-research --phase 3` si el patrón no queda claro al planificar.
 - Fase 4 (Header Sticky) necesita verificar la API exacta de `lenis@1.3.25` (modo `root`/native-scroll-friendly) contra la versión instalada antes de implementar — los nombres de opciones han cambiado entre versiones mayores de Lenis.
-- Assets de fotografía reales (equipo técnico/drones/cámaras para el carrusel, imágenes de misión/visión) son un bloqueo de contenido, no de ingeniería — deben conseguirse del cliente antes de planificar en detalle las Fases 4 y 5; ninguna imagen debe depender solo de drones (QA-03).
+- Assets de fotografía reales (equipo técnico/drones/cámaras para el carrusel, imágenes de misión/visión) fueron un bloqueo de contenido resuelto en Fase 4/5. QA-03 (ninguna imagen debe depender solo de drones) resuelto 2026-07-21 vía quick task 260720-ud7 con fotografía de stock de licencia libre y procedencia documentada.
 - Confirmar con el cliente antes de la Fase 5 que el brochure va sin gating (recomendación de research, no decisión cerrada).
 - Regla dura de despliegue: ningún `npm run deploy` ni despliegue a Vercel/otro servicio sin aprobación explícita del usuario en la conversación activa — ver incidente documentado en PROJECT.md y `.planning/DEPLOYMENT-VERCEL.md`.
 - Discrepancia de conteo corregida durante el roadmapping: REQUIREMENTS.md indicaba "24 requirements v1 total" pero el conteo real de IDs únicos (THEME/ARCH/SERV/HEAD/TEAM/PROJ/DIFF/EQUIP/BROCH/BRAND/QA) es 22. El roadmap y la traceability usan el número correcto (22/22 mapeados).
@@ -131,8 +131,14 @@ Items acknowledged and carried forward from previous milestone close:
 | Movimiento avanzado (milestone anterior) | MOTION-V2-01: Efectos reactivos a la velocidad de scroll (skew/stretch) | Deferred to v2 | Milestone Dogstudio (archivado) |
 | Movimiento avanzado (milestone anterior) | MOTION-V2-02: Transiciones adicionales tipo máscara más allá del momento hero→sección | Deferred to v2 — no aplica bajo la nueva dirección visual "moderada" | Milestone Dogstudio (archivado) |
 
+## Quick Tasks Completed
+
+| Quick ID | Description | Status | Date |
+|----------|-------------|--------|------|
+| 260720-ud7 | Cerrar QA-03: fotografía HD de geología/minería/infraestructura con procedencia documentada | complete | 2026-07-21 |
+
 ## Session Continuity
 
-Last session: 2026-07-21T02:43:43.172Z
-Stopped at: BROCH-01 completed with real PDF, verified in production build
+Last session: 2026-07-21T03:04:38.001Z
+Stopped at: QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete
 Resume file: .planning/REQUIREMENTS.md
