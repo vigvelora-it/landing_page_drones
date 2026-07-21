@@ -32,11 +32,11 @@
 ### Equipo y proyectos
 
 - [ ] **TEAM-01**: Sección de equipo con los 4 geólogos fundadores (foto, nombre, cargo, bio) según el contenido ya redactado por el cliente
-- [ ] **PROJ-01**: Sección de proyectos con los 3 casos reales (GESAC/Huarmey, Lezard/Huaral, Las Dunas/Piura) con cliente, ubicación y servicio realizado, en formato "proyecto destacado + lista"
+- [x] **PROJ-01**: Sección de proyectos con los 3 casos reales (GESAC/Huarmey, Lezard/Huaral, Las Dunas/Piura) con cliente, ubicación y servicio realizado, en formato "proyecto destacado + lista"
 
 ### Diferenciación y equipo técnico (carrusel)
 
-- [ ] **DIFF-01**: Sección de diferenciación competitiva basada en evidencia (casos/datos), sin nombrar competidores en la página
+- [x] **DIFF-01**: Sección de diferenciación competitiva basada en evidencia (casos/datos), sin nombrar competidores en la página
 - [x] **EQUIP-01**: Carrusel de equipos/drones/cámaras usando `embla-carousel-react`, con paridad de teclado/touch y `data-lenis-prevent` en el track — sin auto-avance por defecto
 
 ### Brochure
@@ -90,8 +90,9 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
-| TEAM-01, PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
-| DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| TEAM-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
+| DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | QA-01, QA-02, QA-03 | Phase 6 — Calidad y Regresión Final | Pending |
 | BRAND-02 | Phase 6 — Calidad y Regresión Final | Pending |
