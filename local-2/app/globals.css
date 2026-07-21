@@ -25,7 +25,7 @@
 .mega-panel{position:absolute;top:100%;left:0;visibility:hidden;opacity:0;pointer-events:none;min-width:240px;background:var(--bg-surface);color:var(--ink-primary);border:1px solid var(--border-subtle);box-shadow:0 8px 24px color-mix(in srgb,var(--ink-primary) 6%,transparent);padding:24px;transition:opacity var(--motion-duration-fast) var(--ease-moderate)}
 .mega-panel>ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .mega-panel li a{color:var(--ink-primary);font-size:.85rem;line-height:1.6}
-.nav-item[data-open] .mega-panel,.nav-item:focus-within .mega-panel{visibility:visible;opacity:1;pointer-events:auto}
+.nav-item[data-open] .mega-panel{visibility:visible;opacity:1;pointer-events:auto}
 .nav-cta{align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:1px solid currentColor;border-radius:999px;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:background var(--motion-duration-fast) var(--ease-moderate),color var(--motion-duration-fast) var(--ease-moderate)}
 .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
 .nav-cta:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
