@@ -188,14 +188,15 @@ Si se retoma tras un corte de contexto: leer este archivo, luego `local-2/.plann
 
 **Resumen:** las Fases 1-4 se ejecutaron con Claude (este agente); las Fases 5 y 6 las ejecutó **Codex** siguiendo un prompt de traspaso que replicaba el mismo flujo GSD (UI-SPEC → research → plan → execute → verify). Verifiqué el trabajo de Codex de forma independiente (build/lint/typecheck propios + revisión visual con Playwright) y es de calidad alta — honesto sobre lo que no pudo completar, sin fabricar contenido.
 
-### Progreso: 19/22 requisitos completos (86%)
+### Progreso: 20/22 requisitos completos (91%) — actualizado 2026-07-21
 
-**Completo:** THEME-01..04, ARCH-01..03, SERV-01..03, HEAD-01/02, EQUIP-01, BRAND-01/02, PROJ-01, DIFF-01, QA-01/02.
+**Completo:** THEME-01..04, ARCH-01..03, SERV-01..03, HEAD-01/02, EQUIP-01, BRAND-01/02, PROJ-01, DIFF-01, QA-01/02, **TEAM-01**.
 
-**Bloqueado — requiere assets reales del usuario, no se puede completar sin ellos:**
-1. **TEAM-01**: la sección de equipo (4 geólogos) está construida con nombres/roles/bios reales, pero usa iniciales neutras (PC, HS, LZ, JG) como placeholder honesto en vez de fotos falsas. Faltan los 4 retratos reales.
-2. **BROCH-01**: no existe ningún control de descarga en el sitio (deliberadamente, para no fingir un enlace roto). Falta el PDF final real de la brochure — solo tenemos capturas de pantalla del documento compartido en el chat.
-3. **QA-03**: el sitio usa solo imágenes de drones/equipos (mismo render promocional reciclado 2 veces: `equipos1.png`, `dron.png`). Falta fotografía autorizada y con procedencia documentada que muestre geología/minería, y falta documentar la procedencia de las imágenes PNG/JPG actuales (`public/IMAGENES_PAGINA_WEB/*`).
+**Decisión del usuario (2026-07-21): TEAM-01 se cierra usando iniciales neutras (PC, HS, LZ, JG) como diseño final** — no se requieren fotos reales de los 4 geólogos, esto no es un placeholder temporal.
+
+**Aún bloqueado — requiere assets reales del usuario:**
+1. **BROCH-01**: no existe ningún control de descarga en el sitio (deliberadamente, para no fingir un enlace roto). Falta el PDF final real de la brochure — solo tenemos capturas de pantalla del documento compartido en el chat.
+2. **QA-03**: el sitio usa solo imágenes de drones/equipos (mismo render promocional reciclado 2 veces: `equipos1.png`, `dron.png`). Falta fotografía autorizada y con procedencia documentada que muestre geología/minería, y falta documentar la procedencia de las imágenes PNG/JPG actuales (`public/IMAGENES_PAGINA_WEB/*`).
 
 ### Cambios estructurales relevantes hechos por Codex en Fase 5
 - Se eliminó `components/sections/manifesto-section.tsx` (contenía 3 afirmaciones inventadas del milestone anterior) y se reemplazó por `components/sections/brand-section.tsx` con historia/misión/visión/valores/equipo **verbatim** de `BRAND-CONTENT.md`.
