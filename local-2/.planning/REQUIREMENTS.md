@@ -45,7 +45,7 @@
 
 ### Contenido y marca (heredado, sin cambios)
 
-- [ ] **BRAND-01**: El texto de historia, "quiénes somos", misión, visión y valores corporativos usa el contenido ya redactado por el cliente, sin reescritura
+- [x] **BRAND-01**: El texto de historia, "quiénes somos", misión, visión y valores corporativos usa el contenido ya redactado por el cliente, sin reescritura
 - [ ] **BRAND-02**: El formulario de contacto sigue funcionando vía `/api/contact` + Supabase sin regresiones
 
 ### Calidad
@@ -89,7 +89,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | SERV-01, SERV-02, SERV-03 | Phase 3 — Servicios y Drawer de Detalle | Pending |
 | HEAD-01, HEAD-02 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
 | EQUIP-01 | Phase 4 — Header Sticky y Carrusel de Equipos | Complete |
-| BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
+| BRAND-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | TEAM-01, PROJ-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |

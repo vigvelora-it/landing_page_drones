@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: ready_to_plan
-stopped_at: Phase 4 complete, transitioned to Phase 5
-last_updated: "2026-07-20T23:13:45.400Z"
-last_activity: 2026-07-20
+status: executing
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-07-21T00:04:59.305Z"
+last_activity: 2026-07-20 — Completed Plan 05-01; BRAND-01 complete, TEAM-01 partial
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 11
-  completed_plans: 11
+  total_plans: 13
+  completed_plans: 12
   percent: 67
 ---
 
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-07-18)
 ## Current Position
 
 Phase: 05 (Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-07-20 — Phase 04 complete; human checkpoint accepted
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-07-20 — Completed Plan 05-01; BRAND-01 complete, TEAM-01 partial
 
-Progress: [███████░░░] 67%
+Progress: [█████████░] 92%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [███████░░░] 67%
 | Phase 03 P03 | 10min | 2 tasks tasks | 4 files files |
 | Phase 04 P01 | 8min | 2 tasks | 3 files |
 | Phase 04 P02 | 29min | 3 tasks | 5 files |
+| Phase 05 P01 | 10min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -101,6 +102,8 @@ Recent decisions affecting current work:
 - [Phase ?]: Phase 04 Plan 01: ScrollTrigger.create con trigger document.body, start top -80px, end max reemplaza el placeholder de UI-SPEC 80px top, verificado contra docs de GSAP
 - [Phase 04]: El carrusel usa jump por llamada bajo reduced-motion y mantiene la fisica de drag de Embla. — Cumple EQUIP-01 sin aplicar duration cero global ni introducir otra autoridad de animacion.
 - [Phase 04]: TechnologyStage conserva 180vh desktop y 130vh mobile como limite del sticky antes del carrusel. — Evita overlap con Proceso y permite que tech-sticky libere realmente antes del contenido normal del carrusel.
+- [Phase 05]: TEAM-01 remains partial because initials placeholders are not real founder portraits — Prevents false identity attribution until the client supplies four confirmed photos
+- [Phase 05]: No-JS fallback hides the fixed intro and resolves reveal content — Browser QA proved the existing intro otherwise covered the page without JavaScript
 
 ### Pending Todos
 
@@ -129,6 +132,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-20T22:59:31.573Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-07-21T00:03:56.422Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
