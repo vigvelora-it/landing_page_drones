@@ -46,12 +46,12 @@
 ### Contenido y marca (heredado, sin cambios)
 
 - [x] **BRAND-01**: El texto de historia, "quiénes somos", misión, visión y valores corporativos usa el contenido ya redactado por el cliente, sin reescritura
-- [ ] **BRAND-02**: El formulario de contacto sigue funcionando vía `/api/contact` + Supabase sin regresiones
+- [x] **BRAND-02**: El formulario de contacto sigue funcionando vía `/api/contact` + Supabase sin regresiones
 
 ### Calidad
 
-- [ ] **QA-01**: `npm run lint`, `npm run typecheck` y `npm run build` pasan sin errores
-- [ ] **QA-02**: Revisión visual manual en desktop y móvil sin overflow horizontal, con el header sticky, drawer y carrusel probados juntos
+- [x] **QA-01**: `npm run lint`, `npm run typecheck` y `npm run build` pasan sin errores
+- [x] **QA-02**: Revisión visual manual en desktop y móvil sin overflow horizontal, con el header sticky, drawer y carrusel probados juntos
 - [ ] **QA-03**: Ninguna imagen del sitio depende solo de drones — refleja también geología, ingeniería, minería e infraestructura (según el veto explícito del brief)
 
 ## v2 Requirements
@@ -95,7 +95,7 @@ Explícitamente excluido. Documentado para prevenir scope creep.
 | DIFF-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Complete |
 | BROCH-01 | Phase 5 — Contenido de Marca: Historia, Equipo, Proyectos, Diferenciación y Brochure | Pending |
 | QA-01, QA-02, QA-03 | Phase 6 — Calidad y Regresión Final | Pending |
-| BRAND-02 | Phase 6 — Calidad y Regresión Final | Pending |
+| BRAND-02 | Phase 6 — Calidad y Regresión Final | Complete |
 
 **Coverage:**
 

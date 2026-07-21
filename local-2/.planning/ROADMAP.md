@@ -19,8 +19,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Modelo de Datos y Hooks Compartidos** - Contenido real de marca en `lib/site-content.ts`, `useScrollLock` compartido y `custom-cursor.tsx` con delegación de eventos (completed 2026-07-19)
 - [x] **Phase 3: Servicios y Drawer de Detalle** - Los 5 ejes de servicio como tarjetas navegables con panel lateral accesible de detalle (completed 2026-07-20)
 - [x] **Phase 4: Header Sticky y Carrusel de Equipos** - Header reactivo al scroll y carrusel de equipos/drones/cámaras, probados juntos con el drawer (completed 2026-07-20)
-- [ ] **Phase 5: Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure** - Historia/misión/visión/valores, 4 geólogos, 3 proyectos reales, diferenciación basada en evidencia y brochure descargable
-- [ ] **Phase 6: Calidad y Regresión Final** - Build/lint/typecheck limpios, revisión visual sin overflow, imágenes representativas del negocio y formulario de contacto sin regresiones
+- [ ] **Phase 5: Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure** - Planes ejecutados; TEAM-01 parcial y BROCH-01 bloqueado por insumos reales faltantes
+- [ ] **Phase 6: Calidad y Regresión Final** - Plan ejecutado; QA-01, QA-02 y BRAND-02 completos, QA-03 bloqueado por assets/provenance
 
 ## Phase Details
 
@@ -120,7 +120,7 @@ Plans:
 Plans:
 
 - [x] 05-01-PLAN.md — Nosotros canónico, misión/visión/valores y equipo con fallback honesto; TEAM-01 queda parcial por retratos faltantes
-- [ ] 05-02-PLAN.md — Proyectos, diferenciación, navegación 01–06 y verificación integral; BROCH-01 queda bloqueado por PDF faltante
+- [x] 05-02-PLAN.md — Proyectos, diferenciación, navegación 01–06 y verificación integral; BROCH-01 queda bloqueado por PDF faltante
 
 **UI hint**: yes
 
@@ -139,7 +139,7 @@ Plans:
 **Plans**: 1 plan
 Plans:
 
-- [ ] 06-01-PLAN.md — QA/regresión final local: gates, matriz interactiva, provenance de medios y formulario sin escrituras externas
+- [x] 06-01-PLAN.md — QA/regresión final local: gates, matriz interactiva, provenance de medios y formulario sin escrituras externas
 
 **UI hint**: yes
 
@@ -154,5 +154,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Modelo de Datos y Hooks Compartidos | 2/2 | Complete   | 2026-07-19 |
 | 3. Servicios y Drawer de Detalle | 3/3 | Complete   | 2026-07-20 |
 | 4. Header Sticky y Carrusel de Equipos | 2/2 | Complete    | 2026-07-20 |
-| 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 1/2 | In Progress|  |
-| 6. Calidad y Regresión Final | 0/1 | Planned    |  |
+| 5. Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure | 2/2 | Gaps Found |  |
+| 6. Calidad y Regresión Final | 1/1 | Gaps Found |  |

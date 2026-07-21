@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 05-02-PLAN.md; Phase 5 ready for verification with TEAM-01 partial and BROCH-01 blocked
-last_updated: "2026-07-21T00:30:29.776Z"
-last_activity: 2026-07-20 — Completed Plan 05-02; PROJ-01 and DIFF-01 complete; TEAM-01 partial; BROCH-01 blocked
+status: gaps_found
+stopped_at: Completed 06-01-PLAN.md; QA-03, TEAM-01 and BROCH-01 remain external gaps
+last_updated: "2026-07-21T01:48:31.351Z"
+last_activity: 2026-07-20 — Completed Plan 06-01; QA-01, QA-02 and BRAND-02 verified; QA-03 blocked
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 13
-  completed_plans: 13
-  percent: 83
+  completed_phases: 4
+  total_plans: 14
+  completed_plans: 14
+  percent: 67
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-18)
 
 **Core value:** El sitio debe transmitir la seriedad técnica y el valor diferencial real de SkyTech (4 geólogos + tecnología geoespacial de última generación, análisis y recomendaciones, no solo datos) mediante una experiencia visual clara, sobria y pulida — con movimiento moderado, no oscuro ni cinematográfico — mientras conserva el motor de animación (Lenis+GSAP) y el formulario de contacto funcional ya construidos.
-**Current focus:** Phase 05 — Contenido de Marca
+**Current focus:** Phase 06 — Calidad y Regresión Final
 
 ## Current Position
 
-Phase: 05 (Contenido de Marca — Historia, Equipo, Proyectos, Diferenciación y Brochure)
-Plan: 2 of 2
-Status: ready_for_verification
-Last activity: 2026-07-20 — Completed Plan 05-02; PROJ-01 and DIFF-01 complete; TEAM-01 partial; BROCH-01 blocked
+Phase: 06 (Calidad y Regresión Final)
+Plan: 1 of 1
+Status: gaps_found
+Last activity: 2026-07-20 — Completed Plan 06-01; QA-01, QA-02 and BRAND-02 verified; QA-03 blocked
 
 Progress: [██████████] 100%
 
