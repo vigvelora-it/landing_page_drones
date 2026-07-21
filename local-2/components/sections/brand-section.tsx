@@ -55,7 +55,7 @@ export function BrandSection() {
         </header>
 
         <div className="brand-story-grid">
-          <article className="brand-copy brand-copy--history" data-reveal>
+          <article className="brand-copy brand-copy--history" id="historia" data-reveal>
             <p className="mono-label">Historia breve</p>
             <h3>Historia breve</h3>
             <p>{brandStory.history}</p>
@@ -82,7 +82,7 @@ export function BrandSection() {
           </article>
         </div>
 
-        <section className="sectors-region" aria-labelledby="sectors-heading">
+        <section className="sectors-region" id="sectores" aria-labelledby="sectors-heading">
           <div className="brand-region-heading" data-reveal>
             <p className="mono-label">Dónde trabajamos</p>
             <h3 id="sectors-heading">Sectores que atendemos</h3>
@@ -105,7 +105,7 @@ export function BrandSection() {
           </div>
         </section>
 
-        <section className="values-region" aria-labelledby="values-heading">
+        <section className="values-region" id="valores" aria-labelledby="values-heading">
           <div className="brand-region-heading" data-reveal>
             <p className="mono-label">Principios</p>
             <h3 id="values-heading">Valores corporativos</h3>
@@ -124,7 +124,7 @@ export function BrandSection() {
           </div>
         </section>
 
-        <section className="team-region" aria-labelledby="team-heading">
+        <section className="team-region" id="equipo" aria-labelledby="team-heading">
           <div className="brand-region-heading" data-reveal>
             <p className="mono-label">Fundadores</p>
             <h3 id="team-heading">Equipo técnico</h3>
