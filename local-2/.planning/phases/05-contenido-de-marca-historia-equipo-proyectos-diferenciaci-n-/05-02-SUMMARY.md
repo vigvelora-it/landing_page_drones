@@ -108,7 +108,7 @@ Each application change was committed through gsd-tools:
 **Total deviations:** 1 auto-fixed responsive bug.
 **Impact on plan:** The fix was required by the six-row fit contract and introduced no new content or interaction.
 
-## Verification Evidence
+## Browser and Gate Evidence
 
 - Sequential `npm.cmd run lint`, `npm.cmd run typecheck` and `npm.cmd run build` pass; `/` remains statically prerendered.
 - Source gates: one Projects import/render, six exact menu destinations, one global `overflow-x`, and zero competitor names under `app/`, `components/` or `lib/`.
