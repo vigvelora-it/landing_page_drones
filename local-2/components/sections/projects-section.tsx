@@ -3,7 +3,7 @@
 import { useRef } from "react"
 
 import { useGSAP } from "@/lib/gsap"
-import { brochure, differentiation, projects, team, type Project } from "@/lib/site-content"
+import { brochure, projects, type Project } from "@/lib/site-content"
 
 function ProjectFacts({ project }: { project: Project }) {
   return (
@@ -106,35 +106,6 @@ export function ProjectsSection() {
             ))}
           </div>
         </div>
-
-        <section className="differentiation-band" aria-labelledby="differentiation-heading">
-          <div className="differentiation-heading" data-reveal>
-            <p className="mono-label">Evidencia técnica</p>
-            <h3 id="differentiation-heading">Diferenciación</h3>
-            <p>{differentiation.advantage}</p>
-          </div>
-
-          <div className="evidence-grid">
-            <div className="evidence-cell" data-reveal>
-              <strong>{team.length}</strong>
-              <span>Ingenieros Geólogos</span>
-            </div>
-            <div className="evidence-cell" data-reveal>
-              <strong>{projects.length}</strong>
-              <span>Proyectos reales</span>
-            </div>
-            <div className="evidence-cell" data-reveal>
-              <strong>2024</strong>
-              <span>Fundación</span>
-            </div>
-            <div className="evidence-cell evidence-cell--locations" data-reveal>
-              <strong>Huarmey · Huaral · Castilla</strong>
-              <span>Ancash · Lima · Piura</span>
-            </div>
-          </div>
-
-          <p className="differentiation-message" data-reveal>{differentiation.message}</p>
-        </section>
 
         <section className="brochure-block" aria-labelledby="brochure-heading" data-reveal>
           <div>

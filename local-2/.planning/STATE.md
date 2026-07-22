@@ -108,6 +108,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Quick 260722-gmy: remove 180vh Technology sticky, preserve only real equipment in carousel, and use mobile progressive disclosure for canonical brand copy — The audit measured dead scroll, oversized equipment frames and excessive mobile length; these changes improve rhythm without deleting client content or attributing stock to real equipment/projects.
 - [Phase ?]: Quick 260722-crs: equipment carousel now uses one 100%-width slide, circular 6.5s autoadvance, explicit pause, timer reset after manual input and reduced-motion opt-out — Direct user feedback supersedes the earlier visible-next-slide treatment while preserving Embla keyboard/touch controls.
 - [Phase ?]: Quick 260722-2up: carousel now keeps two complete 3:2 cards visible and advances one item at a time across four generated HD reference visuals — Direct user feedback supersedes the full-width single-slide layout because the portrait client assets required excessive crop/scale.
+- [Phase ?]: Quick 260722-rmd: remove the visible evidence/differentiation band while retaining its canonical message for the Projects mega-panel — Direct user request supersedes the original DIFF-01 presentation, without deleting project cards or brochure access.
 
 ### Pending Todos
 
@@ -147,9 +148,10 @@ Items acknowledged and carried forward from previous milestone close:
 | 260722-evm | Integrar biblioteca multimedia curada por el usuario (fotos HD + video hero) en Hero/Capacidades/Sectores/Proceso/Contacto | complete | 2026-07-22 |
 | 260722-crs | Mostrar una sola imagen completa en el carrusel de equipos y añadir autoavance circular con pausa accesible | complete | 2026-07-22 |
 | 260722-2up | Mostrar dos imágenes 3:2 simultáneas, avanzar de una en una e integrar cuatro visuales HD generados y documentados | complete | 2026-07-22 |
+| 260722-rmd | Eliminar la sección visible Evidencia técnica / Diferenciación y limpiar sus estilos sin afectar Proyectos ni brochure | complete | 2026-07-22 |
 
 ## Session Continuity
 
-Last session: 2026-07-22T22:23:00-05:00
-Stopped at: Quick task 260722-2up complete: two-up HD carousel verified locally; rollback v2 preserved; no deployment
-Resume file: .planning/quick/260722-2up-carrusel-doble-imagen-hd/260722-2up-SUMMARY.md
+Last session: 2026-07-22T22:53:00-05:00
+Stopped at: Quick task 260722-rmd complete: visible differentiation band removed and adjacent content verified locally; rollback v2 preserved; no deployment
+Resume file: .planning/quick/260722-rmd-eliminar-seccion-diferenciacion/260722-rmd-SUMMARY.md
