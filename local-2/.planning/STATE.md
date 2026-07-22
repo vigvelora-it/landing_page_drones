@@ -106,6 +106,7 @@ Recent decisions affecting current work:
 - [Phase 05]: TEAM-01 remains partial because initials placeholders are not real founder portraits — Prevents false identity attribution until the client supplies four confirmed photos
 - [Phase 05]: No-JS fallback hides the fixed intro and resolves reveal content — Browser QA proved the existing intro otherwise covered the page without JavaScript
 - [Phase ?]: Quick 260722-gmy: remove 180vh Technology sticky, preserve only real equipment in carousel, and use mobile progressive disclosure for canonical brand copy — The audit measured dead scroll, oversized equipment frames and excessive mobile length; these changes improve rhythm without deleting client content or attributing stock to real equipment/projects.
+- [Phase ?]: Quick 260722-crs: equipment carousel now uses one 100%-width slide, circular 6.5s autoadvance, explicit pause, timer reset after manual input and reduced-motion opt-out — Direct user feedback supersedes the earlier visible-next-slide treatment while preserving Embla keyboard/touch controls.
 
 ### Pending Todos
 
@@ -143,9 +144,10 @@ Items acknowledged and carried forward from previous milestone close:
 | (sin quick_id) | Análisis de fugro.com + polish de motion/jerarquía (active-section nav, --ease-snap, hover de tarjetas, máscara de imagen) — ver `DESIGN_ANALYSIS_FUGRO.md`/`IMPLEMENTATION_REPORT.md` | complete | 2026-07-22 |
 | 260722-cww | Corregir bug de cierre prematuro del mega-panel al mover el mouse hacia el panel (onMouseEnter cancela el timer de cierre) | complete | 2026-07-22 |
 | 260722-evm | Integrar biblioteca multimedia curada por el usuario (fotos HD + video hero) en Hero/Capacidades/Sectores/Proceso/Contacto | complete | 2026-07-22 |
+| 260722-crs | Mostrar una sola imagen completa en el carrusel de equipos y añadir autoavance circular con pausa accesible | complete | 2026-07-22 |
 
 ## Session Continuity
 
-Last session: 2026-07-22T17:22:19.624Z
-Stopped at: Quick task 260722-gmy complete: audit corrections verified locally; rollback v2 available; no deployment
-Resume file: .planning/quick/260722-gmy-corregir-hallazgos-de-auditoria-visual-t/260722-gmy-SUMMARY.md
+Last session: 2026-07-22T21:57:00-05:00
+Stopped at: Quick task 260722-crs complete: single-slide carousel and autoadvance verified locally; rollback v2 preserved; no deployment
+Resume file: .planning/quick/260722-crs-carrusel-equipo-una-imagen-autoplay/260722-crs-SUMMARY.md

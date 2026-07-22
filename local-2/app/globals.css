@@ -194,8 +194,8 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 .equipment-showcase>.site-shell>p{max-width:620px;margin:16px 0 0;color:var(--ink-secondary);font-size:.85rem;line-height:1.7}
 .embla{position:relative}
 .embla__viewport{overflow:hidden}
-.embla__container{display:flex;gap:24px;touch-action:pan-y}
-.embla__slide{position:relative;flex:0 0 58%;min-width:0}
+.embla__container{display:flex;gap:0;touch-action:pan-y}
+.embla__slide{position:relative;flex:0 0 100%;min-width:0}
 .embla__frame{aspect-ratio:4/5}
 .embla__slide>.tech-caption{position:static;margin:8px 0 0}
 .embla__prev,.embla__next{position:absolute;top:40%;width:44px;height:44px}
@@ -206,8 +206,8 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 .embla__dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--border-subtle);background:transparent;padding:0}
 .embla__dots button.is-active{background:var(--accent);border-color:var(--accent)}
 .embla__viewport:focus-visible,.embla__dots button:focus-visible,.embla__prev:focus-visible,.embla__next:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
-@media(max-width:1000px){.embla__slide{flex-basis:72%}.embla__container{gap:16px}}
-@media(max-width:720px){.technology-stage{height:130vh}.embla__slide{flex-basis:84%}}
+@media(max-width:1000px){.embla__slide{flex-basis:100%}}
+@media(max-width:720px){.technology-stage{height:130vh}.embla__slide{flex-basis:100%}}
 
 /* Quick 260722-gmy: auditoria visual, ritmo y legibilidad */
 .section-pad{padding:clamp(6rem,8vw,8.5rem) 0}
@@ -260,7 +260,7 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 .tech-specs span{display:block;font-size:.58rem}
 .tech-caption{max-width:42%;text-align:right}
 
-/* Carrusel: formato horizontal, siguiente slide visible y progreso */
+/* Carrusel: una imagen completa por vista, autoavance y progreso */
 .equipment-showcase{padding:72px 0 96px}
 .equipment-showcase>.site-shell{margin-bottom:32px}
 .equipment-showcase__heading{display:flex;align-items:end;justify-content:space-between;gap:48px}
@@ -269,15 +269,19 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 .equipment-count strong{color:var(--ink-primary);font:500 clamp(2rem,4vw,4rem)/1 var(--display);letter-spacing:-.06em}
 .equipment-count span{font-size:.75rem;letter-spacing:.08em}
 .embla{margin-inline:max(32px,calc((100vw - 1440px)/2));overflow:hidden}
-.embla__viewport{overflow:visible}
-.embla__slide{flex-basis:68%}
-.embla__frame{aspect-ratio:16/9;max-height:580px}
+.embla__viewport{overflow:hidden}
+.embla__slide{flex-basis:100%}
+.embla__frame{width:100%;height:min(580px,calc((100vw - 64px)*9/16));aspect-ratio:auto;max-height:none}
 .embla__frame img{object-fit:cover}
 .embla__slide>.tech-caption{right:auto;max-width:none;text-align:left}
 .embla__prev,.embla__next{top:46%;background:color-mix(in srgb,var(--bg-surface) 88%,transparent);backdrop-filter:blur(8px)}
 .embla__dots{margin-top:20px}
 .embla__progress{width:min(240px,45vw);height:2px;margin:18px auto 0;overflow:hidden;background:var(--border-subtle)}
 .embla__progress i{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left;transition:transform var(--motion-duration-base) var(--ease-moderate)}
+.embla__autoplay{display:block;margin:14px auto 0;border:0;background:transparent;color:var(--ink-secondary);font:600 .6rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:color var(--motion-duration-fast) var(--ease-moderate)}
+.embla__autoplay:hover{color:var(--accent)}
+.embla__autoplay:disabled{color:var(--border-strong);cursor:default}
+.embla__autoplay:focus-visible{outline:2px solid var(--focus-ring);outline-offset:4px}
 
 /* Proyectos: evidencia editorial sin atribuir stock a clientes reales */
 .projects-heading{margin:48px 0 40px}
@@ -315,7 +319,8 @@ dialog.service-drawer[open]::backdrop{opacity:1}
   .brand-copy--history,.brand-story-aside{grid-column:auto}
   .technology-stage{min-height:780px}
   .embla{margin-inline:20px}
-  .embla__slide{flex-basis:76%}
+  .embla__slide{flex-basis:100%}
+  .embla__frame{height:min(520px,calc((100vw - 40px)*9/16))}
   .projects-layout{grid-template-columns:1fr}
   .project-supporting{grid-template-columns:repeat(2,minmax(0,1fr))}
   .contact-grid{grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr)}
@@ -378,8 +383,8 @@ dialog.service-drawer[open]::backdrop{opacity:1}
   .equipment-count strong{font-size:2rem}
   .equipment-count span{font-size:.62rem}
   .embla{margin-inline:16px}
-  .embla__slide{flex-basis:86%}
-  .embla__frame{aspect-ratio:4/3;max-height:none}
+  .embla__slide{flex-basis:100%}
+  .embla__frame{height:auto;aspect-ratio:4/3;max-height:none}
   .embla__prev,.embla__next{top:42%}
 
   .project-card__visual,.project-supporting .project-card__visual{min-height:150px}
