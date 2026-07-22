@@ -79,7 +79,7 @@ export function HeroSection() {
             poster="/IMAGENES_PAGINA_WEB/topografia-con-drones.jpg"
             aria-hidden="true"
           >
-            <source src="/video/drone-flight-close.mp4" type="video/mp4" />
+            <source src="/video/hero-drone-in-flight.mp4" type="video/mp4" />
           </video>
         </div>
 

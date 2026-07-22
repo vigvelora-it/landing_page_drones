@@ -41,6 +41,18 @@ export function ProcessSection() {
           ))}
         </div>
 
+        <div className="process-visual" data-reveal>
+          <div className="process-visual__frame media-frame">
+            <Image
+              src="/IMAGENES_PAGINA_WEB/process-engineers-plans.jpg"
+              alt="Dos ingenieros revisando planos técnicos"
+              fill
+              sizes="100vw"
+            />
+          </div>
+          <span className="process-visual__caption">Coordinación técnica en cada etapa del proyecto</span>
+        </div>
+
         <div className="deliverable" data-reveal>
           <div className="deliverable-image media-frame">
             <Image

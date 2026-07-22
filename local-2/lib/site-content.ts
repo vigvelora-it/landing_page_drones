@@ -211,20 +211,20 @@ export const sectors: SectorImage[] = [
   },
   {
     id: "geologia",
-    image: "/IMAGENES_PAGINA_WEB/geologo-campo-roca.jpg",
-    alt: "Ingeniero geólogo examinando estratos rocosos en campo",
+    image: "/IMAGENES_PAGINA_WEB/geology-rock-formations.jpg",
+    alt: "Formaciones rocosas expuestas, relevantes para el análisis geológico del terreno",
     label: "Geología",
   },
   {
     id: "mineria",
-    image: "/IMAGENES_PAGINA_WEB/mineria-tajo-abierto.jpg",
-    alt: "Operación minera a tajo abierto con maquinaria pesada",
+    image: "/IMAGENES_PAGINA_WEB/projects-open-pit-mine.jpg",
+    alt: "Vista de una operación minera a tajo abierto",
     label: "Minería",
   },
   {
     id: "infraestructura",
-    image: "/IMAGENES_PAGINA_WEB/infraestructura-obra-civil.jpg",
-    alt: "Obra civil en construcción, estructura de concreto en altura",
+    image: "/IMAGENES_PAGINA_WEB/projects-bridge-construction.jpg",
+    alt: "Puente en construcción sobre un río de gran caudal",
     label: "Infraestructura e ingeniería civil",
   },
 ]

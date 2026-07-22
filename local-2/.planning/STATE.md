@@ -4,8 +4,8 @@ milestone: v1.0-corporate
 milestone_name: milestone
 status: complete
 stopped_at: "QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete"
-last_updated: "2026-07-22T14:35:00.000Z"
-last_activity: 2026-07-22 — Quick task 260722-cww fixed a real mega-panel bug (moving the mouse from the nav trigger down into the panel closed it before the user could interact — panel itself had no onMouseEnter to cancel the pending close timer). Also completed a Fugro-inspired motion/hierarchy polish pass (DESIGN_ANALYSIS_FUGRO.md, IMPLEMENTATION_REPORT.md) with independent Lighthouse verification (100/100/100/100). Git tag V1 created at e449faf as a user-requested rollback checkpoint.
+last_updated: "2026-07-22T16:05:00.000Z"
+last_activity: 2026-07-22 — Quick task 260722-evm integrated the user's own curated media library (public/media-library/, 9 HD photos + hero video, SHA-256 verified, Pexels/Unsplash licensed) into Hero, Capacidades, Sectores, Proceso and Contacto, following the user's own README.md as the placement spec. Deferred 2 heavy 4K sector b-roll videos (~90MB each) since this environment has no ffmpeg to generate the lightweight derivatives the user's own doc requires. Lighthouse 100/100/100/100 unaffected, LCP/CLS unaffected.
 progress:
   total_phases: 6
   completed_phases: 6
@@ -141,6 +141,7 @@ Items acknowledged and carried forward from previous milestone close:
 | 260721-td1 | Corregir mega-panel: crossfade suave sin parpadeo, panel en Proceso/Contacto (formulario real embebido), imagen distinta en Capacidades | complete | 2026-07-22 |
 | (sin quick_id) | Análisis de fugro.com + polish de motion/jerarquía (active-section nav, --ease-snap, hover de tarjetas, máscara de imagen) — ver `DESIGN_ANALYSIS_FUGRO.md`/`IMPLEMENTATION_REPORT.md` | complete | 2026-07-22 |
 | 260722-cww | Corregir bug de cierre prematuro del mega-panel al mover el mouse hacia el panel (onMouseEnter cancela el timer de cierre) | complete | 2026-07-22 |
+| 260722-evm | Integrar biblioteca multimedia curada por el usuario (fotos HD + video hero) en Hero/Capacidades/Sectores/Proceso/Contacto | complete | 2026-07-22 |
 
 ## Session Continuity
 

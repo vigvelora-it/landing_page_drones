@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useRef, useState } from "react"
 import { Arrow } from "@/components/arrow"
 import { ServiceDrawer } from "@/components/service-drawer"
@@ -65,6 +66,25 @@ export function CapabilitiesSection() {
                 </button>
               )
             })}
+          </div>
+
+          <div className="capabilities-visual" data-reveal>
+            <div className="capabilities-visual__frame capabilities-visual__frame--primary">
+              <Image
+                src="/IMAGENES_PAGINA_WEB/capabilities-total-station.jpg"
+                alt="Topógrafo operando una estación total en campo abierto"
+                fill
+                sizes="(max-width: 720px) 100vw, 45vw"
+              />
+            </div>
+            <div className="capabilities-visual__frame">
+              <Image
+                src="/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg"
+                alt="Equipo de posicionamiento satelital RTK instalado en una cantera"
+                fill
+                sizes="(max-width: 720px) 100vw, 45vw"
+              />
+            </div>
           </div>
         </div>
       </section>

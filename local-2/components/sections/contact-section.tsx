@@ -30,7 +30,7 @@ export function ContactSection() {
     <section ref={root} className="contact-section" id="contacto">
       <div className="contact-backdrop">
         <Image
-          src="/IMAGENES_PAGINA_WEB/equipos1.png"
+          src="/IMAGENES_PAGINA_WEB/contact-drone-pilot.jpg"
           alt=""
           fill
           sizes="100vw"
