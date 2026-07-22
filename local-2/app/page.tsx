@@ -37,7 +37,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="site-shell">
-          <div className="footer-mark"><span className="brand-symbol">✳</span> SKY TECH</div>
+          <div className="footer-mark"><span className="brand-symbol" aria-hidden="true">✳</span> SKY TECH</div>
           <div className="footer-bottom">
             <span>Geomática avanzada · Perú</span>
             <span>© {new Date().getFullYear()} Sky Tech Perú</span>

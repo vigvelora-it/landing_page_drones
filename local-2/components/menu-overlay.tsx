@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useEffect, useRef, useState, type TransitionEvent } from "react"
 
 import { ContactForm } from "@/components/contact-form"
+import { useActiveSection } from "@/hooks/use-active-section"
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
@@ -95,6 +96,8 @@ const navItems: NavItem[] = [
   },
 ]
 
+const sectionIds = navItems.map((item) => item.key)
+
 export function MenuOverlay() {
   const [menuOpen, setMenuOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -111,6 +114,7 @@ export function MenuOverlay() {
 
   useScrollLock(menuOpen)
   useHeaderScrollState()
+  const activeSection = useActiveSection(sectionIds)
 
   const navigate = () => setMenuOpen(false)
 
@@ -201,8 +205,9 @@ export function MenuOverlay() {
   return (
     <>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Sky Tech Perú — inicio" onClick={navigate}>
-          <span className="brand-symbol">✳</span><span>SKY TECH</span><small>PERÚ</small>
+        <a className="brand" href="#inicio" onClick={navigate}>
+          <span className="brand-symbol" aria-hidden="true">✳</span><span>SKY TECH</span><small>PERÚ</small>
+          <span className="sr-only"> — inicio</span>
         </a>
 
         <div
@@ -219,7 +224,7 @@ export function MenuOverlay() {
               {navItems.map((item) => (
                 <li
                   key={item.key}
-                  className="nav-item"
+                  className={`nav-item${activeSection === item.key ? " is-active" : ""}`}
                   onMouseEnter={() => openPanel(item.key)}
                   onFocus={() => openPanel(item.key)}
                 >
