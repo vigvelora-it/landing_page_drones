@@ -270,3 +270,17 @@ El usuario reportó (con captura) que al bajar el mouse desde un ítem del nav h
 **Fix** (quick task con `--validate`, sin discuss/research ya que la causa raíz estaba clara): una sola línea — `onMouseEnter={() => clearTimeout(closeTimerRef.current)}` en el `.mega-panel`. Plan-checker: PASSED sin observaciones. Verificación propia con Playwright usando movimiento de mouse real (`page.mouse.move({steps:15})`, no saltos instantáneos): hover → mover al panel → esperar 500ms (el doble del timer) → panel sigue abierto y el clic en un enlace navega correctamente; hover → panel → alejar el mouse → cierra correctamente. Sin regresión en Escape, backdrop, mobile/touch real, ni drawer de servicio. Commit: `9246318` (fix), `f5d811d` (docs).
 
 Documentos: `.planning/quick/260722-cww-corregir-bug-de-cierre-prematuro-del-meg/` (PLAN, SUMMARY).
+
+## Quick task 260722-evm — Integración de biblioteca multimedia curada por el usuario (2026-07-22)
+
+El usuario creó su propia biblioteca de medios en `public/media-library/` (9 fotos HD 2400px + 4 videos, licencias Pexels/Unsplash, verificadas con SHA-256, sin generación por IA), con `README.md` (recomendación por sección + prioridad de implementación) y `PROVENANCE.md` (autor/fuente/licencia/hash) ya escritos por él mismo. Pidió: "usa el nuevo contenido visual, videos, fotos y colócalos en la página". Su propio README ya resolvía todas las decisiones de ubicación — se usó como especificación autoritativa sin volver a preguntar.
+
+**Implementado** (prioridades 1-4 del propio README del usuario): Hero (video cambiado a `hero-drone-in-flight.mp4`, el dron aparece claramente en vuelo), Capacidades (nuevo panel visual con estación total + RTK — antes sin ninguna imagen), Sectores (3 de 4 imágenes de la banda "Sectores que atendemos" actualizadas: Minería/Infraestructura/Geología), Proceso (nueva imagen + leyenda de coordinación técnica), Contacto (backdrop reemplazado por foto vertical de piloto de dron). Procedencia propagada a `public/IMAGENES_PAGINA_WEB/PROVENANCE.md` y `public/video/CREDITS.md`.
+
+**Diferido explícitamente** (prioridad 5 del propio README): 2 videos 4K de b-roll de sectores (~90-98MB cada uno, 3840×2160 reales). El README del usuario exige generar derivados web de 1080p antes de servirlos en producción — este entorno no tiene `ffmpeg` disponible, así que no se generaron esos derivados; se documentó como bloqueo técnico honesto en vez de servir los archivos maestros pesados o fabricar un workaround.
+
+**Respetado sin excepciones** (regla explícita del usuario sobre no atribuir stock a VIG/SkyTech): retratos del equipo (siguen con iniciales), carrusel de equipos (sigue mostrando equipos reales), brochure, y las 3 fichas de proyectos reales con nombre (GESAC/Lezard/Las Dunas) — ningún medio de stock nuevo se asoció a ellas.
+
+**Verificado:** lint/typecheck/build limpios; Lighthouse (Chrome DevTools MCP) 100/100/100/100, 61/61 audits, sin regresión; LCP 1585ms/CLS 0.00 sin regresión por el nuevo video del hero; 0px overflow en las 4 resoluciones; 0 errores de consola. Commit: `891c1af`.
+
+Documentos: `.planning/quick/260722-evm-integrar-biblioteca-multimedia-curada-po/` (CONTEXT, SUMMARY).
