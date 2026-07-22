@@ -5,7 +5,7 @@ import { FormEvent, useRef } from "react"
 import { Arrow } from "@/components/arrow"
 import { services } from "@/lib/site-content"
 
-export function ContactForm() {
+export function ContactForm({ reveal = true }: { reveal?: boolean }) {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const statusRef = useRef<HTMLParagraphElement>(null)
 
@@ -46,7 +46,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="contact-form" data-reveal noValidate onSubmit={handleSubmit}>
+    <form className="contact-form" data-reveal={reveal || undefined} noValidate onSubmit={handleSubmit}>
       <div className="field-row">
         <label><span>Nombre *</span><input name="name" type="text" autoComplete="name" required placeholder="Tu nombre" /></label>
         <label><span>Empresa</span><input name="company" type="text" autoComplete="organization" placeholder="Nombre de empresa" /></label>

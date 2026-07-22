@@ -139,12 +139,23 @@ export function MenuOverlay() {
   }
 
   useEffect(() => {
-    if (openKey === null) return
+    if (openKey === null) {
+      // Panel is fully closing: cancel any in-flight swap so a stale pending key can't
+      // resurface on the next open (isSwapping would otherwise block that open's own
+      // swap from being scheduled). displayedKey is left as-is — it's hidden anyway,
+      // and the next open naturally re-diffs it against the new openKey.
+      if (isSwapping) {
+        clearTimeout(swapFallbackRef.current)
+        pendingKeyRef.current = null
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- cancels an in-flight swap on close, not a cascading render
+        setIsSwapping(false)
+      }
+      return
+    }
     if (displayedKey === null) {
       // Cold-open sync (panel goes from fully closed to open): assigns content directly,
       // no crossfade needed since the container itself fades in. Fires once per open, not
       // a cascading update — the swap branch below is what drives content transitions.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplayedKey(openKey)
       return
     }
@@ -246,7 +257,7 @@ export function MenuOverlay() {
                   )}
                 </div>
                 {displayedItem.showContactForm ? (
-                  <ContactForm />
+                  <ContactForm reveal={false} />
                 ) : (
                   <>
                     {displayedItem.panel && (
