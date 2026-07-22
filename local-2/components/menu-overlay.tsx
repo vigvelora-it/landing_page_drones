@@ -141,6 +141,10 @@ export function MenuOverlay() {
   useEffect(() => {
     if (openKey === null) return
     if (displayedKey === null) {
+      // Cold-open sync (panel goes from fully closed to open): assigns content directly,
+      // no crossfade needed since the container itself fades in. Fires once per open, not
+      // a cascading update — the swap branch below is what drives content transitions.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplayedKey(openKey)
       return
     }
