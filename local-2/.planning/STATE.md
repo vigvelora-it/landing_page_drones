@@ -4,8 +4,8 @@ milestone: v1.0-corporate
 milestone_name: milestone
 status: complete
 stopped_at: "QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete"
-last_updated: "2026-07-22T03:10:00.000Z"
-last_activity: 2026-07-22 — Quick task 260721-td1 fixed mega-panel crossfade flicker, added panels to Proceso/Contacto (real contact form embedded), distinct Capacidades image; independent verification found and fixed 2 real bugs (invisible embedded form, swap race on rapid close+hover)
+last_updated: "2026-07-22T14:35:00.000Z"
+last_activity: 2026-07-22 — Quick task 260722-cww fixed a real mega-panel bug (moving the mouse from the nav trigger down into the panel closed it before the user could interact — panel itself had no onMouseEnter to cancel the pending close timer). Also completed a Fugro-inspired motion/hierarchy polish pass (DESIGN_ANALYSIS_FUGRO.md, IMPLEMENTATION_REPORT.md) with independent Lighthouse verification (100/100/100/100). Git tag V1 created at e449faf as a user-requested rollback checkpoint.
 progress:
   total_phases: 6
   completed_phases: 6
@@ -139,6 +139,8 @@ Items acknowledged and carried forward from previous milestone close:
 | 260720-vda | Rediseñar header a estilo Fugro: transparente/sólido en scroll, nav horizontal con mega-menú accesible al hover | complete | 2026-07-21 |
 | 260721-1nn | Rediseñar mega-panel a ancho completo estilo Fugro: backdrop scrim + 3 columnas (título/descripción, enlaces, imagen destacada) | complete | 2026-07-21 |
 | 260721-td1 | Corregir mega-panel: crossfade suave sin parpadeo, panel en Proceso/Contacto (formulario real embebido), imagen distinta en Capacidades | complete | 2026-07-22 |
+| (sin quick_id) | Análisis de fugro.com + polish de motion/jerarquía (active-section nav, --ease-snap, hover de tarjetas, máscara de imagen) — ver `DESIGN_ANALYSIS_FUGRO.md`/`IMPLEMENTATION_REPORT.md` | complete | 2026-07-22 |
+| 260722-cww | Corregir bug de cierre prematuro del mega-panel al mover el mouse hacia el panel (onMouseEnter cancela el timer de cierre) | complete | 2026-07-22 |
 
 ## Session Continuity
 
