@@ -258,3 +258,15 @@ Pedido explícito del usuario: analizar `fugro.com` como referencia de diseño/m
 **Resultado verificado:** Lighthouse 100/100/100/100 (accesibilidad/best-practices/SEO/agentic) en desktop y mobile, 0 audits fallidos; LCP 1453ms, CLS 0.00; 0px overflow horizontal en 1440×900/1280×800/768×1024/390×844; `prefers-reduced-motion` neutraliza todo lo nuevo automáticamente (regla global ya existente); navegación por teclado verificada de punta a punta incluyendo el formulario embebido. Commit: `6bdb85e`.
 
 Documentos: `DESIGN_ANALYSIS_FUGRO.md`, `IMPLEMENTATION_REPORT.md` (raíz de `local-2/`).
+
+## Backup V1 (2026-07-22)
+
+A pedido explícito del usuario ("haz un backup, cuando yo diga V1 debemos volver a este punto"), se creó el tag de git anotado `V1` en el commit `e449faf` (estado justo después del polish inspirado en Fugro, antes del fix del bug de hover del mega-panel de abajo). Para volver a ese punto cuando el usuario diga "V1": confirmar con el usuario y ejecutar `git reset --hard V1` (operación destructiva, requiere confirmación explícita en el momento).
+
+## Quick task 260722-cww — Bug de cierre prematuro del mega-panel (2026-07-22)
+
+El usuario reportó (con captura) que al bajar el mouse desde un ítem del nav hacia el mega-panel, este desaparecía y no dejaba interactuar con su contenido. Diagnostiqué la causa raíz antes de planificar (sin research adicional): el wrapper `.nav-region` solo cancelaba el cierre programado desde el `<li>` del nav (`onMouseEnter`/`onFocus`), pero el `.mega-panel` en sí — hermano de `<nav>` desde la refactorización a panel único de 260721-td1 — no tenía ningún handler propio. Al cruzar la franja del padding vertical del header (~1.35rem, zona que no pertenece a ningún descendiente de `.nav-region` por la diferencia entre el content-box donde se estira el `<li>` y el padding-box donde empieza `top:100%` del panel), el mouse disparaba `mouseleave` → `scheduleClose()` armaba un timer de 250ms que se ejecutaba igual sin importar que el usuario ya estuviera dentro del panel.
+
+**Fix** (quick task con `--validate`, sin discuss/research ya que la causa raíz estaba clara): una sola línea — `onMouseEnter={() => clearTimeout(closeTimerRef.current)}` en el `.mega-panel`. Plan-checker: PASSED sin observaciones. Verificación propia con Playwright usando movimiento de mouse real (`page.mouse.move({steps:15})`, no saltos instantáneos): hover → mover al panel → esperar 500ms (el doble del timer) → panel sigue abierto y el clic en un enlace navega correctamente; hover → panel → alejar el mouse → cierra correctamente. Sin regresión en Escape, backdrop, mobile/touch real, ni drawer de servicio. Commit: `9246318` (fix), `f5d811d` (docs).
+
+Documentos: `.planning/quick/260722-cww-corregir-bug-de-cierre-prematuro-del-meg/` (PLAN, SUMMARY).
