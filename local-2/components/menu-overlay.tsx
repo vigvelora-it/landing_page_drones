@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
+import { ContactForm } from "@/components/contact-form"
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
@@ -101,6 +102,7 @@ export function MenuOverlay() {
   const drawerOpen = useOverlayCoordination("menu", menuOpen)
 
   const [openKey, setOpenKey] = useState<string | null>(null)
+  const [displayedKey, setDisplayedKey] = useState<string | null>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const triggerRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
 
@@ -120,6 +122,10 @@ export function MenuOverlay() {
   }
 
   useEffect(() => () => clearTimeout(closeTimerRef.current), [])
+
+  useEffect(() => {
+    setDisplayedKey(openKey)
+  }, [openKey])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -149,6 +155,8 @@ export function MenuOverlay() {
     return () => window.removeEventListener("keydown", closeOnEscape)
   }, [openKey])
 
+  const displayedItem = navItems.find((item) => item.key === displayedKey) ?? null
+
   return (
     <>
       <header className="site-header">
@@ -156,22 +164,23 @@ export function MenuOverlay() {
           <span className="brand-symbol">✳</span><span>SKY TECH</span><small>PERÚ</small>
         </a>
 
-        <nav className="site-nav" aria-label="Navegación principal">
-          <ul>
-            {navItems.map((item) =>
-              item.panel ? (
+        <div
+          className="nav-region"
+          onMouseLeave={scheduleClose}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+              scheduleClose()
+            }
+          }}
+        >
+          <nav className="site-nav" aria-label="Navegación principal">
+            <ul>
+              {navItems.map((item) => (
                 <li
                   key={item.key}
                   className="nav-item"
-                  data-open={openKey === item.key || undefined}
                   onMouseEnter={() => openPanel(item.key)}
-                  onMouseLeave={scheduleClose}
                   onFocus={() => openPanel(item.key)}
-                  onBlur={(event) => {
-                    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-                      scheduleClose()
-                    }
-                  }}
                 >
                   <a
                     ref={(el) => {
@@ -180,22 +189,35 @@ export function MenuOverlay() {
                     href={item.href}
                     aria-haspopup="true"
                     aria-expanded={openKey === item.key}
-                    aria-controls={`mega-${item.key}`}
+                    aria-controls="mega-panel-shared"
                     onClick={() => setOpenKey(null)}
                   >
                     {item.label}
                   </a>
-                  <div className="mega-panel" id={`mega-${item.key}`}>
-                    <div className="mega-panel-grid">
-                      <div className="mega-panel-intro">
-                        <p className="mono-label">{item.label}</p>
-                        {item.description && <p>{item.description}</p>}
-                        <a href={item.href} onClick={() => setOpenKey(null)}>
-                          Ver overview
-                        </a>
-                      </div>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mega-panel" id="mega-panel-shared" data-open={openKey !== null || undefined}>
+            {displayedItem && (
+              <div className={`mega-panel-grid${displayedItem.showContactForm ? " mega-panel-grid--contact" : ""}`}>
+                <div className="mega-panel-intro">
+                  <p className="mono-label">{displayedItem.label}</p>
+                  {displayedItem.description && <p>{displayedItem.description}</p>}
+                  {displayedItem.panel && (
+                    <a href={displayedItem.href} onClick={() => setOpenKey(null)}>
+                      Ver overview
+                    </a>
+                  )}
+                </div>
+                {displayedItem.showContactForm ? (
+                  <ContactForm />
+                ) : (
+                  <>
+                    {displayedItem.panel && (
                       <ul className="mega-panel-links">
-                        {item.panel.map((sub) => (
+                        {displayedItem.panel.map((sub) => (
                           <li key={sub.label}>
                             <a href={sub.href} onClick={() => setOpenKey(null)}>
                               {sub.label}
@@ -203,27 +225,23 @@ export function MenuOverlay() {
                           </li>
                         ))}
                       </ul>
-                      {item.image && (
-                        <div className="mega-panel-visual">
-                          <Image
-                            src={item.image.src}
-                            alt={item.image.alt}
-                            fill
-                            sizes="(max-width: 1000px) 100vw, 33vw"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </li>
-              ) : (
-                <li key={item.key} className="nav-item">
-                  <a href={item.href}>{item.label}</a>
-                </li>
-              ),
+                    )}
+                    {displayedItem.image && (
+                      <div className="mega-panel-visual">
+                        <Image
+                          src={displayedItem.image.src}
+                          alt={displayedItem.image.alt}
+                          fill
+                          sizes="(max-width: 1000px) 100vw, 33vw"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
             )}
-          </ul>
-        </nav>
+          </div>
+        </div>
 
         <div className="header-center" aria-hidden="true">PRECISIÓN AÉREA / DATOS REALES</div>
 
