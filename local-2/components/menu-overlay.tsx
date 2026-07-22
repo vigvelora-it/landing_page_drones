@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
-import { brandStory, differentiation, equipment, projects, services } from "@/lib/site-content"
+import { brandStory, differentiation, equipment, process, projects, services } from "@/lib/site-content"
 
 interface NavPanelItem {
   label: string
@@ -20,6 +20,7 @@ interface NavItem {
   panel?: NavPanelItem[]
   description?: string
   image?: { src: string; alt: string }
+  showContactForm?: boolean
 }
 
 const navItems: NavItem[] = [
@@ -46,8 +47,8 @@ const navItems: NavItem[] = [
     panel: services.map((service) => ({ label: service.title, href: "#capacidades" })),
     description: "Tecnología aeroespacial aplicada a los sectores más exigentes del Perú.",
     image: {
-      src: "/IMAGENES_PAGINA_WEB/dron.png",
-      alt: "Drone profesional para levantamientos de alta precisión",
+      src: "/IMAGENES_PAGINA_WEB/mineria-tajo-abierto.jpg",
+      alt: "Operación minera a tajo abierto con maquinaria pesada",
     },
   },
   {
@@ -73,8 +74,24 @@ const navItems: NavItem[] = [
       alt: "Drone realizando un levantamiento topográfico sobre un modelo de terreno",
     },
   },
-  { key: "proceso", label: "Proceso", href: "#proceso", panel: undefined },
-  { key: "contacto", label: "Contacto", href: "#contacto", panel: undefined },
+  {
+    key: "proceso",
+    label: "Proceso",
+    href: "#proceso",
+    panel: process.map(([, title]) => ({ label: title, href: "#proceso" })),
+    description: "Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.",
+    image: {
+      src: "/IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png",
+      alt: "Equipo GNSS usado para puntos de control topográfico",
+    },
+  },
+  {
+    key: "contacto",
+    label: "Contacto",
+    href: "#contacto",
+    description: "Cuéntanos qué necesitas medir. Nuestro equipo responderá con el enfoque técnico adecuado.",
+    showContactForm: true,
+  },
 ]
 
 export function MenuOverlay() {
