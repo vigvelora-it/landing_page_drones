@@ -244,3 +244,17 @@ Tercera iteración sobre el mismo header. El usuario reportó 3 problemas tras u
 **Resultado:** panel único compartido con crossfade real (fade-out→fade-in, sin corte instantáneo, verificado con muestreo de opacidad cada 30ms); los 6 ítems del nav abren panel; Contacto tiene el formulario real funcionando (probado end-to-end: escribir en los campos no cierra el panel, envío real sin credenciales Supabase locales responde con el mismo mensaje de fallback ya verificado en la sección principal, sin ids duplicados); Capacidades y Tecnología con imágenes distintas. Sin regresiones: Escape/backdrop/mobile/drawer de servicio verificados de nuevo, todos correctos. Commits: `c8c9c2b`, `2a87345`, `3cd3713`, `fa68c22`, `bc0e933` (ejecutor), `58b4381` (mis 2 fixes), `6bb8cc2` (docs).
 
 Documentos: `.planning/quick/260721-td1-corregir-mega-panel-crossfade-suave-entr/` (CONTEXT, RESEARCH, PLAN, SUMMARY).
+
+## Análisis de referencia Fugro + polish de motion/jerarquía (2026-07-22)
+
+Pedido explícito del usuario: analizar `fugro.com` como referencia de diseño/movimiento/UX (Chrome DevTools MCP + Playwright CLI) y aplicar un nivel similar de fluidez/jerarquía a `local-2`, sin copiar nada literal. Flujo: inspección del proyecto → checkpoint de git (`e83dd75`, limpio) → análisis de Fugro delegado a un subagente (Playwright CLI, ya que Chrome DevTools MCP no estaba disponible al inicio de la tarea) → `DESIGN_ANALYSIS_FUGRO.md` (15 secciones, 19 capturas de referencia interna, conclusión: Fugro usa CSS puro/styled-components, sin GSAP/Framer/Lenis/Three.js) → mapeo de 4 principios a componentes reales → implementación → verificación con Chrome DevTools MCP (ya disponible) + Playwright CLI.
+
+**Mejoras aplicadas** (CSS + un hook nuevo, cero dependencias): indicador de sección activa en el header (subrayado, `use-active-section.ts`), token `--ease-snap` unificando el hover de todos los CTAs, hover plano (sin sombra) en tarjetas de proyectos/valores/sectores/equipo, máscara `clip-path` de revelado en las imágenes de "Sectores que atendemos". Se descartó deliberadamente replicar la barra sticky secundaria "Jump to" de Fugro (nuestro header ya es sticky, a diferencia del de ellos) y cualquier instalación de librería nueva.
+
+**2 bugs reales encontrados y corregidos durante la verificación** (Lighthouse vía Chrome DevTools MCP, no solo capturas):
+1. El nav de escritorio se gateaba solo por `pointer:fine`, sin piso de ancho — el botón "Contáctanos" quedaba cortado fuera del viewport en ventanas de escritorio angostas (~768–950px, confirmado con capturas + medición de `getBoundingClientRect`). Corregido añadiendo `and (min-width:1000px)` a la media query.
+2. Accesibilidad (Lighthouse `label-content-name-mismatch`, WCAG 2.5.3): el `aria-label` del logo no incluía el símbolo decorativo "✳" en la comparación de texto visible. Corregido con `aria-hidden` en el símbolo + `span` `sr-only` en vez de `aria-label` parcial.
+
+**Resultado verificado:** Lighthouse 100/100/100/100 (accesibilidad/best-practices/SEO/agentic) en desktop y mobile, 0 audits fallidos; LCP 1453ms, CLS 0.00; 0px overflow horizontal en 1440×900/1280×800/768×1024/390×844; `prefers-reduced-motion` neutraliza todo lo nuevo automáticamente (regla global ya existente); navegación por teclado verificada de punta a punta incluyendo el formulario embebido. Commit: `6bdb85e`.
+
+Documentos: `DESIGN_ANALYSIS_FUGRO.md`, `IMPLEMENTATION_REPORT.md` (raíz de `local-2/`).
