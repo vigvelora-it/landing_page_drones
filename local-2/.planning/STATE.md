@@ -4,8 +4,8 @@ milestone: v1.0-corporate
 milestone_name: milestone
 status: complete
 stopped_at: "QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete"
-last_updated: "2026-07-22T01:55:00.000Z"
-last_activity: 2026-07-22 — Quick task 260721-1nn redesigned the mega-panel to full-width Fugro-style with backdrop scrim + 3-column layout; independent verification found no bugs this round
+last_updated: "2026-07-22T03:10:00.000Z"
+last_activity: 2026-07-22 — Quick task 260721-td1 fixed mega-panel crossfade flicker, added panels to Proceso/Contacto (real contact form embedded), distinct Capacidades image; independent verification found and fixed 2 real bugs (invisible embedded form, swap race on rapid close+hover)
 progress:
   total_phases: 6
   completed_phases: 6
@@ -138,6 +138,7 @@ Items acknowledged and carried forward from previous milestone close:
 | 260720-ud7 | Cerrar QA-03: fotografía HD de geología/minería/infraestructura con procedencia documentada | complete | 2026-07-21 |
 | 260720-vda | Rediseñar header a estilo Fugro: transparente/sólido en scroll, nav horizontal con mega-menú accesible al hover | complete | 2026-07-21 |
 | 260721-1nn | Rediseñar mega-panel a ancho completo estilo Fugro: backdrop scrim + 3 columnas (título/descripción, enlaces, imagen destacada) | complete | 2026-07-21 |
+| 260721-td1 | Corregir mega-panel: crossfade suave sin parpadeo, panel en Proceso/Contacto (formulario real embebido), imagen distinta en Capacidades | complete | 2026-07-22 |
 
 ## Session Continuity
 
