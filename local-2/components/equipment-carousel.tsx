@@ -120,7 +120,7 @@ export function EquipmentCarousel() {
           <div>
             <span className="mono-label">Equipo en campo</span>
             <h3>Instrumentos para capturar el territorio.</h3>
-            <p>Equipos reales de captura aérea y fotogramétrica del portafolio técnico de SkyTech.</p>
+            <p>Tecnologías de captura aérea y terrestre aplicadas al trabajo geomático.</p>
           </div>
           <p className="equipment-count" aria-hidden="true">
             <strong>{String(selectedIndex + 1).padStart(2, "0")}</strong>
@@ -154,7 +154,7 @@ export function EquipmentCarousel() {
                     src={item.image}
                     alt={item.alt}
                     fill
-                    sizes="(max-width: 720px) calc(100vw - 32px), (max-width: 1000px) calc(100vw - 40px), min(1440px, calc(100vw - 64px))"
+                    sizes="(max-width: 720px) calc((100vw - 42px) / 2), (max-width: 1000px) calc((100vw - 56px) / 2), min(710px, calc((100vw - 84px) / 2))"
                   />
                 </div>
                 <p className="tech-caption">{item.caption}</p>

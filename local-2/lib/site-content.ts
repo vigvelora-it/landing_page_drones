@@ -182,16 +182,28 @@ export interface EquipmentItem {
 
 export const equipment: EquipmentItem[] = [
   {
-    id: "captura-fotogrametrica",
-    image: "/IMAGENES_PAGINA_WEB/equipos1.png",
-    alt: "Equipo de captura fotogramétrica utilizado en campo",
-    caption: "Equipo de captura fotogramétrica",
+    id: "drone-mapeo-andes",
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-drone-andes-hd.png",
+    alt: "Visual referencial de un dron profesional preparado para mapeo en terreno andino",
+    caption: "Dron de mapeo / Visual referencial",
   },
   {
-    id: "plataforma-aerea-rtk",
-    image: "/IMAGENES_PAGINA_WEB/dron.png",
-    alt: "Drone profesional con sensores para captura aérea de precisión",
-    caption: "Plataforma aérea RTK / Fotogrametría",
+    id: "gnss-rtk-campo",
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-gnss-rtk-hd.png",
+    alt: "Visual referencial de receptores GNSS RTK instalados en un levantamiento de campo",
+    caption: "Posicionamiento GNSS RTK / Visual referencial",
+  },
+  {
+    id: "estacion-total-infraestructura",
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-total-station-hd.png",
+    alt: "Visual referencial de una estación total frente a una obra de infraestructura",
+    caption: "Estación total / Visual referencial",
+  },
+  {
+    id: "fotogrametria-mineria",
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-aerial-survey-hd.png",
+    alt: "Visual referencial de una operación de fotogrametría aérea sobre un entorno minero",
+    caption: "Fotogrametría aérea / Visual referencial",
   },
 ]
 

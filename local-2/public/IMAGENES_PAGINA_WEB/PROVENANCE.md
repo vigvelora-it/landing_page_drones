@@ -49,3 +49,20 @@ Las siguientes imágenes fueron entregadas directamente por el cliente/proyecto 
 - `monumentacion_puntos_referencia.png`
 - `topografia-con-drones.jpg`
 - `usar-drones-en-topografia.jpg`
+
+## Imágenes generadas 2026-07-22 (carrusel de tecnología)
+
+Generadas con la herramienta integrada `image_gen` de OpenAI para conseguir cuatro
+encuadres panorámicos 3:2 coherentes, a 1536×1024 px. Son visuales referenciales y no
+representan inventario, personal, ubicaciones ni proyectos reales de SkyTech.
+
+| Archivo | Tema | Resolución | Uso autorizado |
+|---|---|---:|---|
+| `equipment-carousel/equipment-drone-andes-hd.png` | Dron de mapeo en terreno andino | 1536×1024 | Visual referencial del carrusel |
+| `equipment-carousel/equipment-gnss-rtk-hd.png` | Receptor y base GNSS RTK en campo | 1536×1024 | Visual referencial del carrusel |
+| `equipment-carousel/equipment-total-station-hd.png` | Estación total en infraestructura | 1536×1024 | Visual referencial del carrusel |
+| `equipment-carousel/equipment-aerial-survey-hd.png` | Operación aérea sobre entorno minero | 1536×1024 | Visual referencial del carrusel |
+
+Restricciones comunes de generación: sin logotipos, nombres de marca, texto ni marcas
+de agua; equipo completo dentro del encuadre; estética documental geoespacial y
+composición horizontal compatible con tarjetas simultáneas.
