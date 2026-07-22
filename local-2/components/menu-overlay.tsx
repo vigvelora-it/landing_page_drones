@@ -1,11 +1,12 @@
 "use client"
 
+import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
 import { useOverlayCoordination } from "@/hooks/use-overlay-coordination"
 import { useScrollLock } from "@/hooks/use-scroll-lock"
-import { equipment, projects, services } from "@/lib/site-content"
+import { brandStory, differentiation, equipment, projects, services } from "@/lib/site-content"
 
 interface NavPanelItem {
   label: string
@@ -17,6 +18,8 @@ interface NavItem {
   label: string
   href: string
   panel?: NavPanelItem[]
+  description?: string
+  image?: { src: string; alt: string }
 }
 
 const navItems: NavItem[] = [
@@ -30,24 +33,45 @@ const navItems: NavItem[] = [
       { label: "Valores", href: "#valores" },
       { label: "Sectores", href: "#sectores" },
     ],
+    description: brandStory.about,
+    image: {
+      src: "/IMAGENES_PAGINA_WEB/geologo-campo-roca.jpg",
+      alt: "Ingeniero geólogo examinando estratos rocosos en campo",
+    },
   },
   {
     key: "capacidades",
     label: "Capacidades",
     href: "#capacidades",
     panel: services.map((service) => ({ label: service.title, href: "#capacidades" })),
+    description: "Tecnología aeroespacial aplicada a los sectores más exigentes del Perú.",
+    image: {
+      src: "/IMAGENES_PAGINA_WEB/dron.png",
+      alt: "Drone profesional para levantamientos de alta precisión",
+    },
   },
   {
     key: "tecnologia",
     label: "Tecnología",
     href: "#tecnologia",
     panel: equipment.map((item) => ({ label: item.caption, href: "#tecnologia" })),
+    description:
+      "Equipos de captura aérea y fotogramétrica operados por el equipo técnico en cada proyecto.",
+    image: {
+      src: "/IMAGENES_PAGINA_WEB/dron.png",
+      alt: "Drone profesional para levantamientos de alta precisión",
+    },
   },
   {
     key: "proyectos",
     label: "Proyectos",
     href: "#proyectos",
     panel: projects.map((project) => ({ label: project.name, href: "#proyectos" })),
+    description: differentiation.message,
+    image: {
+      src: "/IMAGENES_PAGINA_WEB/topografia-con-drones.jpg",
+      alt: "Drone realizando un levantamiento topográfico sobre un modelo de terreno",
+    },
   },
   { key: "proceso", label: "Proceso", href: "#proceso", panel: undefined },
   { key: "contacto", label: "Contacto", href: "#contacto", panel: undefined },
@@ -145,15 +169,34 @@ export function MenuOverlay() {
                     {item.label}
                   </a>
                   <div className="mega-panel" id={`mega-${item.key}`}>
-                    <ul>
-                      {item.panel.map((sub) => (
-                        <li key={sub.label}>
-                          <a href={sub.href} onClick={() => setOpenKey(null)}>
-                            {sub.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="mega-panel-grid">
+                      <div className="mega-panel-intro">
+                        <p className="mono-label">{item.label}</p>
+                        {item.description && <p>{item.description}</p>}
+                        <a href={item.href} onClick={() => setOpenKey(null)}>
+                          Ver overview
+                        </a>
+                      </div>
+                      <ul className="mega-panel-links">
+                        {item.panel.map((sub) => (
+                          <li key={sub.label}>
+                            <a href={sub.href} onClick={() => setOpenKey(null)}>
+                              {sub.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                      {item.image && (
+                        <div className="mega-panel-visual">
+                          <Image
+                            src={item.image.src}
+                            alt={item.image.alt}
+                            fill
+                            sizes="(max-width: 1000px) 100vw, 33vw"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </li>
               ) : (
@@ -186,6 +229,16 @@ export function MenuOverlay() {
           <span>{menuOpen ? "Cerrar" : "Menú"}</span><i /><i />
         </button>
       </header>
+
+      <div
+        className="mega-panel-backdrop"
+        data-open={openKey !== null || undefined}
+        aria-hidden="true"
+        onClick={() => {
+          clearTimeout(closeTimerRef.current)
+          setOpenKey(null)
+        }}
+      />
 
       <div className={`menu-overlay ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
         <div className="menu-index">NAVEGACIÓN / 2026</div>
