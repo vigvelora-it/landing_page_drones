@@ -1,16 +1,19 @@
 "use client"
 
-import { FormEvent } from "react"
+import { FormEvent, useRef } from "react"
 
 import { Arrow } from "@/components/arrow"
 import { services } from "@/lib/site-content"
 
 export function ContactForm() {
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const statusRef = useRef<HTMLParagraphElement>(null)
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const form = event.currentTarget
-    const button = form.querySelector<HTMLButtonElement>("#submit-button")
-    const status = form.querySelector<HTMLElement>("#form-status")
+    const button = buttonRef.current
+    const status = statusRef.current
     const data = new FormData(form)
 
     if (button) button.disabled = true
@@ -58,10 +61,10 @@ export function ContactForm() {
       </label>
       <label><span>Proyecto *</span><textarea name="message" required minLength={10} rows={3} placeholder="Ubicación, área aproximada y objetivo del levantamiento" /></label>
       <input className="honeypot" name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      <button className="submit-button magnetic" id="submit-button" type="submit">
+      <button className="submit-button magnetic" ref={buttonRef} type="submit">
         <span>Enviar solicitud</span><Arrow />
       </button>
-      <p className="form-status" id="form-status" aria-live="polite" />
+      <p className="form-status" ref={statusRef} aria-live="polite" />
     </form>
   )
 }
