@@ -245,7 +245,12 @@ export function MenuOverlay() {
             </ul>
           </nav>
 
-          <div className="mega-panel" id="mega-panel-shared" data-open={openKey !== null || undefined}>
+          <div
+            className="mega-panel"
+            id="mega-panel-shared"
+            data-open={openKey !== null || undefined}
+            onMouseEnter={() => clearTimeout(closeTimerRef.current)}
+          >
             {displayedItem && (
               <div
                 className={`mega-panel-grid${displayedItem.showContactForm ? " mega-panel-grid--contact" : ""}`}
