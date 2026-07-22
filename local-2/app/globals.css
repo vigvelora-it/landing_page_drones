@@ -24,7 +24,8 @@
 .nav-item>a:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 .nav-region{display:contents}
 .mega-panel{position:absolute;top:100%;left:0;width:100%;visibility:hidden;opacity:0;pointer-events:none;background:var(--bg-surface);color:var(--ink-primary);border-top:1px solid var(--border-subtle);box-shadow:0 24px 48px color-mix(in srgb,var(--ink-primary) 10%,transparent);transition:opacity var(--motion-duration-fast) var(--ease-moderate)}
-.mega-panel-grid{display:grid;grid-template-columns:minmax(240px,.9fr) minmax(200px,.7fr) minmax(280px,1.1fr);gap:clamp(2rem,4vw,4rem);width:var(--shell);margin-inline:auto;padding:clamp(2rem,4vw,3.5rem) 0}
+.mega-panel-grid{display:grid;grid-template-columns:minmax(240px,.9fr) minmax(200px,.7fr) minmax(280px,1.1fr);gap:clamp(2rem,4vw,4rem);width:var(--shell);margin-inline:auto;padding:clamp(2rem,4vw,3.5rem) 0;transition:opacity var(--motion-duration-fast) var(--ease-moderate),transform var(--motion-duration-fast) var(--ease-moderate)}
+.mega-panel-grid[data-swapping]{opacity:0;transform:translateY(8px)}
 .mega-panel-grid--contact{grid-template-columns:minmax(280px,1fr) minmax(320px,1.3fr)}
 .mega-panel-intro p{margin:.75rem 0 1.5rem;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink-secondary);font-size:.85rem;line-height:1.7}
 .mega-panel-intro a{display:inline-block;color:var(--accent);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}

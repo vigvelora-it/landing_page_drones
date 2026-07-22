@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type TransitionEvent } from "react"
 
 import { ContactForm } from "@/components/contact-form"
 import { useHeaderScrollState } from "@/hooks/use-header-scroll-state"
@@ -103,6 +103,9 @@ export function MenuOverlay() {
 
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [displayedKey, setDisplayedKey] = useState<string | null>(null)
+  const [isSwapping, setIsSwapping] = useState(false)
+  const pendingKeyRef = useRef<string | null>(null)
+  const swapFallbackRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const triggerRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
 
@@ -123,9 +126,32 @@ export function MenuOverlay() {
 
   useEffect(() => () => clearTimeout(closeTimerRef.current), [])
 
+  function finishSwap() {
+    clearTimeout(swapFallbackRef.current)
+    if (pendingKeyRef.current) setDisplayedKey(pendingKeyRef.current)
+    pendingKeyRef.current = null
+    setIsSwapping(false)
+  }
+
+  function handleContentTransitionEnd(event: TransitionEvent<HTMLDivElement>) {
+    if (event.propertyName !== "opacity" || event.target !== event.currentTarget) return
+    if (isSwapping) finishSwap()
+  }
+
   useEffect(() => {
-    setDisplayedKey(openKey)
-  }, [openKey])
+    if (openKey === null) return
+    if (displayedKey === null) {
+      setDisplayedKey(openKey)
+      return
+    }
+    if (displayedKey === openKey || isSwapping) return
+    pendingKeyRef.current = openKey
+    setIsSwapping(true)
+    clearTimeout(swapFallbackRef.current)
+    swapFallbackRef.current = setTimeout(finishSwap, 400)
+  }, [openKey, displayedKey, isSwapping])
+
+  useEffect(() => () => clearTimeout(swapFallbackRef.current), [])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -201,7 +227,11 @@ export function MenuOverlay() {
 
           <div className="mega-panel" id="mega-panel-shared" data-open={openKey !== null || undefined}>
             {displayedItem && (
-              <div className={`mega-panel-grid${displayedItem.showContactForm ? " mega-panel-grid--contact" : ""}`}>
+              <div
+                className={`mega-panel-grid${displayedItem.showContactForm ? " mega-panel-grid--contact" : ""}`}
+                data-swapping={isSwapping || undefined}
+                onTransitionEnd={handleContentTransitionEnd}
+              >
                 <div className="mega-panel-intro">
                   <p className="mono-label">{displayedItem.label}</p>
                   {displayedItem.description && <p>{displayedItem.description}</p>}
