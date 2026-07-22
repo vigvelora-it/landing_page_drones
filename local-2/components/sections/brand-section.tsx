@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { brandStory, corporateValues, sectors, team, teamIntro } from "@/lib/site-content";
 import { useGSAP } from "@/lib/gsap";
@@ -18,6 +18,8 @@ function getInitials(name: string) {
 
 export function BrandSection() {
   const root = useRef<HTMLElement>(null);
+  const [expandedValue, setExpandedValue] = useState<string | null>(null);
+  const [expandedMember, setExpandedMember] = useState<string | null>(null);
 
   useGSAP(
     () => {
@@ -56,16 +58,25 @@ export function BrandSection() {
 
         <div className="brand-story-grid">
           <article className="brand-copy brand-copy--history" id="historia" data-reveal>
-            <p className="mono-label">Historia breve</p>
             <h3>Historia breve</h3>
             <p>{brandStory.history}</p>
           </article>
 
-          <article className="brand-copy brand-copy--about" data-reveal>
-            <p className="mono-label">Quiénes somos</p>
-            <h3>¿Quiénes somos?</h3>
-            <p>{brandStory.about}</p>
-          </article>
+          <div className="brand-story-aside">
+            <div className="brand-story-visual media-frame" data-reveal>
+              <Image
+                src="/IMAGENES_PAGINA_WEB/brand-geologists-field.jpg"
+                alt="Profesionales realizando observación geológica en campo"
+                fill
+                sizes="(max-width: 720px) 100vw, 40vw"
+              />
+            </div>
+
+            <article className="brand-copy brand-copy--about" data-reveal>
+              <h3>¿Quiénes somos?</h3>
+              <p>{brandStory.about}</p>
+            </article>
+          </div>
         </div>
 
         <div className="purpose-grid">
@@ -118,7 +129,16 @@ export function BrandSection() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h4>{value.name}</h4>
-                <p>{value.description}</p>
+                <button
+                  type="button"
+                  className="mobile-disclosure"
+                  aria-expanded={expandedValue === value.id}
+                  onClick={() => setExpandedValue(expandedValue === value.id ? null : value.id)}
+                >
+                  <span>{expandedValue === value.id ? "Ocultar detalle" : "Ver detalle"}</span>
+                  <i aria-hidden="true">{expandedValue === value.id ? "−" : "+"}</i>
+                </button>
+                <p className={expandedValue === value.id ? "is-expanded" : ""}>{value.description}</p>
               </article>
             ))}
           </div>
@@ -151,7 +171,18 @@ export function BrandSection() {
                 <div className="team-card__copy">
                   <h4>{member.name}</h4>
                   <p className="team-card__role">{member.role}</p>
-                  <p className="team-card__bio">{member.bio}</p>
+                  <button
+                    type="button"
+                    className="mobile-disclosure"
+                    aria-expanded={expandedMember === member.id}
+                    onClick={() => setExpandedMember(expandedMember === member.id ? null : member.id)}
+                  >
+                    <span>{expandedMember === member.id ? "Ocultar perfil" : "Ver perfil"}</span>
+                    <i aria-hidden="true">{expandedMember === member.id ? "−" : "+"}</i>
+                  </button>
+                  <p className={`team-card__bio${expandedMember === member.id ? " is-expanded" : ""}`}>
+                    {member.bio}
+                  </p>
                 </div>
               </article>
             ))}

@@ -20,12 +20,14 @@ Curadas y verificadas por el usuario (SHA-256, revisión visual, sin generación
 `public/media-library/` — ver `public/media-library/PROVENANCE.md` para el detalle
 completo (hashes, resolución exacta en píxeles, bytes). Reemplazan 3 de las 4 imágenes de
 la banda "Sectores que atendemos" (Minería, Infraestructura, Geología — Topografía sin
-cambio) y añaden 4 usos nuevos (Capacidades, Proceso, Contacto).
+cambio) y añaden usos nuevos en Nosotros, Capacidades, Proceso y Contacto.
 
 | Archivo | Fuente | Fotógrafo | Licencia | URL de origen |
 |---|---|---|---|---|
 | `capabilities-total-station.jpg` | Unsplash | Nazmul ahsan Meraz | Unsplash License | https://unsplash.com/photos/surveyor-using-a-total-station-in-a-grassy-field-OIZPlqDEbPM |
 | `technology-rtk-quarry.jpg` | Unsplash | Valerie V | Unsplash License | https://unsplash.com/photos/gray-tripod-on-brown-rock-5Rp0rkDziGY |
+| `brand-geologists-field.jpg` | Pexels | Plato Terentev | Pexels License | https://www.pexels.com/photo/unrecognizable-geologists-in-uniforms-studying-minerals-against-forest-5909436/ |
+| `technology-drone-operator.jpg` | Pexels | Thibaut Tattevin | Pexels License | https://www.pexels.com/photo/a-person-holding-a-drone-17893678/ |
 | `projects-open-pit-mine.jpg` | Pexels | Artem Makarov | Pexels License | https://www.pexels.com/photo/view-of-open-pit-mine-on-sunny-day-13224682/ |
 | `projects-bridge-construction.jpg` | Unsplash | LISK OBE | Unsplash License | https://unsplash.com/photos/bridge-under-construction-over-a-wide-river-NItW3rHlCJo |
 | `geology-rock-formations.jpg` | Pexels | Bálint Varga | Pexels License | https://www.pexels.com/photo/rock-formations-10863068/ |

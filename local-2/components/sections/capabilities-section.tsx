@@ -77,13 +77,23 @@ export function CapabilitiesSection() {
                 sizes="(max-width: 720px) 100vw, 45vw"
               />
             </div>
-            <div className="capabilities-visual__frame">
-              <Image
-                src="/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg"
-                alt="Equipo de posicionamiento satelital RTK instalado en una cantera"
-                fill
-                sizes="(max-width: 720px) 100vw, 45vw"
-              />
+            <div className="capabilities-visual__stack">
+              <div className="capabilities-visual__frame">
+                <Image
+                  src="/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg"
+                  alt="Equipo de posicionamiento satelital RTK instalado en una cantera"
+                  fill
+                  sizes="(max-width: 720px) 100vw, 35vw"
+                />
+              </div>
+              <div className="capabilities-visual__frame">
+                <Image
+                  src="/IMAGENES_PAGINA_WEB/technology-drone-operator.jpg"
+                  alt="Operador preparando un drone para captura de datos en campo"
+                  fill
+                  sizes="(max-width: 720px) 100vw, 35vw"
+                />
+              </div>
             </div>
           </div>
         </div>

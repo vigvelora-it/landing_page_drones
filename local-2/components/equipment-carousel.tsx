@@ -62,9 +62,17 @@ export function EquipmentCarousel() {
   return (
     <div className="equipment-showcase" data-reveal>
       <div className="site-shell">
-        <span className="mono-label">Equipo en campo</span>
-        <h3>Instrumentos que usamos en cada levantamiento.</h3>
-        <p>Equipos de captura aérea y fotogramétrica operados por el equipo técnico en cada proyecto.</p>
+        <div className="equipment-showcase__heading">
+          <div>
+            <span className="mono-label">Equipo en campo</span>
+            <h3>Instrumentos para capturar el territorio.</h3>
+            <p>Equipos reales de captura aérea y fotogramétrica del portafolio técnico de SkyTech.</p>
+          </div>
+          <p className="equipment-count" aria-hidden="true">
+            <strong>{String(selectedIndex + 1).padStart(2, "0")}</strong>
+            <span>/ {String(equipment.length).padStart(2, "0")}</span>
+          </p>
+        </div>
       </div>
       <div className="embla" aria-roledescription="carousel" aria-label="Equipo técnico">
         <div
@@ -87,7 +95,7 @@ export function EquipmentCarousel() {
                     src={item.image}
                     alt={item.alt}
                     fill
-                    sizes="(max-width: 720px) 84vw, (max-width: 1000px) 72vw, 58vw"
+                    sizes="(max-width: 720px) 86vw, (max-width: 1000px) 76vw, 68vw"
                   />
                 </div>
                 <p className="tech-caption">{item.caption}</p>
@@ -125,6 +133,9 @@ export function EquipmentCarousel() {
               onClick={() => scrollToIndex(index)}
             />
           ))}
+        </div>
+        <div className="embla__progress" aria-hidden="true">
+          <i style={{ transform: `scaleX(${(selectedIndex + 1) / equipment.length})` }} />
         </div>
         <p className="sr-only" aria-live="polite">
           Equipo {selectedIndex + 1} de {equipment.length}

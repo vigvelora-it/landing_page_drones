@@ -188,10 +188,10 @@ export const equipment: EquipmentItem[] = [
     caption: "Equipo de captura fotogramétrica",
   },
   {
-    id: "matrice-350-rtk",
+    id: "plataforma-aerea-rtk",
     image: "/IMAGENES_PAGINA_WEB/dron.png",
-    alt: "Drone Matrice 350 RTK, plataforma aérea de precisión",
-    caption: "Matrice 350 RTK / Plataforma aérea",
+    alt: "Drone profesional con sensores para captura aérea de precisión",
+    caption: "Plataforma aérea RTK / Fotogrametría",
   },
 ]
 

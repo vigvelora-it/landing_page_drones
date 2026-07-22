@@ -28,20 +28,21 @@ export function ContactSection() {
 
   return (
     <section ref={root} className="contact-section" id="contacto">
-      <div className="contact-backdrop">
-        <Image
-          src="/IMAGENES_PAGINA_WEB/contact-drone-pilot.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-        />
-      </div>
       <div className="site-shell contact-grid">
         <div className="contact-copy">
           <div className="section-kicker light" data-reveal><span>06</span><span>Contacto</span></div>
           <h2 data-reveal>Tu próximo<br />proyecto empieza<br /><em>desde arriba.</em></h2>
           <p data-reveal>Cuéntanos qué necesitas medir. Nuestro equipo responderá con el enfoque técnico adecuado.</p>
           <a href="mailto:skytsperu@gmail.com" data-reveal>skytsperu@gmail.com <Arrow /></a>
+        </div>
+
+        <div className="contact-media media-frame" data-reveal>
+          <Image
+            src="/IMAGENES_PAGINA_WEB/contact-drone-pilot.jpg"
+            alt="Operador de drone preparando una misión de campo"
+            fill
+            sizes="(max-width: 720px) 100vw, 28vw"
+          />
         </div>
 
         <ContactForm />

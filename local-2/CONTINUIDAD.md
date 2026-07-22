@@ -284,3 +284,31 @@ El usuario creó su propia biblioteca de medios en `public/media-library/` (9 fo
 **Verificado:** lint/typecheck/build limpios; Lighthouse (Chrome DevTools MCP) 100/100/100/100, 61/61 audits, sin regresión; LCP 1585ms/CLS 0.00 sin regresión por el nuevo video del hero; 0px overflow en las 4 resoluciones; 0 errores de consola. Commit: `891c1af`.
 
 Documentos: `.planning/quick/260722-evm-integrar-biblioteca-multimedia-curada-po/` (CONTEXT, SUMMARY).
+
+## Backup v2 + Quick task 260722-gmy — Correcciones posteriores a auditoria (2026-07-22)
+
+Antes de modificar se creo el tag anotado `v2` en `e1ee23a`, a pedido explicito del
+usuario. La orden futura "regresa a v2" significa restaurar el codigo rastreado de
+`local-2` a ese punto, sin tocar `local/` ni `produccion/` y confirmando antes cualquier
+operacion destructiva.
+
+La auditoria detecto tres causas estructurales: mosaico de Capacidades con ~406px de
+vacio, Tecnologia con un sticky de 180vh que generaba ~720px de scroll sin cambio y un
+carrusel de dos imagenes verticales de 835x1067. Tambien se corrigieron contraste del
+hero, densidad de Nosotros/Proceso, proyectos con apariencia incompleta y fotografia de
+Contacto debajo del formulario.
+
+**Resultado:** hero legible; mosaico 1+2; Tecnologia sin sticky (810px desktop/621px
+movil); carrusel horizontal con peek, contador y progreso (936x550 desktop); valores y
+perfiles con divulgacion progresiva accesible en movil; proyectos con visual cartografico
+abstracto sin atribuir stock a clientes; Contacto con imagen contenida. Se retiraron
+`240K`, `45MP` y `Matrice 350 RTK` por no estar confirmados en el brief y se usaron
+RTK/PPK, LiDAR y CAD/GIS, que si son capacidades canonicas.
+
+**Metros finales:** desktop 16,909px -> 14,754px; movil 21,761px -> 16,563px; cero
+overflow horizontal. `lint`, `typecheck` y `build` limpios; Playwright confirmo drawer,
+Escape, carrusel 01->02 y controles `aria-expanded`; cero errores de consola. No hubo
+despliegue.
+
+Documentos: `.planning/quick/260722-gmy-corregir-hallazgos-de-auditoria-visual-t/`
+(CONTEXT, SUMMARY).

@@ -24,6 +24,32 @@ function ProjectFacts({ project }: { project: Project }) {
   )
 }
 
+function ProjectCard({
+  project,
+  index,
+  featured = false,
+}: {
+  project: Project
+  index: number
+  featured?: boolean
+}) {
+  const displayIndex = String(index).padStart(2, "0")
+
+  return (
+    <article className={`project-card${featured ? " project-card--featured" : ""}`} data-reveal>
+      <div className="project-card__visual" aria-hidden="true">
+        <span>{project.location}</span>
+        <strong>{displayIndex}</strong>
+      </div>
+      <div className="project-card__body">
+        <span className="project-card__index">Proyecto real · {displayIndex}</span>
+        <h3>{project.name}</h3>
+        <ProjectFacts project={project} />
+      </div>
+    </article>
+  )
+}
+
 export function ProjectsSection() {
   const root = useRef<HTMLElement>(null)
   const featuredProjects = projects.filter((project) => project.featured)
@@ -72,21 +98,11 @@ export function ProjectsSection() {
         </header>
 
         <div className="projects-layout">
-          <article className="project-card project-card--featured" data-reveal>
-            <span className="project-card__index" aria-hidden="true">01</span>
-            <h3>{featuredProject.name}</h3>
-            <ProjectFacts project={featuredProject} />
-          </article>
+          <ProjectCard project={featuredProject} index={1} featured />
 
           <div className="project-supporting">
             {supportingProjects.map((project, index) => (
-              <article className="project-card" data-reveal key={project.id}>
-                <span className="project-card__index" aria-hidden="true">
-                  {String(index + 2).padStart(2, "0")}
-                </span>
-                <h3>{project.name}</h3>
-                <ProjectFacts project={project} />
-              </article>
+              <ProjectCard project={project} index={index + 2} key={project.id} />
             ))}
           </div>
         </div>

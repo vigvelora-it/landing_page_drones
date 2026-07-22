@@ -43,12 +43,12 @@ export function TechnologySection() {
             <div className="section-kicker light" data-reveal><span>03</span><span>Tecnología</span></div>
             <h2 data-reveal>Instrumentos<br />para ver lo<br /><em>invisible.</em></h2>
             <div className="tech-specs" data-reveal>
-              <div><strong>RTK</strong><span>Posicionamiento<br />en tiempo real</span></div>
-              <div><strong>240K</strong><span>Puntos LiDAR<br />por segundo</span></div>
-              <div><strong>45MP</strong><span>Captura<br />fotogramétrica</span></div>
+              <div><strong>RTK / PPK</strong><span>Levantamientos<br />de alta precisión</span></div>
+              <div><strong>LiDAR</strong><span>Nubes de puntos<br />y modelos 3D</span></div>
+              <div><strong>CAD + GIS</strong><span>Entregables listos<br />para ingeniería</span></div>
             </div>
           </div>
-          <p className="tech-caption">Matrice 350 RTK / Plataforma aérea</p>
+          <p className="tech-caption">Captura aérea / Inteligencia geoespacial</p>
         </div>
       </div>
       <EquipmentCarousel />

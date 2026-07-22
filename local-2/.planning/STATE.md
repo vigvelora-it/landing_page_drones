@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
-status: complete
-stopped_at: "QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete"
-last_updated: "2026-07-22T16:05:00.000Z"
-last_activity: 2026-07-22 — Quick task 260722-evm integrated the user's own curated media library (public/media-library/, 9 HD photos + hero video, SHA-256 verified, Pexels/Unsplash licensed) into Hero, Capacidades, Sectores, Proceso and Contacto, following the user's own README.md as the placement spec. Deferred 2 heavy 4K sector b-roll videos (~90MB each) since this environment has no ffmpeg to generate the lightweight derivatives the user's own doc requires. Lighthouse 100/100/100/100 unaffected, LCP/CLS unaffected.
+status: completed
+stopped_at: "Quick task 260722-gmy complete: audit corrections verified locally; rollback v2 available; no deployment"
+last_updated: "2026-07-22T17:23:10.418Z"
+last_activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 progress:
   total_phases: 6
   completed_phases: 6
@@ -105,6 +105,7 @@ Recent decisions affecting current work:
 - [Phase 04]: TechnologyStage conserva 180vh desktop y 130vh mobile como limite del sticky antes del carrusel. — Evita overlap con Proceso y permite que tech-sticky libere realmente antes del contenido normal del carrusel.
 - [Phase 05]: TEAM-01 remains partial because initials placeholders are not real founder portraits — Prevents false identity attribution until the client supplies four confirmed photos
 - [Phase 05]: No-JS fallback hides the fixed intro and resolves reveal content — Browser QA proved the existing intro otherwise covered the page without JavaScript
+- [Phase ?]: Quick 260722-gmy: remove 180vh Technology sticky, preserve only real equipment in carousel, and use mobile progressive disclosure for canonical brand copy — The audit measured dead scroll, oversized equipment frames and excessive mobile length; these changes improve rhythm without deleting client content or attributing stock to real equipment/projects.
 
 ### Pending Todos
 
@@ -145,6 +146,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-21T03:04:38.001Z
-Stopped at: QA-03 closed: sectors imagery band (topografia/geologia/mineria/infraestructura) added and verified in production build — v1.0-corporate now 22/22 requirements complete
-Resume file: .planning/REQUIREMENTS.md
+Last session: 2026-07-22T17:22:19.624Z
+Stopped at: Quick task 260722-gmy complete: audit corrections verified locally; rollback v2 available; no deployment
+Resume file: .planning/quick/260722-gmy-corregir-hallazgos-de-auditoria-visual-t/260722-gmy-SUMMARY.md
