@@ -55,10 +55,6 @@ export function HeroSection() {
   return (
     <>
       <section ref={root} className="hero" id="inicio" aria-labelledby="hero-title">
-        <div className="hero-noise" aria-hidden="true" />
-        <div className="hero-orbit orbit-one" aria-hidden="true" />
-        <div className="hero-orbit orbit-two" aria-hidden="true" />
-
         <div className="hero-media parallax-media" data-parallax="0.16">
           <Image
             src="/video/hero-terrain-aerial-poster.jpg"
@@ -84,7 +80,6 @@ export function HeroSection() {
         </div>
 
         <div className="hero-shade" aria-hidden="true" />
-        <div className="hero-gridlines" aria-hidden="true" />
 
         <div className="hero-copy site-shell">
           <p className="eyebrow hero-eyebrow" data-reveal>
