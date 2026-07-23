@@ -1,0 +1,18 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+npm-debug.log*
+
+# Local secrets
+.env
+.env.local
+.env.*.local
+
+# Local QA and generation artifacts
+.playwright-cli/
+tmp/
+.tmp-*/
+supabase/.temp/
