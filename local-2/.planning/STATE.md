@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
 status: completed
-stopped_at: "Quick task 260722-gmy complete: audit corrections verified locally; rollback v2 available; no deployment"
-last_updated: "2026-07-22T17:23:10.418Z"
+stopped_at: "Quick task 260722-s3p complete: imágenes exclusivas por sección generadas, auditadas y verificadas localmente; rollback v2 preserved; no deployment"
+last_updated: "2026-07-23T01:15:37.015Z"
 last_activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 progress:
   total_phases: 6
@@ -110,6 +110,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Quick 260722-2up: carousel now keeps two complete 3:2 cards visible and advances one item at a time across four generated HD reference visuals — Direct user feedback supersedes the full-width single-slide layout because the portrait client assets required excessive crop/scale.
 - [Phase ?]: Quick 260722-rmd: remove the visible evidence/differentiation band while retaining its canonical message for the Projects mega-panel — Direct user request supersedes the original DIFF-01 presentation, without deleting project cards or brochure access.
 - [Phase ?]: Quick 260722-rp2: Tecnología y Proceso usan exploradores interactivos con imágenes locales sincronizadas, crossfade breve y navegación accesible — La referencia Seequent se aplicó solo a jerarquía e interacción, preservando los textos, colores y recursos propios de SkyTech.
+- [Phase ?]: Quick 260722-s3p: cada imagen renderizada queda asignada a una sola sección visual; ocho duplicados se sustituyen por WebP HD generados y documentados — La repetición entre Hero, mega-menú, Capacidades, Tecnología, Proceso y carrusel reducía variedad visual; se conserva únicamente el uso doble de la misma ruta como imagen y poster dentro del Hero.
 
 ### Pending Todos
 
@@ -154,6 +155,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-22T19:47:00-05:00
-Stopped at: Quick task 260722-rp2 complete: Tecnología y Proceso rediseñados, compilados y verificados visualmente; rollback v2 preserved; no deployment
-Resume file: .planning/quick/260722-rp2-redisenar-tecnologia-y-proceso-seequent/260722-rp2-SUMMARY.md
+Last session: 2026-07-23T01:15:36.996Z
+Stopped at: Quick task 260722-s3p complete: imágenes exclusivas por sección generadas, auditadas y verificadas localmente; rollback v2 preserved; no deployment
+Resume file: .planning/quick/260722-s3p-eliminar-imagenes-repetidas-entre-seccio/260722-s3p-SUMMARY.md

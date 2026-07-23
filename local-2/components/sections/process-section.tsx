@@ -7,17 +7,17 @@ import { process } from "@/lib/site-content"
 
 const processVisuals = [
   {
-    image: "/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/process-terrain-geology-hd.webp",
     alt: "Equipo de posicionamiento instalado para leer las condiciones del terreno",
     caption: "Lectura y control del terreno",
   },
   {
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-drone-andes-hd.png",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/process-mission-planning-hd.webp",
     alt: "Visual referencial de un dron preparado para una misión de levantamiento",
     caption: "Planificación de la misión",
   },
   {
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-aerial-survey-hd.png",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/process-total-station-road-hd.webp",
     alt: "Visual referencial de una operación de captura aérea en campo",
     caption: "Captura y control de cobertura",
   },
@@ -30,17 +30,10 @@ const processVisuals = [
 
 export function ProcessSection() {
   const root = useRef<HTMLElement>(null)
-  const manualSelectionLocked = useRef(false)
-  const manualSelectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [activeStep, setActiveStep] = useState(0)
   const activeVisual = processVisuals[activeStep]
 
   const selectStep = (index: number) => {
-    manualSelectionLocked.current = true
-    if (manualSelectionTimer.current) clearTimeout(manualSelectionTimer.current)
-    manualSelectionTimer.current = setTimeout(() => {
-      manualSelectionLocked.current = false
-    }, 1000)
     setActiveStep(index)
   }
 
@@ -69,26 +62,8 @@ export function ProcessSection() {
 
       root.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => revealObserver.observe(element))
 
-      const stepObserver = new IntersectionObserver(
-        (entries) => {
-          const centeredEntry = entries.find((entry) => entry.isIntersecting)
-          if (centeredEntry) {
-            if (manualSelectionLocked.current) return
-            const index = Number((centeredEntry.target as HTMLElement).dataset.processIndex)
-            if (Number.isInteger(index)) setActiveStep(index)
-          }
-        },
-        { threshold: 0.2, rootMargin: "-35% 0px -35% 0px" },
-      )
-
-      root.current
-        ?.querySelectorAll<HTMLElement>("[data-process-index]")
-        .forEach((element) => stepObserver.observe(element))
-
       return () => {
         revealObserver.disconnect()
-        stepObserver.disconnect()
-        if (manualSelectionTimer.current) clearTimeout(manualSelectionTimer.current)
       }
   }, { scope: root })
 
@@ -116,7 +91,6 @@ export function ProcessSection() {
                 onClick={() => selectStep(index)}
                 onFocus={() => selectStep(index)}
                 onKeyDown={(event) => selectAdjacentStep(event, index)}
-                onMouseEnter={() => selectStep(index)}
               >
                 <span>{number}</span>
                 <span className="process-step__copy">

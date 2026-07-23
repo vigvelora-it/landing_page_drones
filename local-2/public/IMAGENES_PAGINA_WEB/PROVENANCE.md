@@ -66,3 +66,27 @@ representan inventario, personal, ubicaciones ni proyectos reales de SkyTech.
 Restricciones comunes de generación: sin logotipos, nombres de marca, texto ni marcas
 de agua; equipo completo dentro del encuadre; estética documental geoespacial y
 composición horizontal compatible con tarjetas simultáneas.
+
+## Imágenes generadas 2026-07-22 (exclusividad entre secciones)
+
+Generadas con la herramienta integrada `image_gen` de OpenAI para eliminar toda
+repetición de fotografías entre secciones. Los PNG originales se convirtieron
+localmente a WebP calidad 86 mediante `sharp`, sin reescalado. Son visuales
+referenciales y no representan personal, equipos, ubicaciones ni proyectos reales de
+SkyTech.
+
+| Archivo | Prompt final resumido | Resolución | Uso exclusivo |
+|---|---|---:|---|
+| `section-unique/technology-rtk-coastal-hd.webp` | Topógrafo peruano operando base y rover GNSS RTK en valle costero árido, encuadre editorial horizontal | 1586×992 | Tecnología — RTK / PPK |
+| `section-unique/technology-lidar-geology-hd.webp` | Escáner LiDAR terrestre frente a estratos andinos con ingeniero y tableta de campo | 1586×992 | Tecnología — LiDAR |
+| `section-unique/technology-cad-gis-workstation-hd.webp` | Analista geoespacial revisando modelo 3D, curvas de nivel y alineamiento en dos monitores | 1586×992 | Tecnología — CAD + GIS |
+| `section-unique/process-terrain-geology-hd.webp` | Geólogo leyendo estratos con brújula, lupa y tableta robusta en afloramiento andino | 1586×992 | Proceso — lectura del terreno |
+| `section-unique/process-mission-planning-hd.webp` | Mesa cenital de planificación con mapa topográfico, controlador, baterías y EPP | 1586×992 | Proceso — diseño de misión |
+| `section-unique/process-total-station-road-hd.webp` | Dos topógrafos capturando datos con estación total y prisma en corredor vial de montaña | 1577×997 | Proceso — captura de realidad |
+| `section-unique/menu-process-sensor-calibration-hd.webp` | Técnico calibrando sensor multiespectral y cámara estabilizada en taller limpio | 1672×941 | Mega-menú — Proceso |
+| `section-unique/menu-projects-bridge-valley-hd.webp` | Vista aérea oblicua de carretera y puente sobre valle seco en estribaciones costeras | 1672×941 | Mega-menú — Proyectos |
+
+Restricciones comunes del prompt: fotografía técnica premium y fotorealista, luz
+natural o de taller controlada, paleta sobria, composición horizontal compatible con
+el contenedor real; sin logotipos, marcas legibles, texto, marcas de agua, estética
+de ciencia ficción ni saturación intensa.

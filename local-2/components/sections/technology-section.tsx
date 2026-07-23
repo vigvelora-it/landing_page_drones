@@ -12,7 +12,7 @@ const technologyModes = [
     label: "RTK / PPK",
     description: "Levantamientos de alta precisión.",
     meta: "Posicionamiento / Precisión",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-gnss-rtk-hd.png",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-rtk-coastal-hd.webp",
     alt: "Visual referencial de receptores GNSS RTK instalados en campo",
   },
   {
@@ -20,7 +20,7 @@ const technologyModes = [
     label: "LiDAR",
     description: "Nubes de puntos y modelos 3D.",
     meta: "Captura / Modelado",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-drone-andes-hd.png",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-lidar-geology-hd.webp",
     alt: "Visual referencial de un dron profesional equipado para captura geoespacial",
   },
   {
@@ -28,7 +28,7 @@ const technologyModes = [
     label: "CAD + GIS",
     description: "Entregables listos para ingeniería.",
     meta: "Procesamiento / Entrega",
-    image: "/IMAGENES_PAGINA_WEB/process-engineers-plans.jpg",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-cad-gis-workstation-hd.webp",
     alt: "Ingenieros revisando información técnica y planos de un proyecto",
   },
 ] as const

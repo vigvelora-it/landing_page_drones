@@ -72,8 +72,8 @@ const navItems: NavItem[] = [
     panel: projects.map((project) => ({ label: project.name, href: "#proyectos" })),
     description: differentiation.message,
     image: {
-      src: "/IMAGENES_PAGINA_WEB/topografia-con-drones.jpg",
-      alt: "Drone realizando un levantamiento topográfico sobre un modelo de terreno",
+      src: "/IMAGENES_PAGINA_WEB/section-unique/menu-projects-bridge-valley-hd.webp",
+      alt: "Vista aérea de una carretera y un puente en un valle costero",
     },
   },
   {
@@ -83,8 +83,8 @@ const navItems: NavItem[] = [
     panel: process.map(([, title]) => ({ label: title, href: "#proceso" })),
     description: "Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.",
     image: {
-      src: "/IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png",
-      alt: "Equipo GNSS usado para puntos de control topográfico",
+      src: "/IMAGENES_PAGINA_WEB/section-unique/menu-process-sensor-calibration-hd.webp",
+      alt: "Técnico calibrando un sensor geoespacial en taller",
     },
   },
   {
