@@ -205,6 +205,9 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 /* Hero: una zona de lectura estable sobre video */
 .hero{color:#FFFFFF}
 .hero-shade{background:linear-gradient(90deg,color-mix(in srgb,var(--ink-primary) 58%,transparent) 0%,color-mix(in srgb,var(--ink-primary) 34%,transparent) 42%,color-mix(in srgb,var(--ink-primary) 8%,transparent) 68%,transparent 82%),linear-gradient(0deg,color-mix(in srgb,var(--ink-primary) 22%,transparent),transparent 42%)}
+.hero-end-logo{position:absolute;z-index:4;top:47%;right:clamp(2rem,7vw,8rem);width:clamp(240px,26vw,430px);opacity:0;transform:translate3d(0,22px,0) scale(.96);filter:drop-shadow(0 4px 24px rgb(0 0 0/.48));pointer-events:none;will-change:opacity,transform;transition:opacity 1.35s var(--ease-moderate),transform 1.35s var(--ease-moderate)}
+.hero-end-logo.is-visible{opacity:1;transform:translate3d(0,0,0) scale(1)}
+.hero-end-logo img{display:block;width:100%;height:auto}
 .hero-title{max-width:960px;font-size:clamp(4rem,7.2vw,7.4rem);line-height:.86}
 .title-line-offset{padding-left:8%}
 .title-line-accent{padding-left:4%;color:color-mix(in srgb,#FFFFFF 82%,var(--accent));text-shadow:0 1px 24px color-mix(in srgb,var(--ink-primary) 35%,transparent)}
@@ -320,6 +323,8 @@ dialog.service-drawer[open]::backdrop{opacity:1}
 
 @media(max-width:720px){
   .section-pad{padding:5rem 0}
+  .hero-end-logo{top:8.25rem;right:1rem;width:min(48vw,190px);transform:translate3d(0,12px,0) scale(.97)}
+  .hero-end-logo.is-visible{transform:translate3d(0,0,0) scale(1)}
   .hero-copy{justify-content:center;padding:6.5rem 0 4.5rem}
   .hero-title{max-width:100%;font-size:clamp(3.05rem,14vw,4.6rem);line-height:.9}
   .hero-eyebrow{margin-bottom:1.5rem;font-size:.6rem}

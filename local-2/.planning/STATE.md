@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
 status: completed
-stopped_at: "Quick 260722-vgs completado: hero limpio y video más claro; sin despliegue"
-last_updated: "2026-07-23T03:43:53.339Z"
+stopped_at: "Quick 260722-vpo completado: video se detiene y revela logo final; sin despliegue"
+last_updated: "2026-07-23T03:56:00.598Z"
 last_activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 progress:
   total_phases: 6
@@ -116,6 +116,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Quick 260722-typ: identidad oficial horizontal con PNG transparente en header, intro y footer — La composición horizontal preserva altura de navegación; el tratamiento blanco/oscuro garantiza contraste antes y después del scroll.
 - [Phase ?]: Quick 260722-v24: Hero usa toma aérea de mina sin dron visible, derivada a 1080p y 18.48 s — El nuevo clip centra el territorio y la minería, supera la duración anterior y evita servir directamente el master 4K de 92.7 MB.
 - [Phase ?]: Quick 260722-vgs: Hero sin cuadrícula ni órbitas, con sombreado localizado de menor opacidad — Los elementos geométricos competían con el nuevo video aéreo; se conserva únicamente la protección visual necesaria detrás del texto y los controles funcionales.
+- [Phase ?]: Quick 260722-vpo: video Hero de una sola reproducción con logo final y reinicio manual — El último fotograma mantiene el contexto territorial mientras el logo ocupa el espacio derecho; el usuario conserva control explícito para volver a reproducir sin restaurar un loop automático.
 
 ### Pending Todos
 
@@ -159,9 +160,10 @@ Items acknowledged and carried forward from previous milestone close:
 | 260722-rp2 | Rediseñar Tecnología y Proceso como exploradores interactivos compactos inspirados en jerarquía Seequent y adaptados a SkyTech | complete | 2026-07-22 |
 | 260722-v24 | Reemplazar el video del Hero por una toma aérea del terreno sin dron visible, más larga y optimizada a 1080p | complete | 2026-07-22 |
 | 260722-vgs | Limpiar el Hero retirando cuadrícula y órbitas, y aclarar el video con un sombreado localizado | complete | 2026-07-22 |
+| 260722-vpo | Detener el video del Hero al finalizar, revelar el logo a la derecha y permitir reinicio manual | complete | 2026-07-22 |
 
 ## Session Continuity
 
-Last session: 2026-07-23T03:43:53.317Z
-Stopped at: Quick 260722-vgs completado: hero limpio y video más claro; sin despliegue
-Resume file: .planning/quick/260722-vgs-limpiar-overlays-decorativos-del-hero/260722-vgs-SUMMARY.md
+Last session: 2026-07-23T03:56:00.565Z
+Stopped at: Quick 260722-vpo completado: video se detiene y revela logo final; sin despliegue
+Resume file: .planning/quick/260722-vpo-mostrar-logo-al-finalizar-video-hero/260722-vpo-SUMMARY.md

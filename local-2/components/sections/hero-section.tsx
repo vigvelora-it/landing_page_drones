@@ -9,11 +9,15 @@ export function HeroSection() {
   const root = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoPlaying, setVideoPlaying] = useState(true)
+  const [showEndLogo, setShowEndLogo] = useState(false)
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       videoRef.current?.pause()
-      const reducedMotionTimer = window.setTimeout(() => setVideoPlaying(false), 0)
+      const reducedMotionTimer = window.setTimeout(() => {
+        setVideoPlaying(false)
+        setShowEndLogo(true)
+      }, 0)
       return () => window.clearTimeout(reducedMotionTimer)
     }
   }, [])
@@ -40,9 +44,13 @@ export function HeroSection() {
     if (!video) return
 
     if (video.paused) {
+      if (video.ended || video.currentTime >= video.duration - 0.1) {
+        video.currentTime = 0
+      }
+
+      setShowEndLogo(false)
       try {
         await video.play()
-        setVideoPlaying(true)
       } catch {
         setVideoPlaying(false)
       }
@@ -50,6 +58,11 @@ export function HeroSection() {
       video.pause()
       setVideoPlaying(false)
     }
+  }
+
+  const handleVideoEnded = () => {
+    setVideoPlaying(false)
+    setShowEndLogo(true)
   }
 
   return (
@@ -69,10 +82,17 @@ export function HeroSection() {
             id="hero-video"
             autoPlay
             muted
-            loop
             playsInline
             preload="metadata"
             poster="/video/hero-terrain-aerial-poster.jpg"
+            onPlay={() => {
+              setVideoPlaying(true)
+              setShowEndLogo(false)
+            }}
+            onPause={() => {
+              if (!videoRef.current?.ended) setVideoPlaying(false)
+            }}
+            onEnded={handleVideoEnded}
             aria-hidden="true"
           >
             <source src="/video/hero-terrain-aerial.mp4" type="video/mp4" />
@@ -80,6 +100,15 @@ export function HeroSection() {
         </div>
 
         <div className="hero-shade" aria-hidden="true" />
+        <div className={`hero-end-logo${showEndLogo ? " is-visible" : ""}`} aria-hidden="true">
+          <Image
+            src="/brand/skytech-logo-horizontal.png"
+            alt=""
+            width={1720}
+            height={365}
+            sizes="(max-width: 720px) 48vw, 26vw"
+          />
+        </div>
 
         <div className="hero-copy site-shell">
           <p className="eyebrow hero-eyebrow" data-reveal>
