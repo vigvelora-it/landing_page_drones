@@ -28,3 +28,20 @@ El archivo se almacena en el repositorio para que la página no dependa de un CD
 
 El archivo `drone-flight-close.mp4` se conserva en esta carpeta sin usarse activamente
 (no se referencia desde ningún componente), por si se necesita revertir.
+
+## `hero-terrain-aerial.mp4`
+
+- Título original: **Aerial view of expansive open pit mine**
+- Fuente: Pexels, autor K
+- Página: https://www.pexels.com/video/aerial-view-of-expansive-open-pit-mine-36525702/
+- Master conservado: `public/media-library/videos/projects-open-pit-mine-4k.mp4`
+- Derivado web: H.264, 1920×1080, 23.98 fps, 18.48 s, sin audio y con
+  metadatos de reproducción al inicio.
+- Poster: `hero-terrain-aerial-poster.jpg`, fotograma propio del segundo 7.
+- Licencia indicada por la fuente: Pexels License (uso personal y comercial, sin
+  atribución obligatoria; se conserva crédito interno por trazabilidad).
+- Preparado el 22 de julio de 2026.
+
+Este es el video activo del Hero. La cámara recorre el terreno de una mina a cielo
+abierto sin mostrar el dron; sustituye a `hero-drone-in-flight.mp4`, que permanece en
+el repositorio como respaldo local sin referencias activas.

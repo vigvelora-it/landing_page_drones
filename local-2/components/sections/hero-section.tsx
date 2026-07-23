@@ -61,8 +61,8 @@ export function HeroSection() {
 
         <div className="hero-media parallax-media" data-parallax="0.16">
           <Image
-            src="/IMAGENES_PAGINA_WEB/topografia-con-drones.jpg"
-            alt="Drone realizando un levantamiento topográfico sobre un modelo de terreno"
+            src="/video/hero-terrain-aerial-poster.jpg"
+            alt="Vista aérea de una mina a cielo abierto y sus terrazas"
             fill
             priority
             sizes="100vw"
@@ -76,10 +76,10 @@ export function HeroSection() {
             loop
             playsInline
             preload="metadata"
-            poster="/IMAGENES_PAGINA_WEB/topografia-con-drones.jpg"
+            poster="/video/hero-terrain-aerial-poster.jpg"
             aria-hidden="true"
           >
-            <source src="/video/hero-drone-in-flight.mp4" type="video/mp4" />
+            <source src="/video/hero-terrain-aerial.mp4" type="video/mp4" />
           </video>
         </div>
 
