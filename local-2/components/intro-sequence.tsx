@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 export function IntroSequence() {
@@ -14,7 +15,17 @@ export function IntroSequence() {
 
   return (
     <div className={`intro ${introDone ? "intro-done" : ""}`} aria-hidden="true">
-      <div className="intro-brand"><span>✳</span><strong>SKY TECH</strong></div>
+      <div className="intro-brand">
+        <Image
+          className="intro-logo"
+          src="/brand/skytech-logo-horizontal.png"
+          alt=""
+          width={1716}
+          height={365}
+          priority
+          sizes="280px"
+        />
+      </div>
       <div className="intro-line"><i /></div>
       <span className="intro-coordinate">PERÚ / 14°04&apos;S</span>
     </div>

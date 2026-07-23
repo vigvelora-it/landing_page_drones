@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0-corporate
 milestone_name: milestone
 status: completed
-stopped_at: Quick 260722-th2 completado y validado
-last_updated: "2026-07-23T02:23:09.803Z"
+stopped_at: "Quick 260722-typ completado: logo transparente integrado y validado; sin despliegue"
+last_updated: "2026-07-23T02:51:34.243Z"
 last_activity: 2026-07-21 — Quick task 260720-ud7 closed QA-03 (last open requirement); v1.0-corporate 22/22 complete
 progress:
   total_phases: 6
@@ -113,6 +113,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Quick 260722-s3p: cada imagen renderizada queda asignada a una sola sección visual; ocho duplicados se sustituyen por WebP HD generados y documentados — La repetición entre Hero, mega-menú, Capacidades, Tecnología, Proceso y carrusel reducía variedad visual; se conserva únicamente el uso doble de la misma ruta como imagen y poster dentro del Hero.
 - [Phase ?]: Quick 260722-t0y: Tecnología adopta una composición horizontal de tres columnas y el marquee se reemplaza por un separador estático numerado — El titular vertical empujaba los controles fuera de la primera pantalla y el loop azul competía con el contenido; la franja horizontal mantiene imagen y selectores completos a 1658x900 y la transición de 78px separa sin ruido.
 - [Phase ?]: Quick 260722-th2: jerarquía tipográfica contenida para Capacidades, Tecnología y Proceso — Reduce títulos sobredimensionados, garantiza separación entre texto e imagen y mantiene el sistema responsive sin alterar contenido.
+- [Phase ?]: Quick 260722-typ: identidad oficial horizontal con PNG transparente en header, intro y footer — La composición horizontal preserva altura de navegación; el tratamiento blanco/oscuro garantiza contraste antes y después del scroll.
 
 ### Pending Todos
 
@@ -157,6 +158,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-23T02:23:09.784Z
-Stopped at: Quick 260722-th2 completado y validado
-Resume file: .planning/quick/260722-th2-redisenar-encabezados-capacidades-tecnol/260722-th2-SUMMARY.md
+Last session: 2026-07-23T02:51:34.223Z
+Stopped at: Quick 260722-typ completado: logo transparente integrado y validado; sin despliegue
+Resume file: .planning/quick/260722-typ-extraer-logo-transparente-e-integrarlo-a/260722-typ-SUMMARY.md

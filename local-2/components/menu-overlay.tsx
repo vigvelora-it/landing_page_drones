@@ -206,7 +206,15 @@ export function MenuOverlay() {
     <>
       <header className="site-header">
         <a className="brand" href="#inicio" onClick={navigate}>
-          <span className="brand-symbol" aria-hidden="true">✳</span><span>SKY TECH</span><small>PERÚ</small>
+          <Image
+            className="brand-logo"
+            src="/brand/skytech-logo-horizontal.png"
+            alt="Sky Tech Solutions SAC"
+            width={1716}
+            height={365}
+            priority
+            sizes="(max-width: 720px) 150px, 190px"
+          />
           <span className="sr-only"> — inicio</span>
         </a>
 

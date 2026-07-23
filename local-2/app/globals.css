@@ -501,3 +501,19 @@ dialog.service-drawer[open]::backdrop{opacity:1}
   .capabilities-heading h2,.process-intro h2{font-size:clamp(2.9rem,11.5vw,3.8rem);line-height:.94}
   .tech-explorer__heading h2{font-size:clamp(2.8rem,11.5vw,3.7rem);line-height:.96}
 }
+
+/* Quick 260722-typ: sistema de logotipo oficial */
+.site-header{padding-block:1.1rem}
+.brand{align-items:center;line-height:0}
+.brand-logo{display:block;width:clamp(164px,12vw,190px);height:auto;filter:drop-shadow(0 1px 10px rgb(0 0 0/.18));transition:filter var(--motion-duration-fast) var(--ease-moderate),opacity var(--motion-duration-fast)}
+.site-header.is-scrolled .brand-logo{filter:brightness(0) saturate(100%);opacity:.88}
+.intro-brand{gap:0;letter-spacing:0}
+.intro-logo{display:block;width:min(280px,68vw);height:auto;filter:brightness(0) saturate(100%);opacity:.9}
+.footer-mark{font:inherit;letter-spacing:normal}
+.footer-logo{display:block;width:min(680px,75vw);height:auto;filter:brightness(0) saturate(100%);opacity:.86}
+
+@media(max-width:720px){
+  .brand-logo{width:150px}
+  .footer-mark{font-size:inherit}
+  .footer-logo{width:min(520px,82vw)}
+}

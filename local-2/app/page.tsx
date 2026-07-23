@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { CustomCursor } from "@/components/custom-cursor";
 import { InertBoundary } from "@/components/inert-boundary";
 import { IntroSequence } from "@/components/intro-sequence";
@@ -37,7 +39,16 @@ export default function Home() {
 
       <footer className="footer">
         <div className="site-shell">
-          <div className="footer-mark"><span className="brand-symbol" aria-hidden="true">✳</span> SKY TECH</div>
+          <div className="footer-mark">
+            <Image
+              className="footer-logo"
+              src="/brand/skytech-logo-horizontal.png"
+              alt="Sky Tech Solutions SAC"
+              width={1716}
+              height={365}
+              sizes="(max-width: 720px) 80vw, 680px"
+            />
+          </div>
           <div className="footer-bottom">
             <span>Geomática avanzada · Perú</span>
             <span>© {new Date().getFullYear()} Sky Tech Perú</span>
