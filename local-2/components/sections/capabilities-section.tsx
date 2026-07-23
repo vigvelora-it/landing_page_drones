@@ -99,10 +99,11 @@ export function CapabilitiesSection() {
         </div>
       </section>
 
-      <div className="moving-band" aria-hidden="true">
-        <div className="moving-band-track">
-          <span>PRECISIÓN CENTIMÉTRICA</span><i>✳</i><span>DATOS QUE DECIDEN</span><i>✳</i>
-          <span>PRECISIÓN CENTIMÉTRICA</span><i>✳</i><span>DATOS QUE DECIDEN</span><i>✳</i>
+      <div className="section-transition" aria-hidden="true">
+        <div className="site-shell section-transition__inner">
+          <span><b>02</b> Capacidades</span>
+          <i><b /></i>
+          <span><b>03</b> Tecnología</span>
         </div>
       </div>
 
