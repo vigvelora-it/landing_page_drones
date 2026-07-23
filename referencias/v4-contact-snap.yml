@@ -1,0 +1,291 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: ✺
+        - text: SkyTech Perú
+      - button "Menú" [ref=e8] [cursor=pointer]
+    - generic [ref=e12]:
+      - generic [ref=e14]:
+        - img [ref=e15]
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - img [ref=e20]
+              - generic [ref=e22]: Topografía · LiDAR · Fotogrametría
+            - heading "Precisión aérea para proyectos que no admiten errores" [level=1] [ref=e23]
+            - paragraph [ref=e24]: Levantamientos geodésicos, nubes de puntos LiDAR y modelos 3D con precisión centimétrica para minería, construcción y planificación territorial en Perú.
+            - generic [ref=e25]:
+              - button "Solicitar cotización" [ref=e26] [cursor=pointer]:
+                - text: Solicitar cotización
+                - img [ref=e27]
+              - link "Ver servicios" [ref=e30] [cursor=pointer]:
+                - /url: "#servicios"
+          - generic [ref=e31]:
+            - img "DJI Matrice 350 RTK en vuelo" [ref=e33]
+            - generic [ref=e34]:
+              - generic [ref=e35]:
+                - img [ref=e36]
+                - img [ref=e38]
+                - img [ref=e40]
+                - img [ref=e42]
+                - img [ref=e44]
+              - generic [ref=e46]: ±2 cm
+              - generic [ref=e47]: Precisión GNSS
+            - generic [ref=e48]:
+              - img [ref=e50]
+              - generic [ref=e52]: +250 vuelos certificados
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - generic [ref=e57]: ±2cm
+          - generic [ref=e58]: Precisión en campo
+        - generic [ref=e59]:
+          - generic [ref=e60]: RTK
+          - generic [ref=e61]: Posicionamiento GNSS
+        - generic [ref=e62]:
+          - generic [ref=e63]: 6+
+          - generic [ref=e64]: Sectores atendidos
+        - generic [ref=e65]:
+          - generic [ref=e66]: 24h
+          - generic [ref=e67]: Tiempo de respuesta
+  - generic [ref=e69]:
+    - generic [ref=e70]:
+      - heading "Convertimos semanas de campo en horas de vuelo" [level=2] [ref=e71]
+      - paragraph [ref=e72]: Los métodos topográficos tradicionales dejan zonas ciegas y consumen semanas de trabajo. Sky Tech entrega datos más precisos, más completos y listos para tus sistemas CAD y GIS, sin reprocesos ni retrasos.
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - img "Equipo Sky Tech en campo" [ref=e75]
+        - generic [ref=e76]: Operación de campo
+      - img "Monumentación GNSS-RTK" [ref=e78]
+  - generic [ref=e80]:
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]: Soluciones
+        - heading "Nuestros servicios" [level=2] [ref=e85]
+      - paragraph [ref=e86]: Tecnología aeroespacial aplicada a los sectores más exigentes del Perú.
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89] [cursor=pointer]:
+          - generic [ref=e90]: "01"
+          - generic [ref=e91]: Topografía con drones
+          - img [ref=e93]
+        - generic [ref=e96] [cursor=pointer]:
+          - generic [ref=e97]: "02"
+          - generic [ref=e98]: Fotogrametría aérea
+          - img [ref=e100]
+        - generic [ref=e103] [cursor=pointer]:
+          - generic [ref=e104]: "03"
+          - generic [ref=e105]: Nubes de puntos LiDAR
+          - img [ref=e107]
+        - generic [ref=e110] [cursor=pointer]:
+          - generic [ref=e111]: "04"
+          - generic [ref=e112]: Teledetección multiespectral
+          - img [ref=e114]
+        - generic [ref=e117] [cursor=pointer]:
+          - generic [ref=e118]: "05"
+          - generic [ref=e119]: Inspección de infraestructura
+          - img [ref=e121]
+        - generic [ref=e124] [cursor=pointer]:
+          - generic [ref=e125]: "06"
+          - generic [ref=e126]: Consultoría geotécnica
+          - img [ref=e128]
+      - generic [ref=e131]:
+        - img "Sensor Zenmuse P1" [ref=e133]
+        - generic [ref=e134]:
+          - paragraph [ref=e135]: ¿Quieres saber cómo procesamos cada vuelo en datos listos para usar?
+          - generic [ref=e136]:
+            - text: Ver proceso
+            - img [ref=e137]
+        - generic [ref=e139]:
+          - paragraph [ref=e140]: ¿Necesitas asesoría para elegir el servicio correcto para tu proyecto?
+          - generic [ref=e141]:
+            - text: Habla con un experto
+            - img [ref=e142]
+  - generic [ref=e145]:
+    - generic [ref=e146]: Precisión
+    - img [ref=e147]
+    - generic [ref=e149]: Tecnología
+    - img [ref=e150]
+    - generic [ref=e152]: Confianza
+  - generic [ref=e154]:
+    - generic [ref=e155]:
+      - generic [ref=e156]: Inspección de zona
+      - generic [ref=e157]: +
+      - generic [ref=e158]: Trabajo en campo
+      - generic [ref=e159]: +
+      - generic [ref=e160]: Procesamiento digital
+      - generic [ref=e161]: +
+      - generic [ref=e162]: Informe técnico
+      - generic [ref=e163]: +
+      - generic [ref=e164]: GNSS-RTK
+      - generic [ref=e165]: +
+      - generic [ref=e166]: Entrega CAD / GIS
+      - generic [ref=e167]: +
+    - generic [ref=e168]:
+      - generic [ref=e169]: Inspección de zona
+      - generic [ref=e170]: +
+      - generic [ref=e171]: Trabajo en campo
+      - generic [ref=e172]: +
+      - generic [ref=e173]: Procesamiento digital
+      - generic [ref=e174]: +
+      - generic [ref=e175]: Informe técnico
+      - generic [ref=e176]: +
+      - generic [ref=e177]: GNSS-RTK
+      - generic [ref=e178]: +
+      - generic [ref=e179]: Entrega CAD / GIS
+      - generic [ref=e180]: +
+  - generic [ref=e182]:
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - generic [ref=e185]: Tecnología
+        - heading "Conoce nuestra flota" [level=2] [ref=e187]
+      - paragraph [ref=e188]: Equipos de última generación para precisión en cada misión.
+    - generic [ref=e189]:
+      - generic [ref=e190]:
+        - img "DJI Matrice 350 RTK" [ref=e192]
+        - generic [ref=e193]: Matrice 350 RTK
+        - generic [ref=e194]: Plataforma aérea
+        - paragraph [ref=e195]: Drone profesional con RTK integrado para misiones de alta demanda.
+      - generic [ref=e196]:
+        - img "Zenmuse P1" [ref=e198]
+        - generic [ref=e199]: Zenmuse P1
+        - generic [ref=e200]: Sensor fotogramétrico
+        - paragraph [ref=e201]: Full-frame 45MP con lentes intercambiables y GSD de 2 cm/px.
+      - generic [ref=e202]:
+        - img "Zenmuse L1" [ref=e204]
+        - generic [ref=e205]: Zenmuse L1
+        - generic [ref=e206]: LiDAR + RGB
+        - paragraph [ref=e207]: 240,000 pts/s con colorización RGB y precisión de 3 cm.
+      - generic [ref=e208]:
+        - img "Receptor GNSS" [ref=e210]
+        - generic [ref=e211]: Receptor X5R/X5RT
+        - generic [ref=e212]: GNSS multibanda
+        - paragraph [ref=e213]: 184 canales, PPK/RTK/NTRIP y alcance LoRa de 10+ km.
+  - generic [ref=e215]:
+    - generic [ref=e216]:
+      - generic [ref=e217]:
+        - generic [ref=e218]: Clientes
+        - heading "Lo que dicen de nosotros" [level=2] [ref=e220]
+      - generic [ref=e221]:
+        - button "Anterior" [ref=e222] [cursor=pointer]:
+          - img [ref=e223]
+        - button "Siguiente" [ref=e225] [cursor=pointer]:
+          - img [ref=e226]
+    - generic [ref=e229]:
+      - generic [ref=e230]:
+        - img [ref=e231]
+        - paragraph [ref=e233]: "\"Sky Tech redujo en un 70% el tiempo de levantamiento en nuestra concesión. Los resultados LiDAR fueron determinantes para la planificación del tajo.\""
+        - generic [ref=e234]:
+          - generic [ref=e235]: JR
+          - generic [ref=e236]:
+            - generic [ref=e237]: Jefe de topografía
+            - generic [ref=e238]: Empresa minera, Arequipa
+      - generic [ref=e239]:
+        - img [ref=e240]
+        - paragraph [ref=e242]: "\"La ortofoto tenía una precisión que ninguna empresa local había logrado antes. El informe CAD fue inmediatamente compatible con nuestros sistemas.\""
+        - generic [ref=e243]:
+          - generic [ref=e244]: ML
+          - generic [ref=e245]:
+            - generic [ref=e246]: Gerente de proyectos
+            - generic [ref=e247]: Constructora, Lima
+      - generic [ref=e248]:
+        - img [ref=e249]
+        - paragraph [ref=e251]: "\"Usamos sus datos para identificar riesgos geológicos antes de iniciar obra. Una inversión que nos ahorró semanas de retraso y costos imprevistos.\""
+        - generic [ref=e252]:
+          - generic [ref=e253]: CP
+          - generic [ref=e254]:
+            - generic [ref=e255]: Director de infraestructura
+            - generic [ref=e256]: Gobierno regional, Cusco
+      - generic [ref=e257]:
+        - img [ref=e258]
+        - paragraph [ref=e260]: "\"El soporte técnico y la rapidez de entrega marcaron la diferencia frente a otros proveedores que cotizamos antes.\""
+        - generic [ref=e261]:
+          - generic [ref=e262]: AV
+          - generic [ref=e263]:
+            - generic [ref=e264]: Jefe de obra
+            - generic [ref=e265]: Inmobiliaria, Trujillo
+  - generic [ref=e269]:
+    - generic [ref=e271]: Hablemos hoy
+    - heading "¿Listo para ver tu proyecto desde arriba?" [level=2] [ref=e273]
+    - paragraph [ref=e274]: Cuéntanos tu proyecto. En 24 horas te enviamos una propuesta técnica y económica sin compromiso.
+    - generic [ref=e277]:
+      - generic [ref=e278]:
+        - generic [ref=e279]:
+          - generic [ref=e280]: Nombre *
+          - textbox "Nombre *" [ref=e281]:
+            - /placeholder: Tu nombre
+        - generic [ref=e282]:
+          - generic [ref=e283]: Empresa
+          - textbox "Empresa" [ref=e284]:
+            - /placeholder: Razón social
+      - generic [ref=e285]:
+        - generic [ref=e286]: Correo electrónico *
+        - textbox "Correo electrónico *" [ref=e287]:
+          - /placeholder: correo@empresa.com
+      - generic [ref=e288]:
+        - generic [ref=e289]: Servicio de interés
+        - combobox "Servicio de interés" [ref=e290] [cursor=pointer]:
+          - option "Selecciona un servicio" [selected]
+          - option "Topografía con drones"
+          - option "Fotogrametría aérea"
+          - option "Nubes de puntos LiDAR"
+          - option "Teledetección multiespectral"
+          - option "Inspección de infraestructura"
+          - option "Consultoría geotécnica"
+          - option "No sé / necesito asesoría"
+      - generic [ref=e291]:
+        - generic [ref=e292]: Mensaje *
+        - textbox "Mensaje *" [ref=e293]:
+          - /placeholder: "Describe brevemente tu proyecto: área aproximada, ubicación, plazo esperado..."
+      - button "Enviar solicitud" [ref=e294] [cursor=pointer]:
+        - text: Enviar solicitud
+        - img [ref=e295]
+      - paragraph [ref=e298]: Respuesta garantizada en 24 horas · Sin compromiso
+  - contentinfo [ref=e299]:
+    - generic [ref=e300]:
+      - generic [ref=e301]:
+        - generic [ref=e302]:
+          - generic [ref=e303]:
+            - generic [ref=e304]: ✺
+            - text: SkyTech Perú
+          - generic [ref=e305]: Topografía · Fotogrametría · LiDAR
+          - link "skytsperu@gmail.com" [ref=e307] [cursor=pointer]:
+            - /url: mailto:skytsperu@gmail.com
+            - img [ref=e308]
+            - text: skytsperu@gmail.com
+        - generic [ref=e311]:
+          - generic [ref=e312]: Servicios
+          - navigation [ref=e313]:
+            - link "Topografía con drones" [ref=e314] [cursor=pointer]:
+              - /url: "#servicios"
+            - link "Fotogrametría aérea" [ref=e315] [cursor=pointer]:
+              - /url: "#servicios"
+            - link "LiDAR" [ref=e316] [cursor=pointer]:
+              - /url: "#servicios"
+            - link "Teledetección" [ref=e317] [cursor=pointer]:
+              - /url: "#servicios"
+        - generic [ref=e318]:
+          - generic [ref=e319]: Sectores
+          - navigation [ref=e320]:
+            - link "Minería" [ref=e321] [cursor=pointer]:
+              - /url: "#nosotros"
+            - link "Construcción" [ref=e322] [cursor=pointer]:
+              - /url: "#nosotros"
+            - link "Agricultura" [ref=e323] [cursor=pointer]:
+              - /url: "#nosotros"
+            - link "Gobierno" [ref=e324] [cursor=pointer]:
+              - /url: "#nosotros"
+        - generic [ref=e325]:
+          - generic [ref=e326]: Empresa
+          - navigation [ref=e327]:
+            - link "Nuestra flota" [ref=e328] [cursor=pointer]:
+              - /url: "#flota"
+            - link "Proceso de trabajo" [ref=e329] [cursor=pointer]:
+              - /url: "#proceso"
+            - link "Casos de éxito" [ref=e330] [cursor=pointer]:
+              - /url: "#testimonios"
+            - link "Contacto" [ref=e331] [cursor=pointer]:
+              - /url: "#contacto"
+      - generic [ref=e332]:
+        - generic [ref=e333]: © 2025 Sky Tech Perú. Todos los derechos reservados.
+        - generic [ref=e334]: Minería · Construcción · Planificación territorial · Perú

@@ -1,0 +1,27 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.form-error {
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.environment-badge {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 9999;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: #d26b4c;
+  box-shadow: 0 8px 24px rgba(43, 49, 65, 0.22);
+  color: #2b3141;
+  font: 700 10px/1 var(--font-inter), sans-serif;
+  letter-spacing: 0.12em;
+  padding: 8px 12px;
+  pointer-events: none;
+}

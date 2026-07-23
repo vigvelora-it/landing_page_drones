@@ -1,0 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.form-error {
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  text-align: center;
+}
