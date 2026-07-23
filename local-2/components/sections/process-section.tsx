@@ -1,12 +1,58 @@
 "use client"
 
 import Image from "next/image"
-import { useRef } from "react"
+import { type KeyboardEvent, useRef, useState } from "react"
 import { useGSAP } from "@/lib/gsap"
 import { process } from "@/lib/site-content"
 
+const processVisuals = [
+  {
+    image: "/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg",
+    alt: "Equipo de posicionamiento instalado para leer las condiciones del terreno",
+    caption: "Lectura y control del terreno",
+  },
+  {
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-drone-andes-hd.png",
+    alt: "Visual referencial de un dron preparado para una misión de levantamiento",
+    caption: "Planificación de la misión",
+  },
+  {
+    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-aerial-survey-hd.png",
+    alt: "Visual referencial de una operación de captura aérea en campo",
+    caption: "Captura y control de cobertura",
+  },
+  {
+    image: "/IMAGENES_PAGINA_WEB/process-engineers-plans.jpg",
+    alt: "Ingenieros revisando planos e información procesada de un proyecto",
+    caption: "Validación y entrega técnica",
+  },
+] as const
+
 export function ProcessSection() {
   const root = useRef<HTMLElement>(null)
+  const manualSelectionLocked = useRef(false)
+  const manualSelectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [activeStep, setActiveStep] = useState(0)
+  const activeVisual = processVisuals[activeStep]
+
+  const selectStep = (index: number) => {
+    manualSelectionLocked.current = true
+    if (manualSelectionTimer.current) clearTimeout(manualSelectionTimer.current)
+    manualSelectionTimer.current = setTimeout(() => {
+      manualSelectionLocked.current = false
+    }, 1000)
+    setActiveStep(index)
+  }
+
+  const selectAdjacentStep = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown" && event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
+
+    event.preventDefault()
+    const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1
+    const nextIndex = (index + direction + process.length) % process.length
+    selectStep(nextIndex)
+    root.current?.querySelector<HTMLButtonElement>(`#process-tab-${process[nextIndex][0]}`)?.focus()
+  }
 
   useGSAP(() => {
     const revealObserver = new IntersectionObserver(
@@ -21,8 +67,29 @@ export function ProcessSection() {
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     )
 
-    root.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => revealObserver.observe(element))
-    return () => revealObserver.disconnect()
+      root.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => revealObserver.observe(element))
+
+      const stepObserver = new IntersectionObserver(
+        (entries) => {
+          const centeredEntry = entries.find((entry) => entry.isIntersecting)
+          if (centeredEntry) {
+            if (manualSelectionLocked.current) return
+            const index = Number((centeredEntry.target as HTMLElement).dataset.processIndex)
+            if (Number.isInteger(index)) setActiveStep(index)
+          }
+        },
+        { threshold: 0.2, rootMargin: "-35% 0px -35% 0px" },
+      )
+
+      root.current
+        ?.querySelectorAll<HTMLElement>("[data-process-index]")
+        .forEach((element) => stepObserver.observe(element))
+
+      return () => {
+        revealObserver.disconnect()
+        stepObserver.disconnect()
+        if (manualSelectionTimer.current) clearTimeout(manualSelectionTimer.current)
+      }
   }, { scope: root })
 
   return (
@@ -33,40 +100,70 @@ export function ProcessSection() {
           <h2 data-reveal>De la pregunta<br />a la <em>certeza.</em></h2>
           <p data-reveal>Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.</p>
         </div>
-        <div className="process-list">
-          {process.map(([number, title, copy]) => (
-            <article className="process-step" key={number} data-reveal>
-              <span>{number}</span><h3>{title}</h3><p>{copy}</p><i aria-hidden="true" />
-            </article>
-          ))}
-        </div>
-
-        <div className="process-visual" data-reveal>
-          <div className="process-visual__frame media-frame">
-            <Image
-              src="/IMAGENES_PAGINA_WEB/process-engineers-plans.jpg"
-              alt="Dos ingenieros revisando planos técnicos"
-              fill
-              sizes="100vw"
-            />
+        <div className="process-workflow">
+          <div className="process-list" role="tablist" aria-label="Etapas del proceso">
+            {process.map(([number, title, copy], index) => (
+              <button
+                className={`process-step${index === activeStep ? " is-active" : ""}`}
+                type="button"
+                role="tab"
+                aria-selected={index === activeStep}
+                aria-controls="process-panel"
+                id={`process-tab-${number}`}
+                tabIndex={index === activeStep ? 0 : -1}
+                data-process-index={index}
+                key={number}
+                onClick={() => selectStep(index)}
+                onFocus={() => selectStep(index)}
+                onKeyDown={(event) => selectAdjacentStep(event, index)}
+                onMouseEnter={() => selectStep(index)}
+              >
+                <span>{number}</span>
+                <span className="process-step__copy">
+                  <strong>{title}</strong>
+                  <small>{copy}</small>
+                </span>
+                <i aria-hidden="true" />
+              </button>
+            ))}
           </div>
-          <span className="process-visual__caption">Coordinación técnica en cada etapa del proyecto</span>
-        </div>
 
-        <div className="deliverable" data-reveal>
-          <div className="deliverable-image media-frame">
-            <Image
-              src="/IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png"
-              alt="Equipo GNSS usado para puntos de control topográfico"
-              fill
-              sizes="(max-width: 800px) 100vw, 40vw"
-            />
-          </div>
-          <div className="deliverable-copy">
-            <span className="mono-label">El resultado</span>
-            <h3>Información que entra directo a tu flujo.</h3>
-            <p>Ortomosaicos, curvas de nivel, modelos digitales, nubes de puntos e informes compatibles con CAD y GIS.</p>
-            <div className="file-types"><span>.DWG</span><span>.LAS</span><span>.TIFF</span><span>.SHP</span></div>
+          <div
+            className="process-stage"
+            id="process-panel"
+            role="tabpanel"
+            aria-labelledby={`process-tab-${process[activeStep][0]}`}
+            data-reveal
+          >
+            <div className="process-stage__visual">
+              <div className="topographic-lines" aria-hidden="true" />
+              {processVisuals.map((visual, index) => (
+                <Image
+                  className={index === activeStep ? "is-active" : ""}
+                  src={visual.image}
+                  alt={index === activeStep ? visual.alt : ""}
+                  aria-hidden={index !== activeStep}
+                  fill
+                  sizes="(max-width: 720px) calc(100vw - 32px), (max-width: 1000px) calc(100vw - 40px), 54vw"
+                  key={visual.image}
+                />
+              ))}
+              <div className="process-stage__meta">
+                <span>{activeVisual.caption}</span>
+                <strong>{String(activeStep + 1).padStart(2, "0")} / {String(process.length).padStart(2, "0")}</strong>
+              </div>
+            </div>
+
+            <div className="process-result">
+              <div>
+                <span className="mono-label">El resultado</span>
+                <h3>Información que entra directo a tu flujo.</h3>
+                <p>Ortomosaicos, curvas de nivel, modelos digitales, nubes de puntos e informes compatibles con CAD y GIS.</p>
+              </div>
+              <div className="file-types" aria-label="Formatos de entrega">
+                <span>.DWG</span><span>.LAS</span><span>.TIFF</span><span>.SHP</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

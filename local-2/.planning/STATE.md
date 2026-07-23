@@ -109,6 +109,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Quick 260722-crs: equipment carousel now uses one 100%-width slide, circular 6.5s autoadvance, explicit pause, timer reset after manual input and reduced-motion opt-out — Direct user feedback supersedes the earlier visible-next-slide treatment while preserving Embla keyboard/touch controls.
 - [Phase ?]: Quick 260722-2up: carousel now keeps two complete 3:2 cards visible and advances one item at a time across four generated HD reference visuals — Direct user feedback supersedes the full-width single-slide layout because the portrait client assets required excessive crop/scale.
 - [Phase ?]: Quick 260722-rmd: remove the visible evidence/differentiation band while retaining its canonical message for the Projects mega-panel — Direct user request supersedes the original DIFF-01 presentation, without deleting project cards or brochure access.
+- [Phase ?]: Quick 260722-rp2: Tecnología y Proceso usan exploradores interactivos con imágenes locales sincronizadas, crossfade breve y navegación accesible — La referencia Seequent se aplicó solo a jerarquía e interacción, preservando los textos, colores y recursos propios de SkyTech.
 
 ### Pending Todos
 
@@ -149,9 +150,10 @@ Items acknowledged and carried forward from previous milestone close:
 | 260722-crs | Mostrar una sola imagen completa en el carrusel de equipos y añadir autoavance circular con pausa accesible | complete | 2026-07-22 |
 | 260722-2up | Mostrar dos imágenes 3:2 simultáneas, avanzar de una en una e integrar cuatro visuales HD generados y documentados | complete | 2026-07-22 |
 | 260722-rmd | Eliminar la sección visible Evidencia técnica / Diferenciación y limpiar sus estilos sin afectar Proyectos ni brochure | complete | 2026-07-22 |
+| 260722-rp2 | Rediseñar Tecnología y Proceso como exploradores interactivos compactos inspirados en jerarquía Seequent y adaptados a SkyTech | complete | 2026-07-22 |
 
 ## Session Continuity
 
-Last session: 2026-07-22T22:53:00-05:00
-Stopped at: Quick task 260722-rmd complete: visible differentiation band removed and adjacent content verified locally; rollback v2 preserved; no deployment
-Resume file: .planning/quick/260722-rmd-eliminar-seccion-diferenciacion/260722-rmd-SUMMARY.md
+Last session: 2026-07-22T19:47:00-05:00
+Stopped at: Quick task 260722-rp2 complete: Tecnología y Proceso rediseñados, compilados y verificados visualmente; rollback v2 preserved; no deployment
+Resume file: .planning/quick/260722-rp2-redisenar-tecnologia-y-proceso-seequent/260722-rp2-SUMMARY.md
