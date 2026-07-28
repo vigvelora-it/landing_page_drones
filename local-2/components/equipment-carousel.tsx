@@ -154,6 +154,7 @@ export function EquipmentCarousel() {
                     src={item.image}
                     alt={item.alt}
                     fill
+                    style={{ objectPosition: item.objectPosition }}
                     sizes="(max-width: 720px) calc((100vw - 42px) / 2), (max-width: 1000px) calc((100vw - 56px) / 2), min(710px, calc((100vw - 84px) / 2))"
                   />
                 </div>

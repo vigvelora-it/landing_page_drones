@@ -7,24 +7,28 @@ import { process } from "@/lib/site-content"
 
 const processVisuals = [
   {
-    image: "/IMAGENES_PAGINA_WEB/section-unique/process-terrain-geology-hd.webp",
-    alt: "Equipo de posicionamiento instalado para leer las condiciones del terreno",
+    image: "/skytech-real/general/07.webp",
+    alt: "Vista panorámica del territorio levantado por Skytech",
     caption: "Lectura y control del terreno",
+    objectPosition: "center 54%",
   },
   {
-    image: "/IMAGENES_PAGINA_WEB/section-unique/process-mission-planning-hd.webp",
-    alt: "Visual referencial de un dron preparado para una misión de levantamiento",
+    image: "/skytech-real/general/01.webp",
+    alt: "Base GNSS de Skytech instalada y señalizada antes del levantamiento",
     caption: "Planificación de la misión",
+    objectPosition: "center 56%",
   },
   {
-    image: "/IMAGENES_PAGINA_WEB/section-unique/process-total-station-road-hd.webp",
-    alt: "Visual referencial de una operación de captura aérea en campo",
+    image: "/skytech-real/general/05.webp",
+    alt: "Piloto de Skytech controlando un dron durante la captura de campo",
     caption: "Captura y control de cobertura",
+    objectPosition: "center 42%",
   },
   {
-    image: "/IMAGENES_PAGINA_WEB/process-engineers-plans.jpg",
-    alt: "Ingenieros revisando planos e información procesada de un proyecto",
+    image: "/skytech-real/general/04.webp",
+    alt: "Equipo de Skytech verificando puntos de control GNSS en campo",
     caption: "Validación y entrega técnica",
+    objectPosition: "center 58%",
   },
 ] as const
 
@@ -118,6 +122,7 @@ export function ProcessSection() {
                   alt={index === activeStep ? visual.alt : ""}
                   aria-hidden={index !== activeStep}
                   fill
+                  style={{ objectPosition: visual.objectPosition }}
                   sizes="(max-width: 720px) calc(100vw - 32px), (max-width: 1000px) calc(100vw - 40px), 54vw"
                   key={visual.image}
                 />

@@ -51,7 +51,6 @@ export function CapabilitiesSection() {
                   className="service-row"
                   key={service.id}
                   data-reveal
-                  data-cursor="Ver detalle"
                   aria-disabled={menuIsOpen}
                   onClick={() => {
                     if (menuIsOpen) return
@@ -71,26 +70,29 @@ export function CapabilitiesSection() {
           <div className="capabilities-visual" data-reveal>
             <div className="capabilities-visual__frame capabilities-visual__frame--primary">
               <Image
-                src="/IMAGENES_PAGINA_WEB/capabilities-total-station.jpg"
-                alt="Topógrafo operando una estación total en campo abierto"
+                src="/skytech-real/general/03.webp"
+                alt="Receptor GNSS de Skytech instalado para control topográfico en terreno montañoso"
                 fill
+                style={{ objectPosition: "center 48%" }}
                 sizes="(max-width: 720px) 100vw, 45vw"
               />
             </div>
             <div className="capabilities-visual__stack">
               <div className="capabilities-visual__frame">
                 <Image
-                  src="/IMAGENES_PAGINA_WEB/technology-rtk-quarry.jpg"
-                  alt="Equipo de posicionamiento satelital RTK instalado en una cantera"
+                  src="/skytech-real/general/04.webp"
+                  alt="Técnicos de Skytech realizando un levantamiento GNSS en campo"
                   fill
+                  style={{ objectPosition: "center 58%" }}
                   sizes="(max-width: 720px) 100vw, 35vw"
                 />
               </div>
               <div className="capabilities-visual__frame">
                 <Image
-                  src="/IMAGENES_PAGINA_WEB/technology-drone-operator.jpg"
-                  alt="Operador preparando un drone para captura de datos en campo"
+                  src="/skytech-real/general/05.webp"
+                  alt="Piloto de Skytech supervisando un dron durante una misión de captura"
                   fill
+                  style={{ objectPosition: "center 42%" }}
                   sizes="(max-width: 720px) 100vw, 35vw"
                 />
               </div>

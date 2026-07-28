@@ -6,20 +6,9 @@ import { useRef, useState } from "react";
 import { brandStory, corporateValues, sectors, team, teamIntro } from "@/lib/site-content";
 import { useGSAP } from "@/lib/gsap";
 
-function getInitials(name: string) {
-  const words = name.trim().split(/\s+/);
-
-  if (words.length === 1) {
-    return words[0].slice(0, 1).toUpperCase();
-  }
-
-  return `${words[0][0]}${words[words.length - 1][0]}`.toUpperCase();
-}
-
 export function BrandSection() {
   const root = useRef<HTMLElement>(null);
   const [expandedValue, setExpandedValue] = useState<string | null>(null);
-  const [expandedMember, setExpandedMember] = useState<string | null>(null);
 
   useGSAP(
     () => {
@@ -152,37 +141,18 @@ export function BrandSection() {
           </div>
 
           <div className="team-grid">
-            {team.map((member) => (
+            {team.map((member, index) => (
               <article className="team-card" data-reveal key={member.id}>
-                <div className="team-card__portrait">
-                  {member.photo ? (
-                    <Image
-                      src={member.photo}
-                      alt={`Retrato de ${member.name}`}
-                      fill
-                      sizes="(max-width: 720px) 100vw, 50vw"
-                    />
-                  ) : (
-                    <span className="team-card__initials" aria-hidden="true">
-                      {getInitials(member.name)}
-                    </span>
-                  )}
+                <div className="team-card__topline">
+                  <span className="team-card__index" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="team-card__discipline">Geología · Geomática</span>
                 </div>
                 <div className="team-card__copy">
                   <h4>{member.name}</h4>
                   <p className="team-card__role">{member.role}</p>
-                  <button
-                    type="button"
-                    className="mobile-disclosure"
-                    aria-expanded={expandedMember === member.id}
-                    onClick={() => setExpandedMember(expandedMember === member.id ? null : member.id)}
-                  >
-                    <span>{expandedMember === member.id ? "Ocultar perfil" : "Ver perfil"}</span>
-                    <i aria-hidden="true">{expandedMember === member.id ? "−" : "+"}</i>
-                  </button>
-                  <p className={`team-card__bio${expandedMember === member.id ? " is-expanded" : ""}`}>
-                    {member.bio}
-                  </p>
+                  <p className="team-card__bio">{member.bio}</p>
                 </div>
               </article>
             ))}

@@ -178,32 +178,37 @@ export interface EquipmentItem {
   image: string
   alt: string
   caption: string
+  objectPosition?: string
 }
 
 export const equipment: EquipmentItem[] = [
   {
-    id: "drone-mapeo-andes",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-drone-andes-hd.png",
-    alt: "Visual referencial de un dron profesional preparado para mapeo en terreno andino",
-    caption: "Dron de mapeo / Visual referencial",
+    id: "drone-operacion-campo",
+    image: "/skytech-real/general/05.webp",
+    alt: "Piloto de Skytech supervisando un dron de levantamiento durante una operación de campo",
+    caption: "Dron de levantamiento / Registro Skytech",
+    objectPosition: "center 42%",
   },
   {
-    id: "gnss-rtk-campo",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-gnss-rtk-hd.png",
-    alt: "Visual referencial de receptores GNSS RTK instalados en un levantamiento de campo",
-    caption: "Posicionamiento GNSS RTK / Visual referencial",
+    id: "receptor-gnss-rtk",
+    image: "/skytech-real/general/06.webp",
+    alt: "Receptor GNSS RTK de Skytech instalado sobre un punto elevado en terreno desértico",
+    caption: "Receptor GNSS RTK / Registro Skytech",
+    objectPosition: "center 34%",
   },
   {
-    id: "estacion-total-infraestructura",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-total-station-hd.png",
-    alt: "Visual referencial de una estación total frente a una obra de infraestructura",
-    caption: "Estación total / Visual referencial",
+    id: "base-gnss-andes",
+    image: "/skytech-real/general/02.webp",
+    alt: "Base GNSS de Skytech instalada frente a un paisaje montañoso",
+    caption: "Base GNSS de alta precisión / Registro Skytech",
+    objectPosition: "center 48%",
   },
   {
-    id: "fotogrametria-mineria",
-    image: "/IMAGENES_PAGINA_WEB/equipment-carousel/equipment-aerial-survey-hd.png",
-    alt: "Visual referencial de una operación de fotogrametría aérea sobre un entorno minero",
-    caption: "Fotogrametría aérea / Visual referencial",
+    id: "brigada-control-rtk",
+    image: "/skytech-real/general/04.webp",
+    alt: "Brigada de Skytech operando receptores GNSS en una campaña de levantamiento",
+    caption: "Control terrestre RTK / Registro Skytech",
+    objectPosition: "center 58%",
   },
 ]
 
@@ -311,6 +316,7 @@ export interface Project {
   client: string
   location: string
   service: string
+  images: string[]
   featured?: boolean
 }
 
@@ -326,25 +332,25 @@ export const teamIntro =
 export const team: TeamMember[] = [
   {
     id: "paulo-rodriguez",
-    name: "Paulo Alfredo Rodríguez Coronado",
+    name: "Paulo Rodríguez",
     role: "Ingeniero Geólogo Senior · Gerente General",
     bio: "Cuenta con 10 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, control de riesgos geológicos, además de experiencia como piloto de dron certificado.",
   },
   {
     id: "harold-navarro",
-    name: "Harold Jesús Navarro Saavedra",
+    name: "Harold Navarro",
     role: "Ingeniero Geólogo Senior · Sub Gerente",
     bio: "Cuenta con más de 10 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, con experiencia en el sector construcción, además de piloto de dron certificado.",
   },
   {
     id: "luis-alban",
-    name: "Luis Alberto Alban Zapata",
+    name: "Luis Alban",
     role: "Ingeniero Geólogo Senior · Socio Fundador",
     bio: "Amplia experiencia en el sector minero, con dirección de proyectos de exploración en etapa greenfield y brownfield, y gestión medioambiental.",
   },
   {
     id: "juan-ruiz",
-    name: "Juan Carlos Ruiz Gonzales",
+    name: "Juan Carlos Ruiz",
     role: "Ingeniero Geólogo Project · Socio Fundador",
     bio: "Cuenta con 5 años de experiencia en el sector minero. Especialista en exploración geológica y manejo de software especializado, ensayos en mecánica de suelos, además de piloto de dron certificado.",
   },
@@ -357,6 +363,12 @@ export const projects: Project[] = [
     client: "German Engineering & Cie. S.A.C",
     location: "Huarmey, Ancash",
     service: "Levantamiento Aerofotogramétrico",
+    images: [
+      "/projects/gesac/01.webp",
+      "/projects/gesac/02.webp",
+      "/projects/gesac/03.webp",
+      "/projects/gesac/04.webp",
+    ],
     featured: true,
   },
   {
@@ -365,6 +377,12 @@ export const projects: Project[] = [
     client: "Black Swan Minerals S.A.C.",
     location: "Huaral, Lima",
     service: "Levantamiento Aerofotogramétrico",
+    images: [
+      "/projects/lezard/01.webp",
+      "/projects/lezard/02.webp",
+      "/projects/lezard/03.webp",
+      "/projects/lezard/04.webp",
+    ],
   },
   {
     id: "las-dunas-piura",
@@ -372,6 +390,12 @@ export const projects: Project[] = [
     client: "Asociación Las Dunas Ecological",
     location: "Castilla, Piura",
     service: "Levantamiento Aerofotogramétrico",
+    images: [
+      "/projects/las-dunas/01.webp",
+      "/projects/las-dunas/02.webp",
+      "/projects/las-dunas/03.webp",
+      "/projects/las-dunas/04.webp",
+    ],
   },
 ]
 

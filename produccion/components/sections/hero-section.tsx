@@ -1,0 +1,150 @@
+"use client"
+
+import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
+import { Arrow } from "@/components/arrow"
+import { useGSAP } from "@/lib/gsap"
+
+export function HeroSection() {
+  const root = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoPlaying, setVideoPlaying] = useState(true)
+  const [showEndLogo, setShowEndLogo] = useState(false)
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      videoRef.current?.pause()
+      const reducedMotionTimer = window.setTimeout(() => {
+        setVideoPlaying(false)
+        setShowEndLogo(true)
+      }, 0)
+      return () => window.clearTimeout(reducedMotionTimer)
+    }
+  }, [])
+
+  useGSAP(() => {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            revealObserver.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    )
+
+    root.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => revealObserver.observe(element))
+    return () => revealObserver.disconnect()
+  }, { scope: root })
+
+  const toggleVideo = async () => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (video.paused) {
+      if (video.ended || video.currentTime >= video.duration - 0.1) {
+        video.currentTime = 0
+      }
+
+      setShowEndLogo(false)
+      try {
+        await video.play()
+      } catch {
+        setVideoPlaying(false)
+      }
+    } else {
+      video.pause()
+      setVideoPlaying(false)
+    }
+  }
+
+  const handleVideoEnded = () => {
+    setVideoPlaying(false)
+    setShowEndLogo(true)
+  }
+
+  return (
+    <>
+      <section ref={root} className="hero" id="inicio" aria-labelledby="hero-title">
+        <div className="hero-media parallax-media" data-parallax="0.16">
+          <Image
+            src="/video/hero-terrain-aerial-poster.jpg"
+            alt="Vista aérea de una mina a cielo abierto y sus terrazas"
+            fill
+            priority
+            sizes="100vw"
+          />
+          <video
+            ref={videoRef}
+            className="hero-video"
+            id="hero-video"
+            autoPlay
+            muted
+            playsInline
+            preload="metadata"
+            poster="/video/hero-terrain-aerial-poster.jpg"
+            onPlay={() => {
+              setVideoPlaying(true)
+              setShowEndLogo(false)
+            }}
+            onPause={() => {
+              if (!videoRef.current?.ended) setVideoPlaying(false)
+            }}
+            onEnded={handleVideoEnded}
+            aria-hidden="true"
+          >
+            <source src="/video/hero-terrain-aerial.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div className="hero-shade" aria-hidden="true" />
+        <div className={`hero-end-logo${showEndLogo ? " is-visible" : ""}`} aria-hidden="true">
+          <Image
+            src="/brand/skytech-logo-horizontal.png"
+            alt=""
+            width={1720}
+            height={365}
+            sizes="(max-width: 720px) 48vw, 26vw"
+          />
+        </div>
+
+        <div className="hero-copy site-shell">
+          <p className="eyebrow hero-eyebrow" data-reveal>
+            <span className="pulse-dot" /> Geomática avanzada · Perú
+          </p>
+          <h1 id="hero-title" className="hero-title" aria-label="El territorio habla. Nosotros lo convertimos en decisiones.">
+            <span className="title-line" data-reveal><span>El territorio</span></span>
+            <span className="title-line title-line-offset" data-reveal><span>habla.</span></span>
+            <span className="title-line title-line-small" data-reveal><span>Nosotros lo convertimos</span></span>
+            <span className="title-line title-line-accent" data-reveal><span>en decisiones.</span></span>
+          </h1>
+
+          <div className="hero-bottom" data-reveal>
+            <p>
+              Capturamos la realidad desde el aire y la transformamos en información precisa para minería,
+              construcción y territorio.
+            </p>
+            <a className="circle-link magnetic" href="#capacidades" data-cursor="Explorar">
+              <span>Explorar</span><Arrow />
+            </a>
+          </div>
+        </div>
+
+        <div className="hero-index" aria-hidden="true">14°04&apos;S<br />75°44&apos;W</div>
+        <div className="scroll-cue" aria-hidden="true"><span>Scroll</span><i /></div>
+      </section>
+
+      <button
+        className="video-toggle"
+        type="button"
+        onClick={toggleVideo}
+        aria-label={videoPlaying ? "Pausar video de fondo" : "Reproducir video de fondo"}
+      >
+        <i className={videoPlaying ? "pause-icon" : "play-icon"} aria-hidden="true" />
+        <span>{videoPlaying ? "Pausar" : "Reproducir"}</span>
+      </button>
+    </>
+  )
+}

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import "lenis/dist/lenis.css";
+import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -11,13 +13,12 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://skytechperu.com"),
-  title: "Sky Tech Perú — Topografía · Fotogrametría · LiDAR",
+  title: "Sky Tech Perú — Geomática avanzada desde el aire",
   description:
-    "Levantamientos geodésicos, nubes de puntos LiDAR y fotogrametría aérea con precisión centimétrica para minería, construcción y planificación territorial en Perú.",
+    "Topografía, fotogrametría y LiDAR con precisión centimétrica para minería, construcción y planificación territorial en Perú.",
   openGraph: {
     title: "Sky Tech Perú — Precisión aérea para tus proyectos",
-    description:
-      "Topografía, fotogrametría y LiDAR con tecnología de drones en Perú.",
+    description: "Topografía, fotogrametría y LiDAR con tecnología de drones en Perú.",
     locale: "es_PE",
     type: "website",
   },
@@ -27,7 +28,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+        <noscript>
+          <style>{`.intro{display:none!important}[data-reveal]{opacity:1!important;transform:none!important}.title-line[data-reveal]>span{transform:none!important}`}</style>
+        </noscript>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   );
 }

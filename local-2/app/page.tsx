@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import { CustomCursor } from "@/components/custom-cursor";
 import { InertBoundary } from "@/components/inert-boundary";
 import { IntroSequence } from "@/components/intro-sequence";
 import { MenuOverlay } from "@/components/menu-overlay";
@@ -11,6 +10,7 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologySection } from "@/components/sections/technology-section";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 
 export const dynamic = "force-static";
 
@@ -21,7 +21,7 @@ export default function Home() {
       <InertBoundary>
         <MenuOverlay />
       </InertBoundary>
-      <CustomCursor />
+      <WhatsAppButton />
 
       <main>
         <InertBoundary>
