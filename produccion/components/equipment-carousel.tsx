@@ -120,7 +120,7 @@ export function EquipmentCarousel() {
           <div>
             <span className="mono-label">Equipo en campo</span>
             <h3>Instrumentos para capturar el territorio.</h3>
-            <p>Tecnologías de captura aérea y terrestre aplicadas al trabajo geomático.</p>
+            <p>Flota RPAS, receptores geodésicos de precisión milimétrica y tecnología geofísica para operar en los entornos más exigentes.</p>
           </div>
           <p className="equipment-count" aria-hidden="true">
             <strong>{String(selectedIndex + 1).padStart(2, "0")}</strong>
@@ -159,6 +159,7 @@ export function EquipmentCarousel() {
                   />
                 </div>
                 <p className="tech-caption">{item.caption}</p>
+                <p className="equipment-slide__description">{item.description}</p>
               </div>
             ))}
           </div>

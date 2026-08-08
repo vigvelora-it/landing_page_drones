@@ -9,25 +9,25 @@ const processVisuals = [
   {
     image: "/skytech-real/general/07.webp",
     alt: "Vista panorámica del territorio levantado por Skytech",
-    caption: "Lectura y control del terreno",
+    caption: "Diagnóstico y definición técnica",
     objectPosition: "center 54%",
   },
   {
     image: "/skytech-real/general/01.webp",
     alt: "Base GNSS de Skytech instalada y señalizada antes del levantamiento",
-    caption: "Planificación de la misión",
+    caption: "Diseño de misión y prospección",
     objectPosition: "center 56%",
   },
   {
     image: "/skytech-real/general/05.webp",
     alt: "Piloto de Skytech controlando un dron durante la captura de campo",
-    caption: "Captura y control de cobertura",
+    caption: "Ejecución en campo y control de calidad",
     objectPosition: "center 42%",
   },
   {
     image: "/skytech-real/general/04.webp",
     alt: "Equipo de Skytech verificando puntos de control GNSS en campo",
-    caption: "Validación y entrega técnica",
+    caption: "Gabinete, ensayos e integración GIS",
     objectPosition: "center 58%",
   },
 ] as const
@@ -76,8 +76,8 @@ export function ProcessSection() {
       <div className="site-shell">
         <div className="section-kicker" data-reveal><span>05</span><span>Cómo trabajamos</span></div>
         <div className="process-intro">
-          <h2 data-reveal>De la pregunta<br />a la <em>certeza.</em></h2>
-          <p data-reveal>Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.</p>
+          <h2 data-reveal>Metodología de ingeniería<br />de principio a <em>fin.</em></h2>
+          <p data-reveal>Un proceso estructurado y multidisciplinario que garantiza trazabilidad, control de calidad y rigor normativo en cada etapa del proyecto.</p>
         </div>
         <div className="process-workflow">
           <div className="process-list" role="tablist" aria-label="Etapas del proceso">
@@ -136,8 +136,8 @@ export function ProcessSection() {
             <div className="process-result">
               <div>
                 <span className="mono-label">El resultado</span>
-                <h3>Información que entra directo a tu flujo.</h3>
-                <p>Ortomosaicos, curvas de nivel, modelos digitales, nubes de puntos e informes compatibles con CAD y GIS.</p>
+                <h3>Información lista para la toma de decisiones.</h3>
+                <p>Entregamos informes geotécnicos con sello profesional, expedientes de formalización minera, modelos digitales de terreno (MDT) y bases de datos GIS unificadas.</p>
               </div>
               <div className="file-types" aria-label="Formatos de entrega">
                 <span>.DWG</span><span>.LAS</span><span>.TIFF</span><span>.SHP</span>

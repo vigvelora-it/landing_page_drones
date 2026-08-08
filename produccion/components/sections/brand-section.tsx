@@ -98,8 +98,11 @@ export function BrandSection() {
                     fill
                     sizes="(max-width: 720px) 100vw, (max-width: 1000px) 50vw, 25vw"
                   />
+                  <div className="sector-card__overlay">
+                    <p className="sector-card__benefit">{sector.description}</p>
+                  </div>
                 </div>
-                <p>{sector.label}</p>
+                <p className="sector-card__label">{sector.label}</p>
               </article>
             ))}
           </div>
@@ -150,8 +153,7 @@ export function BrandSection() {
                   <span className="team-card__discipline">Geología · Geomática</span>
                 </div>
                 <div className="team-card__copy">
-                  <h4>{member.name}</h4>
-                  <p className="team-card__role">{member.role}</p>
+                  <h4>{member.role}</h4>
                   <p className="team-card__bio">{member.bio}</p>
                 </div>
               </article>

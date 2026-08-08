@@ -39,7 +39,7 @@ export function CapabilitiesSection() {
           </div>
           <div className="capabilities-heading">
             <h2 data-reveal>Del vuelo<br />al <em>dato.</em></h2>
-            <p data-reveal>Tecnología aeroespacial aplicada a los sectores más exigentes del Perú.</p>
+            <p data-reveal>Transformamos levantamientos aéreos y geomática de precisión en información confiable para la toma de decisiones en minería, infraestructura y territorio.</p>
           </div>
 
           <div className="service-list">
@@ -100,14 +100,6 @@ export function CapabilitiesSection() {
           </div>
         </div>
       </section>
-
-      <div className="section-transition" aria-hidden="true">
-        <div className="site-shell section-transition__inner">
-          <span><b>02</b> Capacidades</span>
-          <i><b /></i>
-          <span><b>03</b> Tecnología</span>
-        </div>
-      </div>
 
       <ServiceDrawer
         service={activeService}

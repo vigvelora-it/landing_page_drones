@@ -57,6 +57,7 @@ export default function Home() {
         </div>
       </footer>
 
+      <div className="environment-badge" aria-label="Versión local de desarrollo">LOCAL · 2</div>
     </>
   );
 }

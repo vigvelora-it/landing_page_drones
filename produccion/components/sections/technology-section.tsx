@@ -8,28 +8,28 @@ import { useGSAP } from "@/lib/gsap"
 
 const technologyModes = [
   {
-    id: "rtk",
-    label: "RTK / PPK",
-    description: "Levantamientos de alta precisión.",
-    meta: "Posicionamiento / Precisión",
-    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-rtk-coastal-hd.webp",
-    alt: "Visual referencial de receptores GNSS RTK instalados en campo",
-  },
-  {
-    id: "lidar",
-    label: "LiDAR",
-    description: "Nubes de puntos y modelos 3D.",
+    id: "sensores-lidar",
+    label: "Sensores Aéreos y LiDAR",
+    description: "Captura de alta densidad con sensores fotogramétricos y sensores LiDAR para traspasar vegetación y generar nubes de puntos 3D.",
     meta: "Captura / Modelado",
-    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-lidar-geology-hd.webp",
-    alt: "Visual referencial de un dron profesional equipado para captura geoespacial",
+    image: "/IMAGENES_PAGINA_WEB/dron.png",
+    alt: "Dron profesional equipado con sensor LiDAR para captura geoespacial de alta densidad",
   },
   {
-    id: "cad-gis",
-    label: "CAD + GIS",
-    description: "Entregables listos para ingeniería.",
+    id: "geodesia-rtk",
+    label: "Geodesia de Precisión (RTK / PPK)",
+    description: "Receptores y bases GNSS multifrecuencia para posicionamiento milimétrico georreferenciado a la red de WGS-84 / PSAD-56.",
+    meta: "Posicionamiento / Precisión",
+    image: "/IMAGENES_PAGINA_WEB/usar-drones-en-topografia.jpg",
+    alt: "Uso de drones en topografía para levantamientos de precisión",
+  },
+  {
+    id: "gis-cad",
+    label: "Modelamiento GIS y CAD",
+    description: "Procesamiento y estructuración de datos para archivos directamente ejecutables en QGIS, ArcGIS, AutoCAD y Civil 3D.",
     meta: "Procesamiento / Entrega",
     image: "/IMAGENES_PAGINA_WEB/section-unique/technology-cad-gis-workstation-hd.webp",
-    alt: "Ingenieros revisando información técnica y planos de un proyecto",
+    alt: "Ingenieros revisando modelos y planos de un proyecto en software especializado",
   },
 ] as const
 
@@ -75,7 +75,7 @@ export function TechnologySection() {
         <div className="tech-explorer__stage">
           <div className="tech-explorer__heading" data-reveal>
             <h2>Instrumentos para comprender lo que otros no ven.</h2>
-            <p>Tecnología de captura y procesamiento aplicada a cada etapa del trabajo geomático.</p>
+            <p>Combinamos sensores aéreos de alta precisión con software especializado para transformar datos crudos en entregables de ingeniería.</p>
           </div>
           <div
             className="tech-explorer__visual"

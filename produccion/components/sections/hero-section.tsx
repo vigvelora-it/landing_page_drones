@@ -114,8 +114,8 @@ export function HeroSection() {
           <p className="eyebrow hero-eyebrow" data-reveal>
             <span className="pulse-dot" /> Geomática avanzada · Perú
           </p>
-          <h1 id="hero-title" className="hero-title" aria-label="El territorio habla. Nosotros lo convertimos en decisiones.">
-            <span className="title-line" data-reveal><span>El territorio</span></span>
+          <h1 id="hero-title" className="hero-title" aria-label="El terreno habla. Nosotros lo convertimos en decisiones.">
+            <span className="title-line" data-reveal><span>El terreno</span></span>
             <span className="title-line title-line-offset" data-reveal><span>habla.</span></span>
             <span className="title-line title-line-small" data-reveal><span>Nosotros lo convertimos</span></span>
             <span className="title-line title-line-accent" data-reveal><span>en decisiones.</span></span>

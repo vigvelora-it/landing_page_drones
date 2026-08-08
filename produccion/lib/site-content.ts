@@ -19,158 +19,105 @@ export const services: Service[] = [
   {
     id: "topografia-drones",
     number: "01",
-    title: "Topografía y Tecnología con Drones",
-    detail: "Captura de datos de precisión para todo tipo de proyecto",
-    tagline: "Captura de datos de precisión para todo tipo de proyecto",
+    title: "Topografía y Fotogrametría con RPAS",
+    detail: "Levantamientos aerofotogramétricos de alta precisión milimétrica para proyectos de ingeniería y construcción.",
+    tagline: "Levantamientos aerofotogramétricos de alta precisión milimétrica para proyectos de ingeniería y construcción.",
     groups: [
       {
         items: [
-          "Levantamiento topográfico con drones RTK/PPK de alta precisión",
-          "Fotogrametría aérea y generación de ortomosaicos",
-          "Escaneo LiDAR y nubes de puntos 3D",
-          "Cálculo de volúmenes de movimiento de tierras y stockpiles",
-          "Monitoreo periódico de avance de obra",
-          "Inspección aérea de infraestructura (líneas de transmisión, taludes, tajos)",
+          "Levantamientos topográficos de alta precisión mediante drones equipados con sistemas RTK/PPK y control terrestre.",
+          "Generación de ortomosaicos georreferenciados de alta resolución espacial.",
+          "Escaneo LiDAR aéreo para la obtención de modelos digitales de terreno (MDT/MDS) y nubes de puntos 3D.",
+          "Cálculo de volúmenes de movimiento de tierras, pozas, tajos y stockpiles.",
+          "Monitoreo periódico de avance de obra e inspección aérea de infraestructura crítica (taludes, vías, líneas de transmisión).",
         ],
       },
     ],
-    note: "Base tecnológica transversal que alimenta a los demás ejes de servicio.",
+    note: "Optimizamos los tiempos de captura en campo hasta en un 60% en comparativa con la topografía convencional, garantizando tolerancias de precisión milimétrica y entregables compatibles con tus plataformas CAD y GIS.",
   },
   {
     id: "geotecnia-riesgos",
     number: "02",
-    title: "Geotecnia y Riesgos Geológicos",
-    detail: "Evaluación técnica del terreno para prevenir y decidir con seguridad",
-    tagline: "Evaluación técnica del terreno para prevenir y decidir con seguridad",
+    title: "Estudios Geotécnicos, Evaluación y Control de Riesgos Geológicos",
+    detail: "Evaluación especializada del macizo rocoso, suelos y modelamiento 3D para garantizar la estabilidad operativa y prevenir contingencias en tu proyecto.",
+    tagline: "Evaluación especializada del macizo rocoso, suelos y modelamiento 3D para garantizar la estabilidad operativa y prevenir contingencias en tu proyecto.",
     groups: [
       {
         items: [
-          "Estudios de estabilidad de taludes en carreteras, canteras y plataformas mineras",
-          "Zonificación de peligros geológicos (deslizamientos, huaycos, caída de rocas)",
-          "Estudios de riesgo geológico para defensa civil y municipios",
+          "Estudios de estabilidad de taludes en proyectos mineros y plataformas de perforación diamantina.",
+          "Estudio, control y monitoreo de canteras con tecnología RPAS.",
+          "Caracterización geomecánica de macizos rocosos y suelos orientada al diseño seguro de infraestructuras para ingeniería y/o minería.",
+          "Modelamiento fotogramétrico 3D de macizos rocosos (mapeo de familias de discontinuidades en frentes inaccesibles mediante sensores aéreos).",
+          "Zonificación y mapeo de peligros geológicos (deslizamientos, huaycos, caída de rocas y flujo de detritos).",
+          "Inspección e inventario técnico de riesgos geológicos para programas de prevención.",
+          "Monitoreo periódico de grietas y deformaciones estructurales mediante análisis fotogramétrico y nubes de puntos 3D.",
         ],
       },
     ],
+    note: "Reducimos la exposición del personal en frentes inestables o de alta pendiente. Capturamos datos estructurales en zonas de difícil acceso con drones de alta resolución, entregando modelos de elevación y mapas de discontinuidades listos para software de análisis geotécnico.",
   },
   {
     id: "mineria-consultoria",
     number: "03",
-    title: "Minería: Consultoría y Formalización",
-    detail: "Acompañamiento técnico y normativo para el pequeño y mediano productor minero",
-    tagline: "Acompañamiento técnico y normativo para el pequeño y mediano productor minero",
+    title: "Geomática Minera y Consultoría Técnica",
+    detail: "Control topográfico de avances, cubicación de volúmenes y soporte normativo ambiental para operaciones mineras en exploración y explotación.",
+    tagline: "Control topográfico de avances, cubicación de volúmenes y soporte normativo ambiental para operaciones mineras en exploración y explotación.",
     groups: [
       {
-        heading: "Consultoría para pequeños productores mineros:",
         items: [
-          "Elaboración de IGAFOM / IGAC (instrumentos de gestión ambiental)",
-          "Diseño de labores mineras y planeamiento de minado básico",
-          "Estimación de recursos y reservas para PPM",
-        ],
-      },
-      {
-        heading: "Formalización de mineros artesanales (REINFO):",
-        items: [
-          "Trámites de saneamiento: concesión, uso de tierras, autorización de agua",
-          "Elaboración de planes de trabajo y declaraciones juradas",
-          "Acompañamiento ante DREM / MINEM",
-        ],
-      },
-      {
-        heading: "Exploración geológica:",
-        items: [
-          "Prospección y cartografiado geológico para empresas junior",
-          "Muestreo geoquímico con apoyo de dron en zonas de difícil acceso",
-        ],
-      },
-      {
-        heading: "Estudios ambientales ligados a geología:",
-        items: [
-          "Líneas base geológicas para DIA / EIA",
-          "Componente geológico-geotécnico de planes de cierre de minas",
+          "Levantamiento aerofotogramétrico de relaves mediante tecnología RPAS, para el monitoreo volumétrico, control geométrico y seguimiento del comportamiento estructural de depósito de relaves mineros.",
+          "Elaboración de instrumentos de gestión ambiental (IGAFOM / IGAC / DIA / EIA): desarrollo de componentes ambientales y líneas base geológicas para cumplimiento normativo.",
+          "Soporte para formalización minera (REINFO): tramitación de permisos de uso de tierra, saneamiento de concesiones y expediente técnico ante DREM y MINEM.",
+          "Evaluación geológica de proyectos mineros en todas sus etapas, desde cateo hasta perforación: mapeo de alteraciones, estructuras, muestreo geoquímico y soporte técnico a campañas de exploración.",
         ],
       },
     ],
+    note: "Optimizamos el cálculo de inventarios de mineral y control de avances en horas en lugar de días, eliminando la interrupción del tránsito de maquinaria pesada y reduciendo los riesgos de personal en frentes de minado.",
   },
   {
     id: "obras-civiles",
     number: "04",
-    title: "Obras Civiles e Infraestructura Vial",
-    detail: "Estudios técnicos de suelos y rocas para construcción segura",
-    tagline: "Estudios técnicos de suelos y rocas para construcción segura",
+    title: "Obras Civiles",
+    detail: "Topografía de precisión, mecánica de suelos y control de materiales para las etapas iniciales de proyectos de edificación e infraestructura.",
+    tagline: "Topografía de precisión, mecánica de suelos y control de materiales para las etapas iniciales de proyectos de edificación e infraestructura.",
     groups: [
       {
-        heading: "Estudios técnicos de obras civiles:",
         items: [
-          "Estudios geotécnicos para cimentaciones",
-          "Mecánica de suelos y de rocas",
-          "Estudios de mecánica de rocas para túneles y cortes en roca",
-        ],
-      },
-      {
-        heading: "Estudios de suelos para carreteras y puentes:",
-        items: [
-          "Ensayo CBR y clasificación SUCS / AASHTO",
-          "Estudios de subrasante y afirmado",
-          "Estudios de riesgo sísmico-geotécnico para obras de infraestructura",
+          "Topografía de precisión y modelado del terreno: levantamientos georreferenciados para lotización, edificaciones, carreteras, puentes y obras hidráulicas.",
+          "Estudios de mecánica de suelos para cimentaciones: calicatas, perfiles estratigráficos, cálculo de capacidad portante y análisis de riesgo de asentamiento.",
+          "Ensayos de laboratorio para infraestructura vial: ensayos CBR, proctor, proctor modificado, clasificación SUCS/AASHTO y límites de Atterberg para pavimentos y afirmados.",
+          "Control de calidad y ensayos de materiales (concreto y asfalto): ensayos de agregados, diseño de mezclas y pruebas de resistencia a la compresión para cimentaciones y estructuras.",
+          "Estudios de riesgo sísmico y estabilidad de taludes: evaluación de peligro sísmico-geotécnico y estabilidad de cortes pre-construcción.",
         ],
       },
     ],
+    note: "Unimos la rapidez de la topografía mediante tecnología RPAS con el rigor de nuestro laboratorio de suelos para garantizar expedientes aprobables bajo las normativas técnicas peruanas vigentes (E.050) y manuales carretera del MTC, respaldados por procesos alineados a estándares certificables de calidad.",
   },
   {
     id: "servicios-complementarios",
     number: "05",
     title: "Servicios Complementarios",
-    detail: "Herramientas técnicas y de gestión que refuerzan los cuatro ejes anteriores",
-    tagline: "Herramientas técnicas y de gestión que refuerzan los cuatro ejes anteriores",
+    detail: "Prospección geofísica especializada para minería y agua subterránea, integración GIS y soporte técnico en exploración geológico-minera.",
+    tagline: "Prospección geofísica especializada para minería y agua subterránea, integración GIS y soporte técnico en exploración geológico-minera.",
     groups: [
       {
-        heading: "Geofísica aplicada:",
         items: [
-          "Tomografía de resistividad eléctrica (TRE) para exploración de agua y minerales",
-          "Prospección geofísica para caracterización de subsuelo en proyectos viales y mineros",
-          "Apoyo geofísico a estudios de estabilidad de taludes y detección de cavidades",
-        ],
-      },
-      {
-        heading: "Sistemas de Información Geográfica (SIG):",
-        items: [
-          "Elaboración de mapas temáticos y bases de datos espaciales de proyectos",
-          "Integración de datos de campo, dron y satelitales en plataformas SIG (QGIS, ArcGIS)",
-          "Visores web de proyecto para seguimiento remoto por el cliente",
-        ],
-      },
-      {
-        heading: "Auditorías y peritajes técnicos:",
-        items: [
-          "Auditorías geotécnicas independientes de taludes y depósitos de relaves",
-          "Peritajes técnicos geológicos para procesos legales o seguros",
-          "Revisión y validación de estudios de terceros (due diligence técnico)",
-        ],
-      },
-      {
-        heading: "Catastro y saneamiento físico legal:",
-        items: [
-          "Levantamiento y saneamiento de linderos para concesiones mineras",
-          "Apoyo en trámites de catastro minero ante INGEMMET",
-        ],
-      },
-      {
-        heading: "Capacitación técnica y SSOMA:",
-        items: [
-          "Capacitación en seguridad y salud ocupacional minera (SSOMA) para personal de campo",
-          "Talleres técnicos en uso de drones y herramientas SIG para equipos internos de clientes",
+          "Geofísica para exploración minera: Tomografía de Resistividad Eléctrica (ERT), Polarización Inducida (IP) y métodos magnéticos para detección de estructuras y cuerpos mineralizados.",
+          "Geofísica para agua subterránea: prospección mediante Sondajes Eléctricos Verticales (VES) y ERT para localización de acuíferos, nivel freático y diseño de pozos operacionales.",
+          "Sistemas de Información Geográfica (GIS): procesamiento de datos de campo, sensores aéreos y geología en bases de datos espaciales y mapas temáticos para QGIS y ArcGIS.",
+          "Capacitación técnica en exploración y geomática: talleres aplicados en uso de tecnología RPAS, fotogrametría aérea y herramientas GIS enfocados a equipos de exploración geológico-minera.",
         ],
       },
     ],
-    note: "Servicios pensados para generar ingresos recurrentes y fidelizar clientes entre proyectos puntuales.",
+    note: "Correlacionamos la información aérea capturada vía RPAS con el modelamiento geofísico del subsuelo (ERT / IP / VES), entregando a tu equipo de exploración bases de datos GIS unificadas para la toma de decisiones estratégicas.",
   },
 ]
 
 export const process = [
-  ["01", "Leemos el terreno", "Definimos alcance, precisión, sistema de coordenadas y condiciones de operación."],
-  ["02", "Diseñamos la misión", "Planificamos rutas, puntos de control y sensores según el resultado que necesitas."],
-  ["03", "Capturamos la realidad", "Volamos, verificamos la cobertura y controlamos la calidad desde campo."],
-  ["04", "Convertimos datos", "Procesamos, validamos y entregamos información lista para tus equipos CAD y GIS."],
+  ["01", "Diagnóstico y Definición Técnica", "Analizamos los requerimientos del cliente, definimos la normativa aplicable, establecemos la precisión requerida y planificamos la logística y condiciones de seguridad en campo."],
+  ["02", "Diseño de Misión y Prospección", "Diseñamos la estrategia de exploración: planificación de rutas de vuelo fotogramétrico, disposición de tenderos geofísicos (ERT/IP/VES), puntos de ensayo geotécnico y red geodésica GNSS."],
+  ["03", "Ejecución en Campo y Control de Calidad", "Desplegamos nuestros equipos en sitio para la toma de datos aéreos, mapeo geológico, muestreo de suelos y prospección del subsuelo, realizando validaciones de calidad en tiempo real."],
+  ["04", "Gabinete, Ensayos e Integración GIS", "Procesamos la información en gabinete, ejecutamos ensayos de laboratorio, modelamos el subsuelo en 3D y elaboramos expedientes técnicos e informes compatibles con plataformas CAD y GIS."],
 ]
 
 export interface EquipmentItem {
@@ -178,37 +125,42 @@ export interface EquipmentItem {
   image: string
   alt: string
   caption: string
+  description: string
   objectPosition?: string
 }
 
 export const equipment: EquipmentItem[] = [
   {
-    id: "drone-operacion-campo",
+    id: "flota-rpas",
     image: "/skytech-real/general/05.webp",
-    alt: "Piloto de Skytech supervisando un dron de levantamiento durante una operación de campo",
-    caption: "Dron de levantamiento / Registro Skytech",
+    alt: "Piloto de Skytech operando un dron de levantamiento durante una misión de campo",
+    caption: "Flota RPAS de Fotogrametría y Monitoreo",
+    description: "Drones de alta autonomía equipados con cámaras de alta resolución para cobertura de áreas extensas.",
     objectPosition: "center 42%",
   },
   {
-    id: "receptor-gnss-rtk",
+    id: "gnss-rtk-ppk",
     image: "/skytech-real/general/06.webp",
-    alt: "Receptor GNSS RTK de Skytech instalado sobre un punto elevado en terreno desértico",
-    caption: "Receptor GNSS RTK / Registro Skytech",
+    alt: "Receptor GNSS RTK de Skytech instalado sobre un punto de control en campo",
+    caption: "Estaciones Base y Receptores GNSS RTK/PPK",
+    description: "Equipos geodésicos de precisión centimétrica para el establecimiento de puntos de control terrestre (GCP).",
     objectPosition: "center 34%",
   },
   {
-    id: "base-gnss-andes",
-    image: "/skytech-real/general/02.webp",
-    alt: "Base GNSS de Skytech instalada frente a un paisaje montañoso",
-    caption: "Base GNSS de alta precisión / Registro Skytech",
-    objectPosition: "center 48%",
+    id: "prospeccion-geofisica",
+    image: "/skytech-real/general/04.webp",
+    alt: "Brigada de Skytech operando instrumental de campo durante una campaña de prospección",
+    caption: "Equipos de Prospección Geofísica (ERT / IP / VES)",
+    description: "Instrumentación para tomografía de resistividad eléctrica y sondeos para exploración de agua y minerales.",
+    objectPosition: "center 58%",
   },
   {
-    id: "brigada-control-rtk",
-    image: "/skytech-real/general/04.webp",
-    alt: "Brigada de Skytech operando receptores GNSS en una campaña de levantamiento",
-    caption: "Control terrestre RTK / Registro Skytech",
-    objectPosition: "center 58%",
+    id: "laboratorio-gabinete",
+    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-cad-gis-workstation-hd.webp",
+    alt: "Ingenieros procesando información geoespacial en estaciones de trabajo de gabinete",
+    caption: "Laboratorio y Software de Gabinete",
+    description: "Estaciones de trabajo de alto rendimiento para el procesamiento fotogramétrico, análisis geotécnico y modelado 3D.",
+    objectPosition: "center 50%",
   },
 ]
 
@@ -217,6 +169,7 @@ export interface SectorImage {
   image: string
   alt: string
   label: string
+  description: string
 }
 
 export const sectors: SectorImage[] = [
@@ -224,25 +177,29 @@ export const sectors: SectorImage[] = [
     id: "topografia",
     image: "/IMAGENES_PAGINA_WEB/monumentacion_puntos_referencia.png",
     alt: "Monumentación de puntos de referencia en un levantamiento topográfico",
-    label: "Topografía",
+    label: "Catastro, Territorio y Agricultura",
+    description: "Habla directamente a empresas inmobiliarias, propietarios de terrenos, agrícolas y consultoras de saneamiento.",
   },
   {
     id: "geologia",
     image: "/IMAGENES_PAGINA_WEB/geology-rock-formations.jpg",
     alt: "Formaciones rocosas expuestas, relevantes para el análisis geológico del terreno",
-    label: "Geología",
+    label: "Energía e Industria",
+    description: "Abre la puerta a contratos de inspección y monitoreo técnico para empresas eléctricas, de hidrocarburos e industriales.",
   },
   {
     id: "mineria",
     image: "/IMAGENES_PAGINA_WEB/projects-open-pit-mine.jpg",
     alt: "Vista de una operación minera a tajo abierto",
-    label: "Minería",
+    label: "Minería y Exploración",
+    description: "Resalta su mayor diferenciador: ser un equipo de ingenieros geólogos con drones y geofísica.",
   },
   {
     id: "infraestructura",
     image: "/IMAGENES_PAGINA_WEB/projects-bridge-construction.jpg",
     alt: "Puente en construcción sobre un río de gran caudal",
-    label: "Infraestructura e ingeniería civil",
+    label: "Infraestructura y Obras Civiles",
+    description: "Conecta directo con la garantía de la Norma E.050 y los manuales del MTC que se ha trabajado en la sección de Obras Civiles.",
   },
 ]
 
@@ -256,49 +213,37 @@ export const brandStory = {
   history:
     "SKYTECH SOLUTIONS nació en 2024 en Lima, Perú, de la mano de un equipo de ingenieros con una visión clara: transformar la manera en que la industria —minería, infraestructura, agricultura y gestión de recursos naturales— entiende y mide su entorno físico. Combinamos tecnología de drones de última generación con conocimiento especializado en topografía, geodesia y geociencias para ofrecer levantamientos de alta precisión, modelos 3D, inspección de infraestructuras críticas y estudios geológicos y geofísicos. Desde nuestros inicios, hemos apostado por la innovación constante, incorporando fotogrametría aérea, teledetección multiespectral y análisis de riesgos geológicos a nuestro portafolio de servicios. Hoy, SKYTECH SOLUTIONS acompaña a empresas del sector minero e industrial en sus proyectos más exigentes, entregando datos precisos y confiables que permiten decisiones más seguras e informadas.",
   about:
-    "Somos una empresa peruana especializada en topografía, geodesia e inspección aérea con drones. Desde 2024, brindamos servicios de alta precisión para los sectores minero, industrial y agrícola: levantamientos geodésicos, fotogrametría aérea, modelos 3D de infraestructuras y estudios geológicos, uniendo tecnología de punta con experiencia técnica especializada para ayudar a nuestros clientes a tomar mejores decisiones sobre sus proyectos.",
+    "Somos una empresa fundada por ingenieros geólogos con amplia experiencia en los sectores minero, industrial, construcción e infraestructura. Unimos nuestro conocimiento de campo con tecnología RPAS de última generación para transformar la topografía y geodesia de precisión en el Perú.\n\nDesde 2024, en Skytech brindamos soluciones integrales en fotogrametría aérea, modelado 3D, estudios geotécnicos, catastro y exploración geológica, acompañando a nuestros clientes con datos confiables, entregables de calidad profesional y expedientes listos para la toma de decisiones.",
   mission:
-    "Somos una empresa especializada en servicios geológicos-geotécnicos, dedicada a brindar soluciones integrales y de alta precisión mediante el uso de tecnologías avanzadas como drones, fotogrametría y teledetección. Nuestro compromiso es apoyar a nuestros clientes en la obtención de datos de precisión en levantamientos topográficos, la identificación de recursos naturales, la evaluación de riesgos geológicos y la planificación territorial, contribuyendo al éxito de sus proyectos y al desarrollo sostenible.",
+    "Proveer soluciones integrales de geomática, ingeniería geológica, geotecnia y topografía de precisión mediante el uso de tecnología RPAS y herramientas de última generación. Nos comprometemos a entregar datos confiables y procesados bajo rigurosos estándares técnicos, facilitando la toma de decisiones estratégicas en los sectores minero, infraestructura y territorio, impulsando el desarrollo sostenible de cada proyecto.",
   vision:
-    "Ser líderes en el rubro de la topografía y geología-geotecnia, reconocidos por nuestra excelencia técnica, innovación tecnológica y compromiso con el desarrollo sostenible. Aspiramos a ser el socio estratégico preferido de empresas e instituciones, contribuyendo al éxito de proyectos que impulsen el crecimiento económico y la gestión responsable de los recursos naturales.",
+    "Ser reconocidos en el Perú como la empresa líder y referente en servicios de geomática avanzada, geociencias e ingeniería base, destacando por nuestra excelencia técnica, innovación tecnológica con drones y rigor normativo. Aspiramos a ser el socio estratégico indispensable para las principales empresas de minería e infraestructura, impulsando proyectos seguros, eficientes y sostenibles.",
 }
 
 export const corporateValues: CorporateValue[] = [
   {
-    id: "precision",
-    name: "Precisión",
+    id: "rigor-tecnico",
+    name: "Rigor Técnico y Precisión",
     description:
-      "Cada dato que entregamos está respaldado por rigor técnico y control de calidad, porque en geología y topografía los detalles marcan la diferencia entre un buen proyecto y uno excelente.",
+      "Cada dato, mapa y ensayo de laboratorio está respaldado por el criterio de nuestros ingenieros geólogos y un estricto control de calidad, garantizando información fidedigna para decisiones críticas.",
   },
   {
-    id: "innovacion",
-    name: "Innovación",
+    id: "innovacion-aeroespacial",
+    name: "Innovación Aeroespacial",
     description:
-      "Incorporamos constantemente tecnología de punta —drones, sensores multiespectrales, fotogrametría e inteligencia geoespacial— para ofrecer soluciones más rápidas, seguras y confiables.",
+      "Integración constante de tecnología RPAS, sensores avanzados y soluciones GIS para ofrecer entregables más rápidos, detallados y eficientes en campo.",
   },
   {
-    id: "integridad",
-    name: "Integridad",
+    id: "seguridad-operativa",
+    name: "Seguridad Operativa",
     description:
-      "Actuamos con transparencia y ética profesional en cada proyecto, construyendo relaciones de largo plazo basadas en la confianza de nuestros clientes.",
+      "Priorizamos la integridad de las personas en cada misión de campo, utilizando tecnología aérea para reducir riesgos y acceder a zonas complejas sin exponer vidas.",
   },
   {
-    id: "seguridad",
-    name: "Compromiso con la seguridad",
+    id: "integridad-etica",
+    name: "Integridad y Ética Profesional",
     description:
-      "Priorizamos la seguridad de nuestro equipo y de las operaciones en campo, reduciendo riesgos mediante el uso de tecnología aérea no tripulada en zonas de difícil acceso.",
-  },
-  {
-    id: "sostenibilidad",
-    name: "Sostenibilidad",
-    description:
-      "Promovemos una gestión responsable de los recursos naturales, generando información que contribuye a decisiones más sostenibles para nuestros clientes y el entorno.",
-  },
-  {
-    id: "trabajo-equipo",
-    name: "Trabajo en equipo",
-    description:
-      "Combinamos la experiencia técnica de cada integrante de nuestro equipo para entregar soluciones integrales, eficientes y de alta calidad.",
+      "Actuamos con transparencia y compromiso normativo en cada estudio, garantizando información imparcial que promueva el desarrollo sostenible de cada proyecto.",
   },
 ]
 
@@ -359,7 +304,7 @@ export const team: TeamMember[] = [
 export const projects: Project[] = [
   {
     id: "gesac-huarmey",
-    name: "Proyecto GESAC",
+    name: "PROYECTO HUARMEY – ANCASH",
     client: "German Engineering & Cie. S.A.C",
     location: "Huarmey, Ancash",
     service: "Levantamiento Aerofotogramétrico",
@@ -373,7 +318,7 @@ export const projects: Project[] = [
   },
   {
     id: "lezard-huaral",
-    name: "Proyecto Lezard",
+    name: "PROYECTO HUARAL – LIMA",
     client: "Black Swan Minerals S.A.C.",
     location: "Huaral, Lima",
     service: "Levantamiento Aerofotogramétrico",
@@ -386,7 +331,7 @@ export const projects: Project[] = [
   },
   {
     id: "las-dunas-piura",
-    name: "Proyecto Las Dunas",
+    name: "PROYECTO CASTILLA – PIURA",
     client: "Asociación Las Dunas Ecological",
     location: "Castilla, Piura",
     service: "Levantamiento Aerofotogramétrico",

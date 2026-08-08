@@ -81,7 +81,7 @@ const navItems: NavItem[] = [
     label: "Proceso",
     href: "#proceso",
     panel: process.map(([, title]) => ({ label: title, href: "#proceso" })),
-    description: "Un proceso trazable en cada etapa, desde la planificación hasta el archivo final.",
+    description: "Un proceso estructurado y multidisciplinario que garantiza trazabilidad, control de calidad y rigor normativo en cada etapa del proyecto.",
     image: {
       src: "/IMAGENES_PAGINA_WEB/section-unique/menu-process-sensor-calibration-hd.webp",
       alt: "Técnico calibrando un sensor geoespacial en taller",
