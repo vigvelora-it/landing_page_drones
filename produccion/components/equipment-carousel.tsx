@@ -140,7 +140,9 @@ export function EquipmentCarousel() {
           tabIndex={0}
           onKeyDown={onViewportKeyDown}
         >
-          <div className="embla__container" data-lenis-prevent>
+          {/* Solo se excluye el táctil (para no interferir con el swipe de Embla). La rueda del mouse
+              debe seguir en Lenis: si el navegador hace scroll nativo mientras Lenis anima, el scroll se traba. */}
+          <div className="embla__container" data-lenis-prevent-touch>
             {equipment.map((item, index) => (
               <div
                 key={item.id}
