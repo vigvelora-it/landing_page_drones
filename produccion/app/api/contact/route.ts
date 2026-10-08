@@ -1,8 +1,32 @@
 import { NextResponse } from "next/server";
-import { contactSchema } from "@/lib/contact-schema";
+import { sendContactConfirmation, sendContactNotification } from "@/lib/contact-email";
+import { contactSchema, type ContactInput } from "@/lib/contact-schema";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 
 export const runtime = "nodejs";
+
+async function saveToDatabase(data: ContactInput) {
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase.from("contact_requests").insert({
+      name: data.name,
+      company: data.company || null,
+      email: data.email.toLowerCase(),
+      service: data.service || null,
+      message: data.message,
+      source: "website",
+    });
+
+    if (error) {
+      console.error("No se pudo registrar la solicitud:", error.code, error.message);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error de configuración de la base de datos:", error);
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   let payload: unknown;
@@ -21,31 +45,30 @@ export async function POST(request: Request) {
     );
   }
 
+  // La base de datos es la fuente principal; el correo se envía siempre y sirve de respaldo
+  // si Supabase está pausado o caído, para que ninguna solicitud se pierda.
+  const saved = await saveToDatabase(parsed.data);
+
+  let notified = false;
   try {
-    const supabase = createSupabaseAdmin();
-    const { error } = await supabase.from("contact_requests").insert({
-      name: parsed.data.name,
-      company: parsed.data.company || null,
-      email: parsed.data.email.toLowerCase(),
-      service: parsed.data.service || null,
-      message: parsed.data.message,
-      source: "website",
-    });
-
-    if (error) {
-      console.error("No se pudo registrar la solicitud:", error.code, error.message);
-      return NextResponse.json(
-        { message: "No pudimos enviar tu solicitud. Escríbenos a skytsperu@gmail.com." },
-        { status: 500 },
-      );
-    }
-
-    return NextResponse.json({ message: "Solicitud recibida correctamente." }, { status: 201 });
+    await sendContactNotification(parsed.data, saved);
+    notified = true;
   } catch (error) {
-    console.error("Error de configuración del formulario:", error);
+    console.error("No se pudo enviar el correo de notificación:", error);
+  }
+
+  if (!saved && !notified) {
     return NextResponse.json(
-      { message: "El formulario aún no está disponible. Escríbenos a skytsperu@gmail.com." },
+      { message: "No pudimos enviar tu solicitud. Escríbenos a skytsperu@gmail.com." },
       { status: 503 },
     );
   }
+
+  try {
+    await sendContactConfirmation(parsed.data);
+  } catch (error) {
+    console.error("No se pudo enviar el correo de confirmación al cliente:", error);
+  }
+
+  return NextResponse.json({ message: "Solicitud recibida correctamente." }, { status: 201 });
 }

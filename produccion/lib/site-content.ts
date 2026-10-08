@@ -134,7 +134,7 @@ export const equipment: EquipmentItem[] = [
     id: "flota-rpas",
     image: "/skytech-real/general/05.webp",
     alt: "Piloto de Skytech operando un dron de levantamiento durante una misión de campo",
-    caption: "Flota RPAS de Fotogrametría y Monitoreo",
+    caption: "Equipos de Fotogrametría y Monitoreo",
     description: "Drones de alta autonomía equipados con cámaras de alta resolución para cobertura de áreas extensas.",
     objectPosition: "center 42%",
   },
@@ -309,10 +309,10 @@ export const projects: Project[] = [
     location: "Huarmey, Ancash",
     service: "Levantamiento Aerofotogramétrico",
     images: [
+      "/projects/gesac/04.webp",
       "/projects/gesac/01.webp",
       "/projects/gesac/02.webp",
       "/projects/gesac/03.webp",
-      "/projects/gesac/04.webp",
     ],
     featured: true,
   },
@@ -326,7 +326,6 @@ export const projects: Project[] = [
       "/projects/lezard/01.webp",
       "/projects/lezard/02.webp",
       "/projects/lezard/03.webp",
-      "/projects/lezard/04.webp",
     ],
   },
   {

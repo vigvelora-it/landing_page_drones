@@ -1,3 +1,6 @@
 public/media-library/
 public/video/drone-flight-close.mp4
 public/video/hero-drone-in-flight.mp4
+.env
+.env.local
+.env.*.local

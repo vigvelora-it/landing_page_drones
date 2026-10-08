@@ -120,7 +120,7 @@ export function EquipmentCarousel() {
           <div>
             <span className="mono-label">Equipo en campo</span>
             <h3>Instrumentos para capturar el territorio.</h3>
-            <p>Flota RPAS, receptores geodésicos de precisión milimétrica y tecnología geofísica para operar en los entornos más exigentes.</p>
+            <p>Equipos, receptores geodésicos de precisión milimétrica y tecnología geofísica para operar en los entornos más exigentes.</p>
           </div>
           <p className="equipment-count" aria-hidden="true">
             <strong>{String(selectedIndex + 1).padStart(2, "0")}</strong>

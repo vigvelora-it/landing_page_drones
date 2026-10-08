@@ -28,8 +28,8 @@ const technologyModes = [
     label: "Modelamiento GIS y CAD",
     description: "Procesamiento y estructuración de datos para archivos directamente ejecutables en QGIS, ArcGIS, AutoCAD y Civil 3D.",
     meta: "Procesamiento / Entrega",
-    image: "/IMAGENES_PAGINA_WEB/section-unique/technology-cad-gis-workstation-hd.webp",
-    alt: "Ingenieros revisando modelos y planos de un proyecto en software especializado",
+    image: "/IMAGENES_PAGINA_WEB/laboratorio-gabinete.png",
+    alt: "Ingeniero modelando superficies y perfiles en Civil 3D y AutoCAD en gabinete",
   },
 ] as const
 

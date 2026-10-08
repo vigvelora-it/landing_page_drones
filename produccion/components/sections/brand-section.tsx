@@ -54,8 +54,8 @@ export function BrandSection() {
           <div className="brand-story-aside">
             <div className="brand-story-visual media-frame" data-reveal>
               <Image
-                src="/IMAGENES_PAGINA_WEB/brand-geologists-field.jpg"
-                alt="Profesionales realizando observación geológica en campo"
+                src="/IMAGENES_PAGINA_WEB/quienes-somos.png"
+                alt="Dron de levantamiento sobrevolando un valle andino"
                 fill
                 sizes="(max-width: 720px) 100vw, 40vw"
               />
